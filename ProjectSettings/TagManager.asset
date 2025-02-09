@@ -38,6 +38,15 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Background
+    uniqueID: 2589773865
+    locked: 0
+  - name: BattleStation
+    uniqueID: 1877366957
+    locked: 0
+  - name: Characters
+    uniqueID: 3271882187
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
