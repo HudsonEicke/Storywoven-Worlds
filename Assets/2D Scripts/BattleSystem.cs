@@ -19,7 +19,7 @@ public class BattleSystem : MonoBehaviour
     Unit playerUnit, enemyUnit;
 
     // text variable
-    public Text dialogueText;
+    public Text enemyText;
     void Start()
     {
         state = BattleState.START; // We want to start the battle in the START state
@@ -35,6 +35,6 @@ public class BattleSystem : MonoBehaviour
         enemyUnit = enemy.GetComponent<Unit>();
 
         // Display unitname to player
-        dialogueText.text = "NAME: " + enemyUnit.unitName + ".";
+        enemyText.text = enemyUnit.unitName;
     }
 }
