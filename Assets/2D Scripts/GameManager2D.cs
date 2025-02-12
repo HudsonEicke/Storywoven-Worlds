@@ -10,6 +10,7 @@ public class GameManager2D : MonoBehaviour
     private AudioSystem2D audiosystem2D;
     public BattleState State;
     public static event Action<BattleState> OnBattleStateChanged;
+    private BattleSystem battleSystem;
 
     private void Awake()
     {
@@ -37,27 +38,32 @@ public class GameManager2D : MonoBehaviour
 
     public void UpdateBattleState(BattleState newState) 
     {
+
+        Debug.Log($"[GameManager2D] Updating state to: {newState}");
+        Debug.Log($"[GameManager2D] Checking event subscriptions... (Subscribers: {OnBattleStateChanged?.GetInvocationList().Length ?? 0})");
+
         State = newState;
 
         switch(newState) 
         {
             case BattleState.START:
-                Debug.Log("Game Started");
+                Debug.Log("[GameManager2D] Game Started");
                 break;
             case BattleState.PLAYERTURN:
-                Debug.Log("Player's Turn");
+                System.Threading.Thread.Sleep(1000);
+                Debug.Log("[GameManager2D] Player's Turn");
                 break;
             case BattleState.ENEMYTURN:
-                Debug.Log("Enemy's Turn");
+                Debug.Log("[GameManager2D] Enemy's Turn");
                 break;
             case BattleState.WON:
-                Debug.Log("You Won!");
+                Debug.Log("[GameManager2D] You Won!");
                 break;
             case BattleState.LOST:
-                Debug.Log("You Lost!");
+                Debug.Log("[GameManager2D] You Lost!");
                 break;
             default:
-                Debug.Log("Invalid Game State");
+                Debug.Log("[GameManager2D] Invalid Game State");
                 break;
         }
         OnBattleStateChanged?.Invoke(newState);

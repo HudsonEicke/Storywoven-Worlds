@@ -16,12 +16,14 @@ public class BattleSystem : MonoBehaviour
 
     Unit playerUnit, enemyUnit;
 
-    public Text enemyHud, Player1Hud, Player2Hud, Player3Hud, Player4Hud;
-    void Start()
+    public Text enemyHud, Player1Hud;
+    // Player2Hud, Player3Hud, Player4Hud;
+
+    void Awake()
     {
-        //state = BattleState.START; // Taken care of by the GameManager
-        GameManager2D.instance.playAudio(); // play audio
-        GameManager2D.OnBattleStateChanged += OnBattleStateChanged; // subscribe to the event
+        // We want to do this during awake since Start() does it in a different order sometimes
+        Debug.Log("[BattleSystem]]Subscribing to event");
+        GameManager2D.OnBattleStateChanged += OnBattleStateChanged; 
     }
 
     // Called when battle state changes
@@ -33,6 +35,8 @@ public class BattleSystem : MonoBehaviour
         {
             case BattleState.START:
                 // Setup the battle
+                Debug.Log("[BattleSystem] Setting up battle system!");
+                GameManager2D.instance.playAudio(); // play audio
                 BattleSetup();
                 break;
             case BattleState.PLAYERTURN:
@@ -43,11 +47,11 @@ public class BattleSystem : MonoBehaviour
                 break;
             case BattleState.WON:
                 // Handle winning logic
-                Debug.Log("You won the battle!");
+                Debug.Log("[BattleSystem] You won the battle!");
                 break;
             case BattleState.LOST:
                 // Handle losing logic
-                Debug.Log("You lost the battle!");
+                Debug.Log("[BattleSystem] You lost the battle!");
                 break;
         }
     }
@@ -65,9 +69,9 @@ public class BattleSystem : MonoBehaviour
         // Display unitname to player
         enemyHud.text = enemyUnit.unitName;
         Player1Hud.text = playerUnit.unitName;
-        Player2Hud.text = playerUnit.unitName;
-        Player3Hud.text = playerUnit.unitName;
-        Player4Hud.text = playerUnit.unitName;
+        // Player2Hud.text = playerUnit.unitName;
+        // Player3Hud.text = playerUnit.unitName;
+        // Player4Hud.text = playerUnit.unitName;
 
         // starting player's turn
         GameManager2D.instance.UpdateBattleState(BattleState.PLAYERTURN);
