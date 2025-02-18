@@ -8,6 +8,17 @@ public class InventoryManager : MonoBehaviour
     private static List<Item> inventory = new List<Item>();
     public static InventoryManager Instance { get { return _instance; } }
 
+    public Item itemToAdd = null;
+
+    void Update()
+    {
+        if (itemToAdd != null)
+        {
+            AddItem(itemToAdd);
+            itemToAdd = null;
+        }
+    }
+
     private void Awake()
     {
         if(_instance != null && _instance != this)
