@@ -8,13 +8,15 @@ using System;
 public class BattleSystem : MonoBehaviour
 {
     public GameObject playerPrefab;
+    public GameObject playerPrefab2;
     public GameObject enemyPrefab;
     public Transform playerBattleStation;
+    public Transform playerBattleStation2;
     public Transform enemyBattleStation;
     public BattleState state;
 
 
-    Unit playerUnit, enemyUnit;
+    Unit playerUnit, playerUnit2, enemyUnit;
 
     public Text enemyHud, Player1Hud;
     // Player2Hud, Player3Hud, Player4Hud;
@@ -22,7 +24,7 @@ public class BattleSystem : MonoBehaviour
     void Awake()
     {
         // We want to do this during awake since Start() does it in a different order sometimes
-        Debug.Log("[BattleSystem]]Subscribing to event");
+        Debug.Log("[BattleSystem]Subscribing to event");
         GameManager2D.OnBattleStateChanged += OnBattleStateChanged; 
     }
 
@@ -62,7 +64,9 @@ public class BattleSystem : MonoBehaviour
     void BattleSetup()
     {
         GameObject player = Instantiate(playerPrefab, playerBattleStation);
+        GameObject player2 = Instantiate(playerPrefab2, playerBattleStation2);
         playerUnit = player.GetComponent<Unit>();
+        playerUnit2 = player2.GetComponent<Unit>();
         GameObject enemy = Instantiate(enemyPrefab, enemyBattleStation);
         enemyUnit = enemy.GetComponent<Unit>();
 

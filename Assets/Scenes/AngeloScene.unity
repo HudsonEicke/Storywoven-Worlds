@@ -385,8 +385,8 @@ Transform:
   m_GameObject: {fileID: 370908789}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -12, y: 9.5, z: 10}
-  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 705105819}
@@ -469,9 +469,9 @@ Transform:
   m_GameObject: {fileID: 436601524}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -14, y: 3, z: 10}
-  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
-  m_ConstrainProportionsScale: 1
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1597367786}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -756,8 +756,8 @@ Transform:
   m_GameObject: {fileID: 603122512}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4.4777055, y: 0.23048668, z: -23.826115}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -11.247705, y: 6.29, z: 10}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1823657874}
@@ -788,8 +788,8 @@ Transform:
   m_GameObject: {fileID: 658654157}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4.4777055, y: 0.23048668, z: -23.826115}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -12.71, y: 12.4, z: 10}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1920450305}
@@ -820,8 +820,8 @@ Transform:
   m_GameObject: {fileID: 705105818}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4.4777055, y: 0.23048668, z: -23.826115}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -11.24771, y: 9.29, z: 10}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 370908790}
@@ -1206,8 +1206,8 @@ Transform:
   m_GameObject: {fileID: 1597367785}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4.4777055, y: 0.23048668, z: -23.826115}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -12.71, y: 3.29, z: 10}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 436601525}
@@ -1322,7 +1322,7 @@ Transform:
   m_GameObject: {fileID: 1774682217}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.4777055, y: -0.23048668, z: 23.826115}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1358,8 +1358,8 @@ Transform:
   m_GameObject: {fileID: 1823657873}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -12, y: 6, z: 10}
-  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 603122513}
@@ -1475,8 +1475,8 @@ Transform:
   m_GameObject: {fileID: 1920450304}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -14, y: 12.5, z: 10}
-  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 658654158}
@@ -1858,9 +1858,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 7254804572474996309, guid: bdb3db107e457ed4ca31e14a083812d0,
     type: 3}
+  playerPrefab2: {fileID: 1849583816498720081, guid: 1ecf8bf6feef20d4dad07ecb7f6d8271,
+    type: 3}
   enemyPrefab: {fileID: 3017146726047874027, guid: 6f3d53a1e91707d4c92c4e745ca8c8af,
     type: 3}
-  playerBattleStation: {fileID: 1597367786}
+  playerBattleStation: {fileID: 436601525}
+  playerBattleStation2: {fileID: 1823657874}
   enemyBattleStation: {fileID: 1049745598}
   state: 0
   enemyHud: {fileID: 70566510}
