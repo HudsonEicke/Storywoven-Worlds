@@ -134,7 +134,6 @@ public class InvetoryUIManager : MonoBehaviour
 
     void UpdateButton(Item newItem, int buttonNum)
     {
-        Debug.Log(buttonNum);
         GameObject currentButton = inventoryButtons[buttonNum];
 
         TMP_Text textBox = currentButton.GetComponentInChildren<TMP_Text>();
