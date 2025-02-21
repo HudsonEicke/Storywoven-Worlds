@@ -139,19 +139,6 @@ public class InvetoryUIManager : MonoBehaviour
         inventoryRange[0] = previousItem;
     }
 
-    //void UpdateButton(Item newItem, int buttonNum)
-    //{
-    //    GameObject currentButton = inventoryButtons[buttonNum];
-
-    //    TMP_Text textBox = currentButton.GetComponentInChildren<TMP_Text>();
-
-    //    textBox.text = newItem.itemName;
-
-    //    Image itemImage = currentButton.GetComponentInChildren<Image>();
-
-    //    itemImage.sprite = newItem.itemIcon;
-    //}
-
     public void UseItem(int itemNum)
     {
         InventoryManager.UseIndex(itemNum + startViewRange);
