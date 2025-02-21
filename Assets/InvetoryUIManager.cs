@@ -124,7 +124,7 @@ public class InvetoryUIManager : MonoBehaviour
         {
             return;
         }
-
+        inventoryButtons[inventoryButtons.Count - 1].ActivateButton();
         Item previousItem = InventoryManager.GetPrevious(startViewRange);
 
         for(int i = inventoryButtons.Count - 1; i > 0; i--)
@@ -158,10 +158,9 @@ public class InvetoryUIManager : MonoBehaviour
 
         UpdateRange();
 
-        if (inventoryButtons[inventoryButtons.Count - 1].isButtonActive == false)
+        if (!inventoryButtons[inventoryButtons.Count - 1].isButtonActive)
         {
             ScrollUp();
         }
-        //NEED RESET INVENTORY CALL IN CASE OF EMPTY ITEM
     }
 }
