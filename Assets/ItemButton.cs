@@ -14,7 +14,12 @@ public class ItemButton : MonoBehaviour
     private Image itemImage;
     [SerializeField]
     private GameObject buttonObject;
+    [SerializeField]
+    private InvetoryUIManager uiManager;
+    [SerializeField]
+    private int buttonNum;
 
+    public bool isButtonActive = true;
 
     public void UpdateButton(Item newItem)
     {
@@ -25,16 +30,18 @@ public class ItemButton : MonoBehaviour
 
     public void Use()
     {
-        //need a call to the UI manager
+        uiManager.UseItem(buttonNum);
     }
 
     public void ActivateButton()
     {
+        isButtonActive = true;
         buttonObject.SetActive(true);
     }
 
     public void DeactivateButton()
     {
+        isButtonActive = false;
         buttonObject.SetActive(false);
     }
 }

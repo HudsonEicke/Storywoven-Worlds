@@ -11,8 +11,6 @@ public class HealthPotion : Item
     {
         //ADD CODE HERE TO ADD HEALTH
 
-        this.quantity -= 1;
-
         Debug.Log("USED");
     }
 }

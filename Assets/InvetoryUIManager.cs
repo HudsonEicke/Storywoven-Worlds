@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class InvetoryUIManager : MonoBehaviour
 {
-    public List<GameObject> inventoryButtons = new List<GameObject>();
+    public List<ItemButton> inventoryButtons;
     private List<Item> inventoryRange;
     public GameObject inventoryBackground;
     private int startViewRange;
@@ -61,31 +61,38 @@ public class InvetoryUIManager : MonoBehaviour
     {
         inventoryBackground.SetActive(true);
 
-        inventoryRange = InventoryManager.GetInventoryRange(0, inventoryButtons.Count - 1);
+        startViewRange = 0;
+        endViewRange = inventoryButtons.Count - 1;
+        UpdateRange();
+
+        isInventoryOpen = true;
+    }
+
+    void UpdateRange()
+    {
+        inventoryRange = InventoryManager.GetInventoryRange(startViewRange, endViewRange);
 
         for (int i = 0; i < inventoryButtons.Count; i++)
         {
             if (inventoryRange[i] != null)
             {
-                inventoryButtons[i].SetActive(true);
-                UpdateButton(inventoryRange[i], i);
+                inventoryButtons[i].ActivateButton();
+                inventoryButtons[i].UpdateButton(inventoryRange[i]);
             }
             else
             {
-                inventoryButtons[i].SetActive(false);
+                inventoryButtons[i].DeactivateButton();
             }
         }
-
-        isInventoryOpen = true;
     }
 
     void CloseInventory()
     {
         inventoryBackground.SetActive(false);
 
-        foreach(GameObject button in inventoryButtons)
+        foreach(ItemButton button in inventoryButtons)
         {
-            button.SetActive(false);
+            button.DeactivateButton();
         }
 
         isInventoryOpen = false;
@@ -102,13 +109,13 @@ public class InvetoryUIManager : MonoBehaviour
 
         for(int i = 1;  i < inventoryButtons.Count; i++)
         {
-            UpdateButton(inventoryRange[i], i - 1);
+            inventoryButtons[i - 1].UpdateButton(inventoryRange[i]);
             inventoryRange[i - 1] = inventoryRange[i];
         }
         startViewRange++;
         endViewRange++;
         inventoryRange[inventoryButtons.Count - 1] = nextItem;
-        UpdateButton(nextItem, inventoryButtons.Count - 1);
+        inventoryButtons[inventoryButtons.Count - 1].UpdateButton(nextItem);
     }
 
     void ScrollUp()
@@ -122,33 +129,39 @@ public class InvetoryUIManager : MonoBehaviour
 
         for(int i = inventoryButtons.Count - 1; i > 0; i--)
         {
-            UpdateButton(inventoryRange[i - 1], i);
+            inventoryButtons[i].UpdateButton(inventoryRange[i - 1]);
             inventoryRange[i] = inventoryRange[i - 1];
         }
 
         startViewRange--;
         endViewRange--;
-        UpdateButton(previousItem, 0);
+        inventoryButtons[0].UpdateButton(previousItem);
         inventoryRange[0] = previousItem;
     }
 
-    void UpdateButton(Item newItem, int buttonNum)
-    {
-        GameObject currentButton = inventoryButtons[buttonNum];
+    //void UpdateButton(Item newItem, int buttonNum)
+    //{
+    //    GameObject currentButton = inventoryButtons[buttonNum];
 
-        TMP_Text textBox = currentButton.GetComponentInChildren<TMP_Text>();
+    //    TMP_Text textBox = currentButton.GetComponentInChildren<TMP_Text>();
 
-        textBox.text = newItem.itemName;
+    //    textBox.text = newItem.itemName;
 
-        Image itemImage = currentButton.GetComponentInChildren<Image>();
+    //    Image itemImage = currentButton.GetComponentInChildren<Image>();
 
-        itemImage.sprite = newItem.itemIcon;
-    }
+    //    itemImage.sprite = newItem.itemIcon;
+    //}
 
     public void UseItem(int itemNum)
     {
         InventoryManager.UseIndex(itemNum + startViewRange);
 
-        //NEED RESET CALL
+        UpdateRange();
+
+        if (inventoryButtons[inventoryButtons.Count - 1].isButtonActive == false)
+        {
+            ScrollUp();
+        }
+        //NEED RESET INVENTORY CALL IN CASE OF EMPTY ITEM
     }
 }
