@@ -9,8 +9,10 @@ public class GameManager2D : MonoBehaviour
     public static GameManager2D instance;
     private AudioSystem2D audiosystem2D;
     public BattleState State;
+    private CharacterSystem characterSystem;
     public static event Action<BattleState> OnBattleStateChanged;
     private BattleSystem battleSystem;
+    public CharacterList characterList;
 
     private void Awake()
     {
@@ -24,6 +26,8 @@ public class GameManager2D : MonoBehaviour
         }
 
         audiosystem2D = gameObject.GetComponent<AudioSystem2D>();
+        // get characters
+        characterSystem = FindObjectOfType<CharacterSystem>();
     }
 
     void Start()
@@ -48,6 +52,7 @@ public class GameManager2D : MonoBehaviour
         {
             case BattleState.START:
                 Debug.Log("[GameManager2D] Game Started");
+                characterList = characterSystem.Load(); // Load data from file
                 break;
             case BattleState.PLAYERTURN:
                 System.Threading.Thread.Sleep(1000);

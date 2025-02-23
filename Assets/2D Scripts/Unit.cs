@@ -12,6 +12,17 @@ public class Unit : MonoBehaviour
     public int maxHP;
     public int currentHP;
     public int currentEnergy;
+    public int defense;
+
+    public void SetStats(int health, int dmg, int def, int current, string name, int lvl, int energy) {
+        unitName = name;
+        unitLevel = lvl;
+        damage = dmg;
+        maxHP = health;
+        currentHP = current;
+        currentEnergy = energy;
+        defense = def;
+    }
 
     public bool healthChange(int change)
     {

@@ -5,21 +5,27 @@ using UnityEngine.UI;
 using GameBattle;
 using System;
 
+// My plan is to read from a JSON, did some research and it seems like Unity has support for JSON as oppose to a normal CSV file
+
 public class BattleSystem : MonoBehaviour
 {
-    public GameObject playerPrefab;
-    public GameObject playerPrefab2;
     public GameObject enemyPrefab;
-    public Transform playerBattleStation;
-    public Transform playerBattleStation2;
+    [SerializeField] public List<Transform> playerBattleStations;
+    [SerializeField] public List<GameObject> playerPrefab;
+    public List<GameObject> player;
     public Transform enemyBattleStation;
     public BattleState state;
 
+    // variables for buttons
+    public GameObject buttonPrefabAlly1, buttonPrefabAlly2, buttonPrefabAlly3, buttonPrefabAlly4;
+    public Transform buttonPanel;
 
-    Unit playerUnit, playerUnit2, enemyUnit;
 
-    public Text enemyHud, Player1Hud, Player2Hud;
-    // Player3Hud, Player4Hud;
+    Unit enemyUnit;
+
+    public Text enemyHud;
+    [SerializeField] public List<Text> playerHuds;
+    public List<Unit> playerUnits;
 
     void Awake()
     {
@@ -43,6 +49,7 @@ public class BattleSystem : MonoBehaviour
                 break;
             case BattleState.PLAYERTURN:
                 // Handle player's turn logic here
+                playerTurnSetup();
                 break;
             case BattleState.ENEMYTURN:
                 // Handle enemy's turn logic here
@@ -63,30 +70,47 @@ public class BattleSystem : MonoBehaviour
     // BattleSetup will load in the prefabs and UIs for the battle and ends with updating it to either player turn or enemy turn
     void BattleSetup()
     {
-        // Need to find a way to have an int where I can show up characters that the player picks before the fight 
-        // and spawn them in the order they want, possibly a list or hashmap.
-        GameObject player = Instantiate(playerPrefab, playerBattleStation);
-        GameObject player2 = Instantiate(playerPrefab2, playerBattleStation2);
-        playerUnit = player.GetComponent<Unit>();
-        playerUnit2 = player2.GetComponent<Unit>();
+        // instantiate players
+        for (int i = 0; i < 2; i++) {
+            player.Add(Instantiate(playerPrefab[i], playerBattleStations[i]));
+            playerUnits.Add(player[i].GetComponent<Unit>());
+            Character firstCharacter = GameManager2D.instance.characterList.characters[i];
+            playerUnits[i].SetStats(firstCharacter.health, firstCharacter.attack, firstCharacter.defense, 100, firstCharacter.name, 1, firstCharacter.energy);
+        }
+
+        // instantiate enemies
         GameObject enemy = Instantiate(enemyPrefab, enemyBattleStation);
         enemyUnit = enemy.GetComponent<Unit>();
+        enemyUnit.SetStats(100, 10, 5, 100, "Enemy", 1, 100);
 
         // Display unitname to player
+        for (int i = 0; i < 4; i++) {
+           if (i < playerUnits.Count) {
+               playerHuds[i].text = playerUnits[i].unitName;
+           }
+           else {
+               playerHuds[i].text = "Empty";
+           }
+        }
         enemyHud.text = enemyUnit.unitName;
-        Player1Hud.text = playerUnit.unitName;
-        Player2Hud.text = playerUnit2.unitName;
-        // Player3Hud.text = playerUnit.unitName;
-        // Player4Hud.text = playerUnit.unitName;
 
         // Probably do health bar here
-
 
         // starting player's turn
         // we can probably have a boolean to decide who starts first
         if (true) // I'll change this later
             GameManager2D.instance.UpdateBattleState(BattleState.PLAYERTURN);
-        else
-            GameManager2D.instance.UpdateBattleState(BattleState.ENEMYTURN);
+        //else
+            //GameManager2D.instance.UpdateBattleState(BattleState.ENEMYTURN);
+    }
+
+    void playerTurnSetup() {
+        // spawn the buttons to select which character to use
+        GameObject button1 = Instantiate(buttonPrefabAlly1, buttonPanel);
+        GameObject button2 = Instantiate(buttonPrefabAlly2, buttonPanel);
+        GameObject button3 = Instantiate(buttonPrefabAlly3, buttonPanel);
+        GameObject button4 = Instantiate(buttonPrefabAlly4, buttonPanel);
+        UnityEngine.EventSystems.EventSystem.current.SetSelectedGameObject(button1);
+
     }
 }

@@ -1,0 +1,18 @@
+{
+    "characters": [
+        {
+            "name": "Player John",
+            "health": 100,
+            "attack": 20,
+            "defense": 10,
+            "energy": 20
+        },
+        {
+            "name": "Allie",
+            "health": 80,
+            "attack": 25,
+            "defense": 5,
+            "energy": 50
+        }
+    ]
+}
