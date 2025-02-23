@@ -267,6 +267,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 827174157}
+  - {fileID: 1038157674}
   - {fileID: 494577292}
   m_Father: {fileID: 1015068810}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1051,6 +1052,85 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!1 &1038157673
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1038157674}
+  - component: {fileID: 1038157676}
+  - component: {fileID: 1038157675}
+  m_Layer: 5
+  m_Name: AttackButtonOne
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1038157674
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1038157673}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 144335227}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -765, y: -380}
+  m_SizeDelta: {x: 300, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1038157675
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1038157673}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 31
+    m_FontStyle: 1
+    m_BestFit: 0
+    m_MinSize: 0
+    m_MaxSize: 40
+    m_Alignment: 0
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: Attack Button
+--- !u!222 &1038157676
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1038157673}
+  m_CullTransparentMesh: 1
 --- !u!1 &1044652101
 GameObject:
   m_ObjectHideFlags: 0
@@ -2286,19 +2366,16 @@ MonoBehaviour:
   playerPrefab:
   - {fileID: 7254804572474996309, guid: bdb3db107e457ed4ca31e14a083812d0, type: 3}
   - {fileID: 1849583816498720081, guid: 1ecf8bf6feef20d4dad07ecb7f6d8271, type: 3}
-  - {fileID: 1849583816498720081, guid: 1ecf8bf6feef20d4dad07ecb7f6d8271, type: 3}
-  - {fileID: 1849583816498720081, guid: 1ecf8bf6feef20d4dad07ecb7f6d8271, type: 3}
   player: []
+  buttons: []
   enemyBattleStation: {fileID: 1049745598}
   state: 0
-  buttonPrefabAlly1: {fileID: 9082710151003391637, guid: f003d497824737644bfde9d23e0c0a7c,
-    type: 3}
-  buttonPrefabAlly2: {fileID: 3032726871779206617, guid: 36f114196268e224b8ea7e26aaa14365,
-    type: 3}
-  buttonPrefabAlly3: {fileID: 2043197619120314582, guid: 2583630880d4ded40a2ed12093288752,
-    type: 3}
-  buttonPrefabAlly4: {fileID: 317477884285760690, guid: 0aa5ee6848c1955458b6d15631d16be5,
-    type: 3}
+  buttonPrefabAllies:
+  - {fileID: 9082710151003391637, guid: f003d497824737644bfde9d23e0c0a7c, type: 3}
+  - {fileID: 3032726871779206617, guid: 36f114196268e224b8ea7e26aaa14365, type: 3}
+  - {fileID: 2043197619120314582, guid: 2583630880d4ded40a2ed12093288752, type: 3}
+  - {fileID: 317477884285760690, guid: 0aa5ee6848c1955458b6d15631d16be5, type: 3}
+  buttonPrefabsAttack: []
   buttonPanel: {fileID: 2064014532}
   enemyHud: {fileID: 70566510}
   playerHuds:
@@ -2306,6 +2383,8 @@ MonoBehaviour:
   - {fileID: 1220872131}
   - {fileID: 1044652103}
   - {fileID: 1321191422}
+  playerHudsAttack:
+  - {fileID: 0}
   playerUnits: []
 --- !u!114 &2074174882
 MonoBehaviour:
