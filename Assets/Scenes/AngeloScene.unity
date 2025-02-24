@@ -1122,7 +1122,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Attack Button
+  m_Text: 
 --- !u!222 &1038157676
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2368,6 +2368,7 @@ MonoBehaviour:
   - {fileID: 1849583816498720081, guid: 1ecf8bf6feef20d4dad07ecb7f6d8271, type: 3}
   player: []
   buttons: []
+  buttonsForPlayer: []
   enemyBattleStation: {fileID: 1049745598}
   state: 0
   buttonPrefabAllies:
@@ -2375,7 +2376,8 @@ MonoBehaviour:
   - {fileID: 3032726871779206617, guid: 36f114196268e224b8ea7e26aaa14365, type: 3}
   - {fileID: 2043197619120314582, guid: 2583630880d4ded40a2ed12093288752, type: 3}
   - {fileID: 317477884285760690, guid: 0aa5ee6848c1955458b6d15631d16be5, type: 3}
-  buttonPrefabsAttack: []
+  buttonPrefabsAttack:
+  - {fileID: 8021268271617775633, guid: 223a2659ede040d4abe5fc04f606f4ab, type: 3}
   buttonPanel: {fileID: 2064014532}
   enemyHud: {fileID: 70566510}
   playerHuds:
@@ -2384,7 +2386,7 @@ MonoBehaviour:
   - {fileID: 1044652103}
   - {fileID: 1321191422}
   playerHudsAttack:
-  - {fileID: 0}
+  - {fileID: 1038157675}
   playerUnits: []
 --- !u!114 &2074174882
 MonoBehaviour:

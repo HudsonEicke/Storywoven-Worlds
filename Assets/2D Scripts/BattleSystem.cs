@@ -55,10 +55,23 @@ public class BattleSystem : MonoBehaviour
                 Debug.Log("[BattleSystem] Setting up battle system!");
                 GameManager2D.instance.playAudio(); // play audio
                 BattleSetup();
+                playerTurnSetup();
+                playerSelectSetup();
+                for (int i = 0; i < buttonsForPlayer.Count; i++) {
+                    buttonsForPlayer[i].SetActive(false);
+                    playerHudsAttack[i].gameObject.SetActive(!playerHudsAttack[i].gameObject.activeSelf);
+                }
                 break;
             case BattleState.PLAYERTURN:
                 // Handle player's turn logic here
-                playerTurnSetup();
+                //playerTurnSetup();
+                for (int i = 0; i < buttons.Count; i++) {
+                    Debug.Log("Button " + i);
+                    buttons[i].SetActive(true);
+                }
+                if (buttons.Count > 0) {
+                    UnityEngine.EventSystems.EventSystem.current.SetSelectedGameObject(buttons[0]);
+                }
                 break;
             case BattleState.ENEMYTURN:
                 // Handle enemy's turn logic here
@@ -134,20 +147,43 @@ public class BattleSystem : MonoBehaviour
         playerHuds[index].gameObject.SetActive(!playerHuds[index].gameObject.activeSelf);
     }
 
-    void ToggleTextSecond(int index) {
-        // Deal with the text here
-        playerHudsAttack[index].text = "Attack";
-        playerHudsAttack[index].gameObject.SetActive(!playerHudsAttack[index].gameObject.activeSelf);
+    void playerSelectSetup() {
+        for (int i = 0; i < 1; i++) {
+            playerHudsAttack[i].text = "Attack";
+            playerHudsAttack[i].gameObject.SetActive(!playerHudsAttack[i].gameObject.activeSelf);
 
-        // get rid of the buttons and then spawn in the next set of button options for that character
-        for (int i = 0; i < playerUnits.Count; i++) {
+            buttonsForPlayer.Add(Instantiate(buttonPrefabsAttack[i], buttonPanel));
+            // UnityEngine.EventSystems.EventSystem.current.SetSelectedGameObject(buttonsForPlayer[0]);
+            int index = 0;
+            // buttons clicked
+            buttonsForPlayer[0].GetComponent<Button>().onClick.AddListener(() => AttackButtonClicked(index));
+        }
+    }
+
+    void ToggleTextSecond(int index) {
+
+        for (int i = 0; i < buttons.Count; i++) {
             buttons[i].SetActive(false);
         }
-        buttonsForPlayer.Add(Instantiate(buttonPrefabsAttack[index], buttonPanel));
+
+        for (int i = 0; i < buttonsForPlayer.Count; i++) {
+            buttonsForPlayer[i].SetActive(true);
+            playerHudsAttack[i].gameObject.SetActive(!playerHudsAttack[i].gameObject.activeSelf);
+        }
         UnityEngine.EventSystems.EventSystem.current.SetSelectedGameObject(buttonsForPlayer[0]);
+        // Deal with the text here
+        //playerHudsAttack[index].text = "Attack";
+        //playerHudsAttack[index].gameObject.SetActive(!playerHudsAttack[index].gameObject.activeSelf);
+
+        // get rid of the buttons and then spawn in the next set of button options for that character
+        //for (int i = 0; i < playerUnits.Count; i++) {
+            //buttons[i].SetActive(false);
+        //}
+        //buttonsForPlayer.Add(Instantiate(buttonPrefabsAttack[index], buttonPanel));
+        //UnityEngine.EventSystems.EventSystem.current.SetSelectedGameObject(buttonsForPlayer[0]);
 
         // buttons clicked
-        buttonsForPlayer[0].GetComponent<Button>().onClick.AddListener(() => AttackButtonClicked(index));
+        //buttonsForPlayer[0].GetComponent<Button>().onClick.AddListener(() => AttackButtonClicked(index));
     }
 
     void OnButtonClicked(int index) {
@@ -157,6 +193,8 @@ public class BattleSystem : MonoBehaviour
     }
 
     void AttackButtonClicked(int index) {
+        ToggleTextFirst(index);
+        playerHudsAttack[index].gameObject.SetActive(!playerHudsAttack[index].gameObject.activeSelf);
         enemyUnit.healthChange(-playerUnits[index].unitAttack());
         GameManager2D.instance.UpdateBattleState(BattleState.ENEMYTURN);
     }
