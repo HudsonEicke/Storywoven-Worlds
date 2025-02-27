@@ -1,0 +1,28 @@
+{
+    "skills": [
+      {
+        "name": "Slash",
+        "description": "Summon a sword to slash your opponent.",
+        "attack": 50,
+        "cost": 10,
+        "type": "melee",
+        "healAmount": 10
+      },
+      {
+        "name": "Fireball",
+        "description": "Conjure a ball of fire to burn your opponent.",
+        "attack": 70,
+        "cost": 25,
+        "type": "range",
+        "healAmount": 10
+      },
+      {
+        "name": "Heal",
+        "description": "Restores a small amount of health.",
+        "attack": 0,
+        "cost": 5,
+        "type": "Support",
+        "healAmount": 10
+      }
+    ]
+  }

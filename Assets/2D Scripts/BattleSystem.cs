@@ -30,6 +30,11 @@ public class BattleSystem : MonoBehaviour
     public Text enemyHud;
     [SerializeField] public List<Text> playerHuds;
     [SerializeField] public List<Text> playerHudsAttack;
+    [SerializeField] public List<Transform> healthBarPanels;
+    [SerializeField] public List<GameObject> healthBarsAllies; 
+    [SerializeField] public List<Transform> healthBarEnemyPanels;
+    [SerializeField] public List<GameObject> healthBarsEnemies; 
+    GameObject enemyHealth;
     public List<Unit> playerUnits;
 
     void Awake()
@@ -54,22 +59,25 @@ public class BattleSystem : MonoBehaviour
                 // Setup the battle
                 Debug.Log("[BattleSystem] Setting up battle system!");
                 GameManager2D.instance.playAudio(); // play audio
+                // loading in all the buttons then disaible the ones we dont need at the start
                 BattleSetup();
                 playerTurnSetup();
                 playerSelectSetup();
-                for (int i = 0; i < buttonsForPlayer.Count; i++) {
-                    buttonsForPlayer[i].SetActive(false);
-                    playerHudsAttack[i].gameObject.SetActive(!playerHudsAttack[i].gameObject.activeSelf);
-                }
+                GameManager2D.instance.UpdateBattleState(BattleState.PLAYERTURN);
                 break;
             case BattleState.PLAYERTURN:
                 // Handle player's turn logic here
-                //playerTurnSetup();
+
+                // setting the buttons up for the player
+                for (int i = 0; i < buttonsForPlayer.Count; i++) {
+                    buttonsForPlayer[i].SetActive(false);
+                    playerHudsAttack[i].gameObject.SetActive(false);
+                }
                 for (int i = 0; i < buttons.Count; i++) {
                     Debug.Log("Button " + i);
-                    buttons[i].SetActive(true);
+                    buttons[i].SetActive(true); // activate the select character button
                 }
-                if (buttons.Count > 0) {
+                if (buttons.Count > 0) { // aparently it crashes at the start because it tries to laod in when buttons do not exist, lets not do that
                     UnityEngine.EventSystems.EventSystem.current.SetSelectedGameObject(buttons[0]);
                 }
                 break;
@@ -80,10 +88,12 @@ public class BattleSystem : MonoBehaviour
             case BattleState.WON:
                 // Handle winning logic
                 Debug.Log("[BattleSystem] You won the battle!");
+                UnityEditor.EditorApplication.isPlaying = false;
                 break;
             case BattleState.LOST:
                 // Handle losing logic
                 Debug.Log("[BattleSystem] You lost the battle!");
+                UnityEditor.EditorApplication.isPlaying = false;
                 break;
         }
     }
@@ -94,21 +104,14 @@ public class BattleSystem : MonoBehaviour
     void BattleSetup()
     {
         instantiatePlayers();
-
-        // instantiate enemies (I'll change this to a list later)
+        // instantiate enemies (I'll change enemies to a list later)
         GameObject enemy = Instantiate(enemyPrefab, enemyBattleStation);
         enemyUnit = enemy.GetComponent<Unit>();
         enemyUnit.SetStats(100, 10, 5, 100, "Enemy", 1, 100);
         enemyHud.text = enemyUnit.unitName;
-
-        // Probably do health bar here
-
-        // starting player's turn
-        // we can probably have a boolean to decide who starts first
-        if (true) // I'll change this later
-            GameManager2D.instance.UpdateBattleState(BattleState.PLAYERTURN);
-        //else
-            //GameManager2D.instance.UpdateBattleState(BattleState.ENEMYTURN);
+        enemyHealth = Instantiate(healthBarsEnemies[0], healthBarEnemyPanels[0]);
+        enemyHealth.GetComponent<Slider>().maxValue = enemyUnit.maxHP;
+        enemyHealth.GetComponent<Slider>().value = enemyUnit.currentHP;
     }
 
     void playerTurnSetup() {
@@ -117,11 +120,29 @@ public class BattleSystem : MonoBehaviour
             int index = i; // create local copy of i for the lambda function
             buttons.Add(Instantiate(buttonPrefabAllies[i], buttonPanel));
             buttons[i].GetComponent<Button>().onClick.AddListener(() => OnButtonClicked(index));
+
+            // Probably do health bar here
+            Instantiate(healthBarsAllies[i], healthBarPanels[i]);
+            healthBarsAllies[i].GetComponent<Slider>().maxValue = playerUnits[i].maxHP;
+            healthBarsAllies[i].GetComponent<Slider>().value = playerUnits[i].currentHP;
         }
         UnityEngine.EventSystems.EventSystem.current.SetSelectedGameObject(buttons[0]);
     }
 
+    
+    void playerSelectSetup() {
+        for (int i = 0; i < playerUnits.Count; i++) {
+            playerHudsAttack[i].text = "Attack";
+            playerHudsAttack[i].gameObject.SetActive(false);
+            buttonsForPlayer.Add(Instantiate(buttonPrefabsAttack[i], buttonPanel));
+            buttonsForPlayer[i].SetActive(false);
+            int index = i;
+            buttonsForPlayer[i].GetComponent<Button>().onClick.AddListener(() => AttackButtonClicked(index));
+        }
+    }
+
     void instantiatePlayers() {
+
         // instantiate players
         // would like to make it to where the 3D game manager will give some variables for current
         // HP and other current stats for the player. The file will hold the overal stats
@@ -129,7 +150,7 @@ public class BattleSystem : MonoBehaviour
             player.Add(Instantiate(playerPrefab[i], playerBattleStations[i]));
             playerUnits.Add(player[i].GetComponent<Unit>());
             Character firstCharacter = GameManager2D.instance.characterList.characters[i];
-            playerUnits[i].SetStats(firstCharacter.health, firstCharacter.attack, firstCharacter.defense, 0, firstCharacter.name, 0, firstCharacter.energy);
+            playerUnits[i].SetStats(firstCharacter.health, firstCharacter.attack, firstCharacter.defense, 20, firstCharacter.name, 0, firstCharacter.energy);
         }
 
         // Display unitname to player
@@ -144,46 +165,18 @@ public class BattleSystem : MonoBehaviour
     }
 
     void ToggleTextFirst(int index) {
-        playerHuds[index].gameObject.SetActive(!playerHuds[index].gameObject.activeSelf);
-    }
-
-    void playerSelectSetup() {
-        for (int i = 0; i < 1; i++) {
-            playerHudsAttack[i].text = "Attack";
-            playerHudsAttack[i].gameObject.SetActive(!playerHudsAttack[i].gameObject.activeSelf);
-
-            buttonsForPlayer.Add(Instantiate(buttonPrefabsAttack[i], buttonPanel));
-            // UnityEngine.EventSystems.EventSystem.current.SetSelectedGameObject(buttonsForPlayer[0]);
-            int index = 0;
-            // buttons clicked
-            buttonsForPlayer[0].GetComponent<Button>().onClick.AddListener(() => AttackButtonClicked(index));
-        }
+        playerHuds[index].gameObject.SetActive(false);
     }
 
     void ToggleTextSecond(int index) {
 
-        for (int i = 0; i < buttons.Count; i++) {
+        for (int i = 0; i < player.Count; i++) {
             buttons[i].SetActive(false);
         }
 
-        for (int i = 0; i < buttonsForPlayer.Count; i++) {
-            buttonsForPlayer[i].SetActive(true);
-            playerHudsAttack[i].gameObject.SetActive(!playerHudsAttack[i].gameObject.activeSelf);
-        }
-        UnityEngine.EventSystems.EventSystem.current.SetSelectedGameObject(buttonsForPlayer[0]);
-        // Deal with the text here
-        //playerHudsAttack[index].text = "Attack";
-        //playerHudsAttack[index].gameObject.SetActive(!playerHudsAttack[index].gameObject.activeSelf);
-
-        // get rid of the buttons and then spawn in the next set of button options for that character
-        //for (int i = 0; i < playerUnits.Count; i++) {
-            //buttons[i].SetActive(false);
-        //}
-        //buttonsForPlayer.Add(Instantiate(buttonPrefabsAttack[index], buttonPanel));
-        //UnityEngine.EventSystems.EventSystem.current.SetSelectedGameObject(buttonsForPlayer[0]);
-
-        // buttons clicked
-        //buttonsForPlayer[0].GetComponent<Button>().onClick.AddListener(() => AttackButtonClicked(index));
+        buttonsForPlayer[index].SetActive(true);
+        playerHudsAttack[index].gameObject.SetActive(true);
+        UnityEngine.EventSystems.EventSystem.current.SetSelectedGameObject(buttonsForPlayer[index]);
     }
 
     void OnButtonClicked(int index) {
@@ -193,9 +186,19 @@ public class BattleSystem : MonoBehaviour
     }
 
     void AttackButtonClicked(int index) {
-        ToggleTextFirst(index);
-        playerHudsAttack[index].gameObject.SetActive(!playerHudsAttack[index].gameObject.activeSelf);
-        enemyUnit.healthChange(-playerUnits[index].unitAttack());
+        buttonsForPlayer[index].SetActive(false);
+        playerHudsAttack[index].gameObject.SetActive(false);
+        playerHuds[index].gameObject.SetActive(true);
+        //enemyUnit.healthChange(-playerUnits[index].unitAttack());
+        enemyLogic(index);
         GameManager2D.instance.UpdateBattleState(BattleState.ENEMYTURN);
+    }
+
+    void enemyLogic(int index) {
+        enemyUnit.healthChange(-playerUnits[index].unitAttack());
+        enemyHealth.GetComponent<Slider>().value = enemyUnit.currentHP;
+        if (enemyUnit.currentHP <= 0) {
+            GameManager2D.instance.UpdateBattleState(BattleState.WON);
+        }
     }
 }
