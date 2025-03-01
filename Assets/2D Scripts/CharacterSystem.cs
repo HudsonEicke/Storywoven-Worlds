@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections;
 
 
+// just a class to load in character data
 [System.Serializable]
 public class Character {
     public string name;
@@ -28,7 +29,6 @@ public class CharacterSystem : MonoBehaviour {
         Debug.Log("[CharacterSystem] LOADING CHARACTERS");
         string json = jsonFile.ToString();
         CharacterList characterList = JsonUtility.FromJson<CharacterList>(json);
-        
         // Print out the character data
         foreach (var character in characterList.characters) {
             Debug.Log($"Name: {character.name}, Health: {character.health}, Attack: {character.attack}, Defense: {character.defense}, Energy: {character.energy}");
