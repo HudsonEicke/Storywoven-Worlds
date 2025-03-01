@@ -267,9 +267,11 @@ public class BattleSystem : MonoBehaviour
                 Debug.Log("Player succeeded in minigame!");
                 // ApplyDamageSkill(index, playerOneSkills[0].skillInflict());
                 // goin back to the enemy turn
+                enemyUnit.healthChange(-1 * playerOneSkills[0].skillInflict());
                 playerHuds[index].gameObject.SetActive(true);
                 allyHealthBars[index].SetActive(true);
                 healthBarPanels[index].gameObject.SetActive(true);
+                enemyHealth.GetComponent<Slider>().value = enemyUnit.getCurrentHP();
                 if (enemyUnit.getCurrentHP() <= 0)
                     GameManager2D.instance.UpdateBattleState(BattleState.WON);
                 else
