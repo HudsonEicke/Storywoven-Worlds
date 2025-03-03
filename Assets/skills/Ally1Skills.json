@@ -6,7 +6,7 @@
         "attack": 50,
         "cost": 10,
         "type": "melee",
-        "healAmount": 10
+        "healAmt": 10
       },
       {
         "name": "Fireball",
@@ -22,7 +22,7 @@
         "attack": 0,
         "cost": 5,
         "type": "Support",
-        "healAmount": 10
+        "healAmt": 10
       }
     ]
   }

@@ -15,6 +15,7 @@ public class GameManager2D : MonoBehaviour
     private BattleSystem battleSystem;
     public CharacterList characterList;
     public SkillListPlayer1 skillListPlayer1;
+    public SkillListPlayer2 skillListPlayer2;
 
     private void Awake()
     {
@@ -56,7 +57,8 @@ public class GameManager2D : MonoBehaviour
             case BattleState.START:
                 Debug.Log("[GameManager2D] Game Started");
                 characterList = characterSystem.Load(); // Load data from file
-                skillListPlayer1 = skillSystemPlayer.Load(); // Load data from file
+                skillListPlayer1 = skillSystemPlayer.Load();
+                skillListPlayer2 = skillSystemPlayer.Load2(); // Load data from file
                 break;
             case BattleState.PLAYERTURN:
                 System.Threading.Thread.Sleep(1000);

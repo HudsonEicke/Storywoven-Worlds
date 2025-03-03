@@ -47,6 +47,10 @@ public class Unit : MonoBehaviour
         }
         else
         {
+            if (currentHP >= maxHP)
+            {
+                currentHP = maxHP;
+            }
             return false;
         }
     }

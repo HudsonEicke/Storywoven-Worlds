@@ -57,7 +57,7 @@ public class slashSkill : skill
         yield return StartCoroutine(MoveSlash());
 
         // Timer countdown for minigame
-        float timer = 3.0f;
+        float timer = 2.0f;
         while (timer > 0)
         {
             if (spaceBarPressed) break; // Exit early if Spacebar was pressed
@@ -83,7 +83,7 @@ public class slashSkill : skill
 
     public override int skillInflict()
     {
-        return base.skillInflict() + 10; // dw bout this for now
+        return base.skillInflict(); // dw bout this for now
     }
 
     private void Update()
@@ -104,7 +104,7 @@ public class slashSkill : skill
 
     private IEnumerator MoveSlash()
     {
-        float duration = 3.0f;
+        float duration = 2.0f;
         float elapsedTime = 0f;
 
         Vector3 startPos = slash.transform.position;

@@ -15,8 +15,9 @@ public class BattleSystem : MonoBehaviour
 
     // Lists to store instantiated players and UI elements
     public List<GameObject> player = new List<GameObject>();
+    public List<GameObject> enemies = new List<GameObject>();
     public List<GameObject> buttons = new List<GameObject>();
-    public Transform enemyBattleStation;
+    public List<Transform> enemyBattleStation;
     public BattleState state;
 
     // UI button prefabs for player actions
@@ -34,7 +35,7 @@ public class BattleSystem : MonoBehaviour
 
     public Transform buttonPanel;
 
-    Unit enemyUnit;
+    List<Unit> enemyUnit = new List<Unit>();
     public Text enemyHud;
 
     // Enemy and player UI stuff
@@ -45,6 +46,8 @@ public class BattleSystem : MonoBehaviour
     // player skills
     [SerializeField] public List<Text> player1SkillOptions;
     [SerializeField] public List<GameObject> player1SkillButtons;
+    [SerializeField] public List<Text> player2SkillOptions;
+    [SerializeField] public List<GameObject> player2SkillButtons;
 
     // Health bar UI stuff
     [SerializeField] public List<Transform> healthBarPanels;
@@ -52,13 +55,20 @@ public class BattleSystem : MonoBehaviour
     [SerializeField] public List<Transform> healthBarEnemyPanels;
     [SerializeField] public List<GameObject> healthBarsEnemies; 
     public List<GameObject> allyHealthBars = new List<GameObject>();
-    GameObject enemyHealth;
+    List<GameObject> enemyHealth = new List<GameObject>();
 
     // TEMP
     GameObject button;
 
+    List<GameObject> player1SkillButtonsSelect = new List<GameObject>();
+    List<GameObject> player2SkillButtonsSelect = new List<GameObject>();
+
     public List<Unit> playerUnits = new List<Unit>();
     public List<skill> playerOneSkills = new List<skill>();
+    public List<skill> playerTwoSkills = new List<skill>();
+
+    int PlayerCountTurn = 0;
+    int totalEnemies = 3;
 
     void Awake()
     {
@@ -84,15 +94,14 @@ public class BattleSystem : MonoBehaviour
                 playerTurnSetup();
                 playerSelectSetup();
                 player1SkillSetup();
+                player2SkillSetup();
                 GameManager2D.instance.UpdateBattleState(BattleState.PLAYERTURN);
                 break;
             case BattleState.PLAYERTURN:
                 foreach (var hud in playerHudsAttack) hud.gameObject.SetActive(false);
                 foreach (var hud in playerHudsSkill) hud.gameObject.SetActive(false);
-                foreach (var btn in buttons) btn.SetActive(true);
-
-                if (buttons.Count > 0)
-                    UnityEngine.EventSystems.EventSystem.current.SetSelectedGameObject(buttons[0]);
+                // foreach (var btn in buttons) btn.SetActive(true); // I'll reuse these buttons for healing selection instead
+                OnButtonClicked(PlayerCountTurn);
                 break;
             case BattleState.ENEMYTURN:
                 GameManager2D.instance.UpdateBattleState(BattleState.PLAYERTURN);
@@ -111,15 +120,7 @@ public class BattleSystem : MonoBehaviour
     void BattleSetup()
     {
         instantiatePlayers();
-
-        GameObject enemy = Instantiate(enemyPrefab, enemyBattleStation);
-        enemyUnit = enemy.GetComponent<Unit>();
-        enemyUnit.SetStats(100, 10, 5, 100, "Enemy", 1, 100);
-        enemyHud.text = enemyUnit.getName();
-
-        enemyHealth = Instantiate(healthBarsEnemies[0], healthBarEnemyPanels[0]);
-        enemyHealth.GetComponent<Slider>().maxValue = enemyUnit.getMaxHP();
-        enemyHealth.GetComponent<Slider>().value = enemyUnit.getCurrentHP();
+        instantiateEnemies();
     }
 
     // function to set up the UI for each ally character
@@ -129,7 +130,7 @@ public class BattleSystem : MonoBehaviour
         {
             int index = i;
             GameObject button = Instantiate(buttonPrefabAllies[i], buttonPanel);
-            button.GetComponent<Button>().onClick.AddListener(() => OnButtonClicked(index));
+            button.GetComponent<Button>().onClick.AddListener(() => HealingDone(index));
             buttons.Add(button);
 
             GameObject healthBar = Instantiate(healthBarsAllies[i], healthBarPanels[i]);
@@ -184,9 +185,24 @@ public class BattleSystem : MonoBehaviour
         // set up the button and text
         player1SkillOptions[0].text = firstSkill.name;
         player1SkillOptions[0].gameObject.SetActive(false);
-        button = Instantiate(player1SkillButtons[0], buttonPanel);
-        button.GetComponent<Button>().onClick.AddListener(() => SlashButtonClicked(0));
-        button.SetActive(false);
+        player1SkillButtonsSelect.Add(Instantiate(player1SkillButtons[0], buttonPanel));
+        player1SkillButtonsSelect[0].GetComponent<Button>().onClick.AddListener(() => SlashButtonClicked(0));
+        player1SkillButtonsSelect[0].SetActive(false);
+    }
+
+    void player2SkillSetup() {
+        GameObject healObject = new GameObject("HealSkill");
+        healSkill newSkill = healObject.AddComponent<healSkill>();
+        Skill firstSkill = GameManager2D.instance.skillListPlayer2.P2Skills[0];
+        newSkill.Setskill(firstSkill.name, firstSkill.description, firstSkill.attack, firstSkill.cost, firstSkill.type, firstSkill.healAmt);
+        playerTwoSkills.Add(newSkill);
+
+        // set up the button and text
+        player2SkillOptions[0].text = firstSkill.name;
+        player2SkillOptions[0].gameObject.SetActive(false);
+        player2SkillButtonsSelect.Add(Instantiate(player2SkillButtons[0], buttonPanel));
+        player2SkillButtonsSelect[0].GetComponent<Button>().onClick.AddListener(() => healButtonClicked(1));
+        player2SkillButtonsSelect[0].SetActive(false);
     }
 
     void instantiatePlayers()
@@ -206,6 +222,30 @@ public class BattleSystem : MonoBehaviour
         {
             playerHuds[i].text = i < playerUnits.Count ? playerUnits[i].getName() : "Empty";
         }
+    }
+
+    void instantiateEnemies() {
+        for (int i = 0; i < totalEnemies; i++)
+        {
+            GameObject enemy = Instantiate(enemyPrefab, enemyBattleStation[i]);
+            enemies.Add(enemy);
+            Unit unit = enemy.GetComponent<Unit>();
+            enemyUnit.Add(unit);
+            enemyUnit[i].SetStats(200, 10, 5, 100, "Enemy", 1, 100);
+            enemyHud.text = enemyUnit[i].getName();
+            enemyHealth.Add(Instantiate(healthBarsEnemies[0], healthBarEnemyPanels[i]));
+            enemyHealth[i].GetComponent<Slider>().maxValue = enemyUnit[i].getMaxHP();
+            enemyHealth[i].GetComponent<Slider>().value = enemyUnit[i].getCurrentHP();
+        }
+        //GameObject enemy = Instantiate(enemyPrefab, enemyBattleStation[0]);
+        //enemies.Add(enemy);
+        //Unit unit = enemy.GetComponent<Unit>();
+        //enemyUnit.Add(unit);
+        //enemyUnit[0].SetStats(200, 10, 5, 100, "Enemy", 1, 100);
+        //enemyHud.text = enemyUnit[0].getName();
+        //enemyHealth.Add(Instantiate(healthBarsEnemies[0], healthBarEnemyPanels[0]));
+        //enemyHealth[0].GetComponent<Slider>().maxValue = enemyUnit[0].getMaxHP();
+        //enemyHealth[0].GetComponent<Slider>().value = enemyUnit[0].getCurrentHP();
     }
 
     void OnButtonClicked(int index)
@@ -239,71 +279,150 @@ public class BattleSystem : MonoBehaviour
 
     void SkillButtonClicked(int index)
     {
+        for (int i = 0; i < 2; i++) {
+            foreach (var button in buttonsForPlayer[i].buttonsForPlayer)
+            {
+                button.SetActive(false);
+            }
+        }
         Debug.Log("Skill button clicked for player: " + index);
         // doing skill stuff here
         ToggleTextFirst(index);
         foreach (var button in buttons) button.SetActive(false);
-        player1SkillOptions[0].gameObject.SetActive(true);
+        if (index == 0)
+            player1SkillOptions[0].gameObject.SetActive(true);
+        else
+            player2SkillOptions[0].gameObject.SetActive(true);
         playerHudsAttack[index].gameObject.SetActive(false);
         playerHudsSkill[index].gameObject.SetActive(false);
         for (int i = 0; i < 2; i++)
         {
             buttonsForPlayer[index].buttonsForPlayer[i].SetActive(false);
         }
-        button.SetActive(true);
-        UnityEngine.EventSystems.EventSystem.current.SetSelectedGameObject(button);
+        if (index == 0) {
+            player1SkillButtonsSelect[0].SetActive(true);
+            UnityEngine.EventSystems.EventSystem.current.SetSelectedGameObject(player1SkillButtonsSelect[0]);
+        }
+        else {
+            player2SkillButtonsSelect[0].SetActive(true);
+            UnityEngine.EventSystems.EventSystem.current.SetSelectedGameObject(player2SkillButtonsSelect[0]);
+        }
     }
 
     void SlashButtonClicked(int index) {
         Debug.Log("Slash button clicked");
         player1SkillOptions[0].gameObject.SetActive(false);
-        button.SetActive(false);
+        player1SkillButtonsSelect[index].SetActive(false);
 
         // DO EVENT SYSTEM CALL OR SOMTHING HERE!!!!
-
         playerOneSkills[0].PlayMinigame((result) => {
-            if (result == 1)
-            {
+            if (result == 1)    {
                 Debug.Log("Player succeeded in minigame!");
-                // ApplyDamageSkill(index, playerOneSkills[0].skillInflict());
-                // goin back to the enemy turn
-                enemyUnit.healthChange(-1 * playerOneSkills[0].skillInflict());
+                enemyUnit[0].healthChange(-1 * playerOneSkills[0].skillInflict());
                 playerHuds[index].gameObject.SetActive(true);
                 allyHealthBars[index].SetActive(true);
                 healthBarPanels[index].gameObject.SetActive(true);
-                enemyHealth.GetComponent<Slider>().value = enemyUnit.getCurrentHP();
-                if (enemyUnit.getCurrentHP() <= 0)
+                enemyHealth[0].GetComponent<Slider>().value = enemyUnit[0].getCurrentHP();
+
+                // goin back to the enemy turn
+                if (enemyUnit[0].getCurrentHP() <= 0)
                     GameManager2D.instance.UpdateBattleState(BattleState.WON);
-                else
-                    GameManager2D.instance.UpdateBattleState(BattleState.ENEMYTURN);
+                else {
+                    if (PlayerCountTurn < playerUnits.Count - 1)
+                    {
+                        PlayerCountTurn++;
+                        GameManager2D.instance.UpdateBattleState(BattleState.PLAYERTURN);
+                    }
+                    else
+                    {
+                        PlayerCountTurn = 0;
+                        GameManager2D.instance.UpdateBattleState(BattleState.ENEMYTURN);
+                    }
+                }
             }
-            else
-            {
+            else    {
                 Debug.Log("Player failed in minigame!");
-                // goin back to the enemy turn
                 playerHuds[index].gameObject.SetActive(true);
                 allyHealthBars[index].SetActive(true);
                 healthBarPanels[index].gameObject.SetActive(true);
-                if (enemyUnit.getCurrentHP() <= 0)
+                // goin back to the enemy turn
+                if (enemyUnit[0].getCurrentHP() <= 0)
                     GameManager2D.instance.UpdateBattleState(BattleState.WON);
-                else
-                    GameManager2D.instance.UpdateBattleState(BattleState.ENEMYTURN);
+                else {
+                    if (PlayerCountTurn < playerUnits.Count - 1)
+                    {
+                        PlayerCountTurn++;
+                        GameManager2D.instance.UpdateBattleState(BattleState.PLAYERTURN);
+                    }
+                    else
+                    {
+                        PlayerCountTurn = 0;
+                        GameManager2D.instance.UpdateBattleState(BattleState.ENEMYTURN);
+                    }
+                }
             }
         });
     }
 
+    void healButtonClicked(int index) {
+        Debug.Log("Heal button clicked");
+        player2SkillOptions[0].gameObject.SetActive(false);
+        player2SkillButtonsSelect[0].SetActive(false);
+
+        // DO HEAL LOGIC HERE
+        foreach (var btn in buttons) btn.SetActive(true);
+        UnityEngine.EventSystems.EventSystem.current.SetSelectedGameObject(buttons[0]);
+        for (int i = 0 ; i < playerUnits.Count; i++)
+        {
+            playerHuds[i].gameObject.SetActive(true);
+            allyHealthBars[i].SetActive(true);
+            healthBarPanels[i].gameObject.SetActive(true);
+        }
+    }
+
+    void HealingDone(int index) {
+        Debug.Log("HEALING PLAYER " + playerTwoSkills[0].skillHeal());
+        playerUnits[index].healthChange(playerTwoSkills[0].skillHeal());
+        allyHealthBars[index].GetComponent<Slider>().value = playerUnits[index].getCurrentHP();
+        
+        if (enemyUnit[0].getCurrentHP() <= 0)
+            GameManager2D.instance.UpdateBattleState(BattleState.WON);
+        else {
+            if (PlayerCountTurn < playerUnits.Count - 1)
+            {
+                PlayerCountTurn++;
+                GameManager2D.instance.UpdateBattleState(BattleState.PLAYERTURN);
+            }
+            else
+            {
+                PlayerCountTurn = 0;
+                GameManager2D.instance.UpdateBattleState(BattleState.ENEMYTURN);
+            }
+        }
+    }
+
     void ApplyDamage(int index)
     {
-        enemyUnit.healthChange(-1 * playerUnits[index].unitAttack());
-        enemyHealth.GetComponent<Slider>().value = enemyUnit.getCurrentHP();
+        enemyUnit[0].healthChange(-1 * playerUnits[index].unitAttack());
+        enemyHealth[0].GetComponent<Slider>().value = enemyUnit[0].getCurrentHP();
 
         playerHuds[index].gameObject.SetActive(true);
         allyHealthBars[index].SetActive(true);
         healthBarPanels[index].gameObject.SetActive(true);
 
-        if (enemyUnit.getCurrentHP() <= 0)
+        if (enemyUnit[0].getCurrentHP() <= 0)
             GameManager2D.instance.UpdateBattleState(BattleState.WON);
-        else
-            GameManager2D.instance.UpdateBattleState(BattleState.ENEMYTURN);
+        else {
+            if (PlayerCountTurn < playerUnits.Count - 1)
+            {
+                PlayerCountTurn++;
+                GameManager2D.instance.UpdateBattleState(BattleState.PLAYERTURN);
+            }
+            else
+            {
+                PlayerCountTurn = 0;
+                GameManager2D.instance.UpdateBattleState(BattleState.ENEMYTURN);
+            }
+        }
     }
 }
