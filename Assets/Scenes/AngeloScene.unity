@@ -4105,6 +4105,7 @@ MonoBehaviour:
     characters: []
   skillListPlayer1:
     P1Skills: []
+  enemyCount: 3
 --- !u!114 &2074174881
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4117,8 +4118,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a4a26d1876ad694383cd4a8faa734f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyPrefab: {fileID: 3017146726047874027, guid: 6f3d53a1e91707d4c92c4e745ca8c8af,
-    type: 3}
   playerBattleStations:
   - {fileID: 1597367786}
   - {fileID: 603122513}
@@ -4128,12 +4127,7 @@ MonoBehaviour:
   - {fileID: 7254804572474996309, guid: bdb3db107e457ed4ca31e14a083812d0, type: 3}
   - {fileID: 1849583816498720081, guid: 1ecf8bf6feef20d4dad07ecb7f6d8271, type: 3}
   player: []
-  enemies: []
   buttons: []
-  enemyBattleStation:
-  - {fileID: 593466017}
-  - {fileID: 1712248713}
-  - {fileID: 645782039}
   state: 0
   buttonPrefabAllies:
   - {fileID: 9082710151003391637, guid: f003d497824737644bfde9d23e0c0a7c, type: 3}
@@ -4147,7 +4141,6 @@ MonoBehaviour:
   - {fileID: 8021268271617775633, guid: 3ae189a5712e50b4f9f238bbaf83a48d, type: 3}
   - {fileID: 8021268271617775633, guid: e293a3b635c8b5a4fafa67b8887c5641, type: 3}
   buttonPanel: {fileID: 2064014532}
-  enemyHud: {fileID: 70566510}
   playerHuds:
   - {fileID: 827174158}
   - {fileID: 1220872131}
@@ -4177,12 +4170,6 @@ MonoBehaviour:
   - {fileID: 6104070658436156013, guid: 7832493f9a33c8c43a117c2ce245fe40, type: 3}
   - {fileID: 0}
   - {fileID: 0}
-  healthBarEnemyPanels:
-  - {fileID: 1822873404}
-  - {fileID: 639510363}
-  - {fileID: 619778274}
-  healthBarsEnemies:
-  - {fileID: 6104070658436156013, guid: 17e86aa53c44556479a485de2b847bce, type: 3}
   allyHealthBars: []
   playerUnits: []
   playerOneSkills: []

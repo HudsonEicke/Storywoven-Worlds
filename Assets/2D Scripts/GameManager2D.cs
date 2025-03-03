@@ -19,6 +19,8 @@ public class GameManager2D : MonoBehaviour
     public SkillListPlayer2 skillListPlayer2;
     public List<EnemySystem.EnemyHealthAndInfo> enemyList;
 
+    [SerializeField] int enemyCount;
+
     private void Awake()
     {
         if (instance == null)
@@ -63,7 +65,7 @@ public class GameManager2D : MonoBehaviour
                 characterList = characterSystem.Load(); // Load data from file
                 skillListPlayer1 = skillSystemPlayer.Load();
                 skillListPlayer2 = skillSystemPlayer.Load2(); // Load data from file
-                enemyList = enemySystem.loadEnemies(3);
+                enemyList = enemySystem.loadEnemies(enemyCount);
                 Debug.Log("COUNT: " + enemyList.Count);
                 break;
             case BattleState.PLAYERTURN:
