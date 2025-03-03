@@ -4053,6 +4053,7 @@ GameObject:
   - component: {fileID: 2074174882}
   - component: {fileID: 2074174883}
   - component: {fileID: 2074174884}
+  - component: {fileID: 2074174885}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -4228,6 +4229,34 @@ MonoBehaviour:
   minigamebackground: {fileID: 475991690}
   slash: {fileID: 1441137745}
   target: {fileID: 2049542876}
+--- !u!114 &2074174885
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2074174877}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79415057295011046863aeb219ff8394, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyPrefab: {fileID: 3017146726047874027, guid: 6f3d53a1e91707d4c92c4e745ca8c8af,
+    type: 3}
+  enemyBattleStation:
+  - {fileID: 593466017}
+  - {fileID: 1712248713}
+  - {fileID: 645782039}
+  healthBarEnemy: {fileID: 6104070658436156013, guid: 17e86aa53c44556479a485de2b847bce,
+    type: 3}
+  healthBarEnemyPanels:
+  - {fileID: 1822873404}
+  - {fileID: 639510363}
+  - {fileID: 619778274}
+  enemyHud:
+  - {fileID: 70566510}
+  - {fileID: 180641122}
+  - {fileID: 1120806911}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

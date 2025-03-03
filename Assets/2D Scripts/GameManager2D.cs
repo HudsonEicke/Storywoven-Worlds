@@ -10,12 +10,14 @@ public class GameManager2D : MonoBehaviour
     private AudioSystem2D audiosystem2D;
     public BattleState State;
     private CharacterSystem characterSystem;
+    private EnemySystem enemySystem;
     private SkillSystemPlayer skillSystemPlayer;
     public static event Action<BattleState> OnBattleStateChanged;
     private BattleSystem battleSystem;
     public CharacterList characterList;
     public SkillListPlayer1 skillListPlayer1;
     public SkillListPlayer2 skillListPlayer2;
+    public List<EnemySystem.EnemyHealthAndInfo> enemyList;
 
     private void Awake()
     {
@@ -32,6 +34,8 @@ public class GameManager2D : MonoBehaviour
         // get characters
         characterSystem = FindObjectOfType<CharacterSystem>();
         skillSystemPlayer = FindObjectOfType<SkillSystemPlayer>();
+        // get enemies
+        enemySystem = FindObjectOfType<EnemySystem>();
     }
 
     void Start()
@@ -59,6 +63,8 @@ public class GameManager2D : MonoBehaviour
                 characterList = characterSystem.Load(); // Load data from file
                 skillListPlayer1 = skillSystemPlayer.Load();
                 skillListPlayer2 = skillSystemPlayer.Load2(); // Load data from file
+                enemyList = enemySystem.loadEnemies(3);
+                Debug.Log("COUNT: " + enemyList.Count);
                 break;
             case BattleState.PLAYERTURN:
                 System.Threading.Thread.Sleep(1000);

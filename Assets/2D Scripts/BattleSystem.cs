@@ -8,16 +8,12 @@ using Unity.VisualScripting;
 
 public class BattleSystem : MonoBehaviour
 {
-    // Prefabs for enemy and players
-    public GameObject enemyPrefab;
     [SerializeField] public List<Transform> playerBattleStations;
     [SerializeField] public List<GameObject> playerPrefab;
 
     // Lists to store instantiated players and UI elements
     public List<GameObject> player = new List<GameObject>();
-    public List<GameObject> enemies = new List<GameObject>();
     public List<GameObject> buttons = new List<GameObject>();
-    public List<Transform> enemyBattleStation;
     public BattleState state;
 
     // UI button prefabs for player actions
@@ -34,10 +30,6 @@ public class BattleSystem : MonoBehaviour
     public List<ButtonsForPlayers> buttonsForPlayer = new List<ButtonsForPlayers>();
 
     public Transform buttonPanel;
-
-    List<Unit> enemyUnit = new List<Unit>();
-    public Text enemyHud;
-
     // Enemy and player UI stuff
     [SerializeField] public List<Text> playerHuds;
     [SerializeField] public List<Text> playerHudsAttack;
@@ -52,13 +44,7 @@ public class BattleSystem : MonoBehaviour
     // Health bar UI stuff
     [SerializeField] public List<Transform> healthBarPanels;
     [SerializeField] public List<GameObject> healthBarsAllies; 
-    [SerializeField] public List<Transform> healthBarEnemyPanels;
-    [SerializeField] public List<GameObject> healthBarsEnemies; 
     public List<GameObject> allyHealthBars = new List<GameObject>();
-    List<GameObject> enemyHealth = new List<GameObject>();
-
-    // TEMP
-    GameObject button;
 
     List<GameObject> player1SkillButtonsSelect = new List<GameObject>();
     List<GameObject> player2SkillButtonsSelect = new List<GameObject>();
@@ -68,7 +54,8 @@ public class BattleSystem : MonoBehaviour
     public List<skill> playerTwoSkills = new List<skill>();
 
     int PlayerCountTurn = 0;
-    int totalEnemies = 3;
+
+    public List<EnemySystem.EnemyHealthAndInfo> enemyList;
 
     void Awake()
     {
@@ -95,12 +82,12 @@ public class BattleSystem : MonoBehaviour
                 playerSelectSetup();
                 player1SkillSetup();
                 player2SkillSetup();
+                enemyList = GameManager2D.instance.enemyList; // easier to reference
                 GameManager2D.instance.UpdateBattleState(BattleState.PLAYERTURN);
                 break;
             case BattleState.PLAYERTURN:
                 foreach (var hud in playerHudsAttack) hud.gameObject.SetActive(false);
                 foreach (var hud in playerHudsSkill) hud.gameObject.SetActive(false);
-                // foreach (var btn in buttons) btn.SetActive(true); // I'll reuse these buttons for healing selection instead
                 OnButtonClicked(PlayerCountTurn);
                 break;
             case BattleState.ENEMYTURN:
@@ -120,7 +107,6 @@ public class BattleSystem : MonoBehaviour
     void BattleSetup()
     {
         instantiatePlayers();
-        instantiateEnemies();
     }
 
     // function to set up the UI for each ally character
@@ -224,30 +210,6 @@ public class BattleSystem : MonoBehaviour
         }
     }
 
-    void instantiateEnemies() {
-        for (int i = 0; i < totalEnemies; i++)
-        {
-            GameObject enemy = Instantiate(enemyPrefab, enemyBattleStation[i]);
-            enemies.Add(enemy);
-            Unit unit = enemy.GetComponent<Unit>();
-            enemyUnit.Add(unit);
-            enemyUnit[i].SetStats(200, 10, 5, 100, "Enemy", 1, 100);
-            enemyHud.text = enemyUnit[i].getName();
-            enemyHealth.Add(Instantiate(healthBarsEnemies[0], healthBarEnemyPanels[i]));
-            enemyHealth[i].GetComponent<Slider>().maxValue = enemyUnit[i].getMaxHP();
-            enemyHealth[i].GetComponent<Slider>().value = enemyUnit[i].getCurrentHP();
-        }
-        //GameObject enemy = Instantiate(enemyPrefab, enemyBattleStation[0]);
-        //enemies.Add(enemy);
-        //Unit unit = enemy.GetComponent<Unit>();
-        //enemyUnit.Add(unit);
-        //enemyUnit[0].SetStats(200, 10, 5, 100, "Enemy", 1, 100);
-        //enemyHud.text = enemyUnit[0].getName();
-        //enemyHealth.Add(Instantiate(healthBarsEnemies[0], healthBarEnemyPanels[0]));
-        //enemyHealth[0].GetComponent<Slider>().maxValue = enemyUnit[0].getMaxHP();
-        //enemyHealth[0].GetComponent<Slider>().value = enemyUnit[0].getCurrentHP();
-    }
-
     void OnButtonClicked(int index)
     {
         Debug.Log("Button: " + index);
@@ -318,14 +280,14 @@ public class BattleSystem : MonoBehaviour
         playerOneSkills[0].PlayMinigame((result) => {
             if (result == 1)    {
                 Debug.Log("Player succeeded in minigame!");
-                enemyUnit[0].healthChange(-1 * playerOneSkills[0].skillInflict());
                 playerHuds[index].gameObject.SetActive(true);
                 allyHealthBars[index].SetActive(true);
                 healthBarPanels[index].gameObject.SetActive(true);
-                enemyHealth[0].GetComponent<Slider>().value = enemyUnit[0].getCurrentHP();
+                enemyList[2].enemyUnit.healthChange(-1 * playerOneSkills[0].skillInflict());
+                enemyList[2].enemyHealth.GetComponent<Slider>().value = enemyList[2].enemyUnit.getCurrentHP();
 
                 // goin back to the enemy turn
-                if (enemyUnit[0].getCurrentHP() <= 0)
+                if (enemyList[2].enemyUnit.getCurrentHP() <= 0)
                     GameManager2D.instance.UpdateBattleState(BattleState.WON);
                 else {
                     if (PlayerCountTurn < playerUnits.Count - 1)
@@ -346,7 +308,7 @@ public class BattleSystem : MonoBehaviour
                 allyHealthBars[index].SetActive(true);
                 healthBarPanels[index].gameObject.SetActive(true);
                 // goin back to the enemy turn
-                if (enemyUnit[0].getCurrentHP() <= 0)
+                if (enemyList[2].enemyUnit.getCurrentHP() <= 0)
                     GameManager2D.instance.UpdateBattleState(BattleState.WON);
                 else {
                     if (PlayerCountTurn < playerUnits.Count - 1)
@@ -385,7 +347,7 @@ public class BattleSystem : MonoBehaviour
         playerUnits[index].healthChange(playerTwoSkills[0].skillHeal());
         allyHealthBars[index].GetComponent<Slider>().value = playerUnits[index].getCurrentHP();
         
-        if (enemyUnit[0].getCurrentHP() <= 0)
+        if (enemyList[2].enemyUnit.getCurrentHP() <= 0)
             GameManager2D.instance.UpdateBattleState(BattleState.WON);
         else {
             if (PlayerCountTurn < playerUnits.Count - 1)
@@ -403,14 +365,14 @@ public class BattleSystem : MonoBehaviour
 
     void ApplyDamage(int index)
     {
-        enemyUnit[0].healthChange(-1 * playerUnits[index].unitAttack());
-        enemyHealth[0].GetComponent<Slider>().value = enemyUnit[0].getCurrentHP();
+        enemyList[2].enemyUnit.healthChange(-1 * playerUnits[index].unitAttack());
+        enemyList[2].enemyHealth.GetComponent<Slider>().value = enemyList[2].enemyUnit.getCurrentHP();
 
         playerHuds[index].gameObject.SetActive(true);
         allyHealthBars[index].SetActive(true);
         healthBarPanels[index].gameObject.SetActive(true);
 
-        if (enemyUnit[0].getCurrentHP() <= 0)
+        if (enemyList[2].enemyUnit.getCurrentHP() <= 0)
             GameManager2D.instance.UpdateBattleState(BattleState.WON);
         else {
             if (PlayerCountTurn < playerUnits.Count - 1)
