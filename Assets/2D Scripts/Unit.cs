@@ -6,12 +6,35 @@ using UnityEngine;
 public class Unit : MonoBehaviour
 {
     // basic variables for a unit
-    public string unitName;
-    public int unitLevel;
-    public int damage;
-    public int maxHP;
-    public int currentHP;
-    public int currentEnergy;
+    private string unitName;
+    private int unitLevel;
+    private int damage;
+    private int maxHP;
+    private int currentHP;
+    private int currentEnergy;
+    private int defense;
+
+    public string getName() {
+        return unitName;
+    }
+
+    public int getMaxHP() {
+        return maxHP;
+    }
+
+    public int getCurrentHP() {
+        return currentHP;
+    }
+
+    public void SetStats(int health, int dmg, int def, int current, string name, int lvl, int energy) {
+        unitName = name;
+        unitLevel = lvl;
+        damage = dmg;
+        maxHP = health;
+        currentHP = current;
+        currentEnergy = energy;
+        defense = def;
+    }
 
     public bool healthChange(int change)
     {
@@ -24,6 +47,10 @@ public class Unit : MonoBehaviour
         }
         else
         {
+            if (currentHP >= maxHP)
+            {
+                currentHP = maxHP;
+            }
             return false;
         }
     }

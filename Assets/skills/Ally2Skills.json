@@ -1,0 +1,12 @@
+{
+  "P2Skills": [
+    {
+      "name": "Heal",
+      "description": "Restores a small amount of health.",
+      "attack": 0,
+      "cost": 5,
+      "type": "Support",
+      "healAmt": 10
+    }
+  ]
+}

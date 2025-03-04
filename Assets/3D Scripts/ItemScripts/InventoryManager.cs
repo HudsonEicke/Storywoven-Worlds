@@ -58,7 +58,7 @@ public class InventoryManager : MonoBehaviour
         }
 
         //if there is not enough items to fill the range
-        if(i != end)
+        if (i != end + 1)
         {
             while(i <= end)
             {
@@ -98,6 +98,7 @@ public class InventoryManager : MonoBehaviour
         if (index >= 0 && index < inventory.Count)
         {
             inventory[index].Use();
+            inventory[index].quantity -= 1;
 
             //checks if the player is now out of the item
             if (inventory[index].quantity == 0)
