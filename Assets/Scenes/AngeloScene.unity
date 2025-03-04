@@ -4106,6 +4106,7 @@ MonoBehaviour:
   skillListPlayer1:
     P1Skills: []
   enemyCount: 3
+  characterCount: 2
 --- !u!114 &2074174881
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4118,14 +4119,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a4a26d1876ad694383cd4a8faa734f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerBattleStations:
-  - {fileID: 1597367786}
-  - {fileID: 603122513}
-  - {fileID: 603122513}
-  - {fileID: 603122513}
-  playerPrefab:
-  - {fileID: 7254804572474996309, guid: bdb3db107e457ed4ca31e14a083812d0, type: 3}
-  - {fileID: 1849583816498720081, guid: 1ecf8bf6feef20d4dad07ecb7f6d8271, type: 3}
   player: []
   buttons: []
   state: 0
@@ -4141,17 +4134,6 @@ MonoBehaviour:
   - {fileID: 8021268271617775633, guid: 3ae189a5712e50b4f9f238bbaf83a48d, type: 3}
   - {fileID: 8021268271617775633, guid: e293a3b635c8b5a4fafa67b8887c5641, type: 3}
   buttonPanel: {fileID: 2064014532}
-  playerHuds:
-  - {fileID: 827174158}
-  - {fileID: 1220872131}
-  - {fileID: 1044652103}
-  - {fileID: 1321191422}
-  playerHudsAttack:
-  - {fileID: 1038157675}
-  - {fileID: 97247815}
-  playerHudsSkill:
-  - {fileID: 1749309745}
-  - {fileID: 1593984894}
   player1SkillOptions:
   - {fileID: 128897920}
   player1SkillButtons:
@@ -4160,20 +4142,10 @@ MonoBehaviour:
   - {fileID: 101535965}
   player2SkillButtons:
   - {fileID: 8021268271617775633, guid: b01c21626a353a14fae58e4bae5478b6, type: 3}
-  healthBarPanels:
-  - {fileID: 741188395}
-  - {fileID: 1436807692}
-  - {fileID: 0}
-  - {fileID: 0}
-  healthBarsAllies:
-  - {fileID: 6104070658436156013, guid: 8acc4d73ab7a8794ea82e9b14d7ad86a, type: 3}
-  - {fileID: 6104070658436156013, guid: 7832493f9a33c8c43a117c2ce245fe40, type: 3}
-  - {fileID: 0}
-  - {fileID: 0}
-  allyHealthBars: []
-  playerUnits: []
   playerOneSkills: []
   playerTwoSkills: []
+  characterList:
+    characters: []
 --- !u!114 &2074174882
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4186,6 +4158,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e180e98b3de3b4d438450b17469a3096, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerBattleStations:
+  - {fileID: 1597367786}
+  - {fileID: 603122513}
+  - {fileID: 705105819}
+  - {fileID: 658654158}
+  playerPrefab:
+  - {fileID: 7254804572474996309, guid: bdb3db107e457ed4ca31e14a083812d0, type: 3}
+  - {fileID: 1849583816498720081, guid: 1ecf8bf6feef20d4dad07ecb7f6d8271, type: 3}
+  healthBarPanels:
+  - {fileID: 741188395}
+  - {fileID: 1436807692}
+  healthBarsAllies: {fileID: 6104070658436156013, guid: 8acc4d73ab7a8794ea82e9b14d7ad86a,
+    type: 3}
+  playerHuds:
+  - {fileID: 827174158}
+  - {fileID: 1220872131}
+  - {fileID: 1044652103}
+  - {fileID: 1321191422}
+  playerHudsAttack:
+  - {fileID: 1038157675}
+  - {fileID: 97247815}
+  playerHudsSkill:
+  - {fileID: 1749309745}
+  - {fileID: 1593984894}
   jsonFile: {fileID: 4900000, guid: c5704f572f1e3db4d99d97755df16941, type: 3}
 --- !u!114 &2074174883
 MonoBehaviour:

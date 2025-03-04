@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using GameBattle;
 
 
 public class EnemySystem : MonoBehaviour {

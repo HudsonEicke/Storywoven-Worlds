@@ -158,7 +158,7 @@ GameObject:
   - component: {fileID: 4378593418685142344}
   - component: {fileID: 2079115832817388161}
   m_Layer: 5
-  m_Name: HealthBarFillEnemy1
+  m_Name: EnergyBarFill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

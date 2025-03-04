@@ -1,7 +1,5 @@
 using UnityEngine;
-using System.IO;
 using System.Collections.Generic;
-using System.Collections;
 
 // just a class to load in skill data
 [System.Serializable]
