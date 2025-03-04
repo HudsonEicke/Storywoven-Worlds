@@ -15,7 +15,6 @@ public class ItemButton : MonoBehaviour
     [SerializeField]
     private GameObject buttonObject;
 
-
     public void UpdateButton(Item newItem)
     {
         itemName.text = newItem.name;
