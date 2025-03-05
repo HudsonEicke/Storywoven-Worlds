@@ -6,9 +6,8 @@ using UnityEngine.SceneManagement;
 public class GameManager3D : MonoBehaviour
 {
     static GameManager3D _instance;
-    private static List<Item> inventory = new List<Item>();
     public static GameManager3D Instance { get { return _instance; } }
-    public GameObject itemStorage;
+    public bool startBattle = false;
 
     private void Awake()
     {
@@ -25,7 +24,11 @@ public class GameManager3D : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (startBattle)
+        {
+            startBattle = false;
+            StartBattle();
+        }
     }
 
     private void OnEnable()
