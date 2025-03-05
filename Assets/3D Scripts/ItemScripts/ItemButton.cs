@@ -23,7 +23,7 @@ public class ItemButton : MonoBehaviour
 
     public void UpdateButton(Item newItem)
     {
-        itemName.text = newItem.name;
+        itemName.text = newItem.itemName;
         quantity.text = newItem.quantity.ToString();
         itemImage.sprite = newItem.itemIcon;
     }

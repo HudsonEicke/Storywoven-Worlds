@@ -6,7 +6,7 @@ public abstract class Item : MonoBehaviour
 {
     public Sprite itemIcon;
     public string itemName;
-    public int quantity;
+    public int quantity = 1;
     public int itemId;
 
     public abstract void Use();

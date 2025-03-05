@@ -10,7 +10,5 @@ public class HealthPotion : Item
     public override void Use()
     {
         //ADD CODE HERE TO ADD HEALTH
-
-        Debug.Log("USED");
     }
 }

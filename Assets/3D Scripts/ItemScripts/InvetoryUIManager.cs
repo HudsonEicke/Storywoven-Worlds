@@ -70,7 +70,7 @@ public class InvetoryUIManager : MonoBehaviour
 
     void UpdateRange()
     {
-        inventoryRange = InventoryManager.GetInventoryRange(startViewRange, endViewRange);
+        inventoryRange = InventoryManager.Instance.GetInventoryRange(startViewRange, endViewRange);
 
         for (int i = 0; i < inventoryButtons.Count; i++)
         {
@@ -100,7 +100,7 @@ public class InvetoryUIManager : MonoBehaviour
 
     void ScrollDown()
     {
-        Item nextItem = InventoryManager.GetNextItem(endViewRange);
+        Item nextItem = InventoryManager.Instance.GetNextItem(endViewRange);
 
         if(nextItem == null)
         {
@@ -125,7 +125,7 @@ public class InvetoryUIManager : MonoBehaviour
             return;
         }
         inventoryButtons[inventoryButtons.Count - 1].ActivateButton();
-        Item previousItem = InventoryManager.GetPrevious(startViewRange);
+        Item previousItem = InventoryManager.Instance.GetPrevious(startViewRange);
 
         for(int i = inventoryButtons.Count - 1; i > 0; i--)
         {
@@ -141,7 +141,7 @@ public class InvetoryUIManager : MonoBehaviour
 
     public void UseItem(int itemNum)
     {
-        InventoryManager.UseIndex(itemNum + startViewRange);
+        InventoryManager.Instance.UseIndex(itemNum + startViewRange);
 
         UpdateRange();
 
