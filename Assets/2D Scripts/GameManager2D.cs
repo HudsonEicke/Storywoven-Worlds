@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using GameBattle; // We want to manage the state of our game using an ENUM
 using System;
+using UnityEngine.SceneManagement;
 public class GameManager2D : MonoBehaviour
 {
     // initializing variables
@@ -22,6 +23,16 @@ public class GameManager2D : MonoBehaviour
     [SerializeField] int enemyCount;
     [SerializeField] int characterCount;
 
+    // for 3D manager stuff
+    public static event Action<int> OnGameEnd; // Event to notify game result
+
+    public void InitializeGame(int enemies, int characters)
+    {
+        enemyCount = enemies;
+        characterCount = characters;
+        UpdateBattleState(BattleState.START);
+    }
+
     private void Awake()
     {
         if (instance == null)
@@ -33,7 +44,7 @@ public class GameManager2D : MonoBehaviour
             Destroy(gameObject); // destroy if instance already exists
         }
 
-        audiosystem2D = gameObject.GetComponent<AudioSystem2D>();
+        // audiosystem2D = gameObject.GetComponent<AudioSystem2D>();
         // get characters
         characterSystem = FindObjectOfType<CharacterSystem>();
         skillSystemPlayer = FindObjectOfType<SkillSystemPlayer>();
@@ -78,14 +89,23 @@ public class GameManager2D : MonoBehaviour
                 break;
             case BattleState.WON:
                 Debug.Log("[GameManager2D] You Won!");
+                OnGameEnd?.Invoke(1); // Notify win
                 break;
             case BattleState.LOST:
                 Debug.Log("[GameManager2D] You Lost!");
+                OnGameEnd?.Invoke(0); // Notify loss
+                // StartCoroutine(EndBattle());
                 break;
             default:
                 Debug.Log("[GameManager2D] Invalid Game State");
                 break;
         }
         OnBattleStateChanged?.Invoke(newState);
+    }
+
+    private IEnumerator EndBattle()
+    {
+        yield return new WaitForSeconds(2f); // Small delay before closing
+        SceneManager.UnloadSceneAsync("GameManager2D"); // Close battle scene
     }
 }

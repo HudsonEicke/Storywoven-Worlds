@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager3D : MonoBehaviour
 {
+    [SerializeField] GameObject camera1;
     static GameManager3D _instance;
     public static GameManager3D Instance { get { return _instance; } }
     public bool startBattle = false;
@@ -38,7 +39,9 @@ public class GameManager3D : MonoBehaviour
 
     public void StartBattle()
     {
+        Debug.Log("Start Battle");
+        camera1.SetActive(false);
         SceneManager.LoadScene("AngeloScene", LoadSceneMode.Additive);
-        Time.timeScale = 0;
+        // Time.timeScale = 0;
     }
 }

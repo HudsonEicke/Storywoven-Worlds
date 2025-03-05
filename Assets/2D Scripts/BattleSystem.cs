@@ -50,21 +50,28 @@ public class BattleSystem : MonoBehaviour
     public int currentPlayerSelected;
     public int currentEnemyCount;
 
+    [SerializeField] Text statusText;
+
     void Awake()
     {
         Debug.Log("[BattleSystem] Subscribing to event");
         GameManager2D.OnBattleStateChanged += OnBattleStateChanged; 
     }
 
-    private void OnBattleStateChanged(BattleState newState)
+    private void OnBattleStateChanged(BattleState newState) {
+        StartCoroutine(HandleBattleStateChanged(newState));
+    }
+
+    private IEnumerator HandleBattleStateChanged(BattleState newState)
     {
         state = newState;
 
         switch (state)
         {
             case BattleState.START:
+                statusText.text = "Start of Battle";
                 Debug.Log("[BattleSystem] Setting up battle system!");
-                GameManager2D.instance.playAudio();
+                // GameManager2D.instance.playAudio();
                 characterList = GameManager2D.instance.characterList; // easier to reference
                 enemyList = GameManager2D.instance.enemyList; // easier to reference
                 currentEnemyCount = enemyList.Count;
@@ -72,9 +79,11 @@ public class BattleSystem : MonoBehaviour
                 playerSelectSetup();
                 player1SkillSetup();
                 player2SkillSetup();
+                yield return new WaitForSeconds(1);
                 GameManager2D.instance.UpdateBattleState(BattleState.PLAYERTURN);
                 break;
             case BattleState.PLAYERTURN:
+                statusText.text = "Player's Turn";
                 for (int i = 0; i < characterList.characters.Count; i++) {
                     characterList.characters[i].playerHudAttack.gameObject.SetActive(false);
                     characterList.characters[i].playerHudSkill.gameObject.SetActive(false);
@@ -86,14 +95,32 @@ public class BattleSystem : MonoBehaviour
                 OnButtonClicked(PlayerCountTurn);
                 break;
             case BattleState.ENEMYTURN:
+                statusText.text = "Enemie's Turn";
+                foreach (var btn in buttons) btn.SetActive(false);
+                for (int i = 0; i < characterList.characters.Count; i++) {
+                    characterList.characters[i].playerHudAttack.gameObject.SetActive(false);
+                    characterList.characters[i].playerHudSkill.gameObject.SetActive(false);
+                }
+                for (int i = 0; i < enemySelectButtons.Count; i++) {
+                    if (enemySelectButtons[i] == null) continue;
+                        enemySelectButtons[i].SetActive(false);
+                }
+                if (currentEnemyCount <= 0)
+                    GameManager2D.instance.UpdateBattleState(BattleState.WON);
+
+                yield return new WaitForSeconds(2);
                 GameManager2D.instance.UpdateBattleState(BattleState.PLAYERTURN);
                 break;
             case BattleState.WON:
                 Debug.Log("[BattleSystem] You won the battle!");
+                statusText.text = "YOU WON!!!";
+                yield return new WaitForSeconds(2);
                 UnityEditor.EditorApplication.isPlaying = false;
                 break;
             case BattleState.LOST:
                 Debug.Log("[BattleSystem] You lost the battle!");
+                statusText.text = "YOU Lost!!!";
+                yield return new WaitForSeconds(2);
                 UnityEditor.EditorApplication.isPlaying = false;
                 break;
         }
@@ -214,7 +241,10 @@ public class BattleSystem : MonoBehaviour
         }
         while (enemySelectButtons[buttonToStart] == null)
             buttonToStart++;
-        UnityEngine.EventSystems.EventSystem.current.SetSelectedGameObject(enemySelectButtons[buttonToStart]);
+        if (buttonToStart < enemySelectButtons.Count)
+            UnityEngine.EventSystems.EventSystem.current.SetSelectedGameObject(enemySelectButtons[buttonToStart]);
+        else
+            GameManager2D.instance.UpdateBattleState(BattleState.WON);
     }
 
     void SkillButtonClicked(int index)
@@ -296,7 +326,8 @@ public class BattleSystem : MonoBehaviour
                 characterList.characters[index].healthBarPanel.gameObject.SetActive(true);
                 enemyList[enemyIndex].enemyUnit.healthChange(-1 * playerOneSkills[0].skillInflict());
                 enemyList[enemyIndex].enemyHealth.GetComponent<Slider>().value = enemyList[enemyIndex].enemyUnit.getCurrentHP();
-
+                if (enemyList[enemyIndex].enemyUnit.getCurrentHP() <= 0) 
+                    removeEnemy(enemyIndex);
                 // goin back to the enemy turn
                 if (currentEnemyCount <= 0)
                     GameManager2D.instance.UpdateBattleState(BattleState.WON);
@@ -379,13 +410,16 @@ public class BattleSystem : MonoBehaviour
     }
 
     void checkplayerTurn() {
-        if (PlayerCountTurn < characterList.characters.Count - 1)   {
+        if (PlayerCountTurn < characterList.characters.Count - 1 && currentEnemyCount > 0) {
                 PlayerCountTurn++;
                 GameManager2D.instance.UpdateBattleState(BattleState.PLAYERTURN);
         }
-        else    {
+        else if (currentEnemyCount > 0) {
                 PlayerCountTurn = 0;
                 GameManager2D.instance.UpdateBattleState(BattleState.ENEMYTURN);
+        }
+        else {
+            GameManager2D.instance.UpdateBattleState(BattleState.WON);
         }
     }
 }
