@@ -45,6 +45,11 @@ public class BattleSystem : MonoBehaviour
     public List<EnemySystem.EnemyHealthAndInfo> enemyList;
     public CharacterList characterList;
 
+    public List<GameObject> enemySelectButtons = new List<GameObject>();
+    [SerializeField] public GameObject enemySelectPrefab;
+    public int currentPlayerSelected;
+    public int currentEnemyCount;
+
     void Awake()
     {
         Debug.Log("[BattleSystem] Subscribing to event");
@@ -61,17 +66,22 @@ public class BattleSystem : MonoBehaviour
                 Debug.Log("[BattleSystem] Setting up battle system!");
                 GameManager2D.instance.playAudio();
                 characterList = GameManager2D.instance.characterList; // easier to reference
+                enemyList = GameManager2D.instance.enemyList; // easier to reference
+                currentEnemyCount = enemyList.Count;
                 playerTurnSetup();
                 playerSelectSetup();
                 player1SkillSetup();
                 player2SkillSetup();
-                enemyList = GameManager2D.instance.enemyList; // easier to reference
                 GameManager2D.instance.UpdateBattleState(BattleState.PLAYERTURN);
                 break;
             case BattleState.PLAYERTURN:
                 for (int i = 0; i < characterList.characters.Count; i++) {
                     characterList.characters[i].playerHudAttack.gameObject.SetActive(false);
                     characterList.characters[i].playerHudSkill.gameObject.SetActive(false);
+                }
+                for (int i = 0; i < enemySelectButtons.Count; i++) {
+                    if (enemySelectButtons[i] == null) continue;
+                    enemySelectButtons[i].SetActive(false);
                 }
                 OnButtonClicked(PlayerCountTurn);
                 break;
@@ -89,7 +99,7 @@ public class BattleSystem : MonoBehaviour
         }
     }
 
-    // function to set up the UI for each ally character
+    // function to set up the button for healing skills
     void playerTurnSetup()
     {
         for (int i = 0; i < characterList.characters.Count; i++)
@@ -100,10 +110,17 @@ public class BattleSystem : MonoBehaviour
             buttons.Add(button);
         }
 
-        UnityEngine.EventSystems.EventSystem.current.SetSelectedGameObject(buttons[0]);
+        for (int i = 0; i < enemyList.Count; i++)
+        {
+            int index = i;
+            GameObject enemySelect = Instantiate(enemySelectPrefab, enemyList[i].healthPanel);
+            enemySelect.GetComponent<Button>().onClick.AddListener(() => ApplyDamage(index));
+            enemySelectButtons.Add(enemySelect);
+            enemySelectButtons[i].SetActive(false);
+        }
     }
 
-    // function to set up the player move select
+    // function to set up the player attack and skill buttons
     void playerSelectSetup()
     {
         for (int i = 0; i < characterList.characters.Count; i++)
@@ -185,8 +202,19 @@ public class BattleSystem : MonoBehaviour
     }
 
     void AttackButtonClicked(int index)
-    {
-        ApplyDamage(index);
+    {   
+        int buttonToStart = 0;
+        Debug.Log("Attack button clicked for player: " + index);
+        currentPlayerSelected = index;
+        buttonsForPlayer[currentPlayerSelected].buttonsForPlayer[0].SetActive(false);
+        buttonsForPlayer[currentPlayerSelected].buttonsForPlayer[1].SetActive(false);
+        for (int i = 0; i < enemySelectButtons.Count; i++) {
+            if (enemySelectButtons[i] == null) continue;
+            enemySelectButtons[i].SetActive(true);
+        }
+        while (enemySelectButtons[buttonToStart] == null)
+            buttonToStart++;
+        UnityEngine.EventSystems.EventSystem.current.SetSelectedGameObject(enemySelectButtons[buttonToStart]);
     }
 
     void SkillButtonClicked(int index)
@@ -225,7 +253,40 @@ public class BattleSystem : MonoBehaviour
         Debug.Log("Slash button clicked");
         player1SkillOptions[0].gameObject.SetActive(false);
         player1SkillButtonsSelect[index].SetActive(false);
+        // get the enemy index to attack
+        for (int i = 0; i < enemySelectButtons.Count; i++) {
+            int enemyindex = i;
+            if (enemySelectButtons[i] != null) {
+                enemySelectButtons[i].GetComponent<Button>().onClick.RemoveAllListeners();
+                enemySelectButtons[i].GetComponent<Button>().onClick.AddListener(() => commenceSlashButton(index, enemyindex));
+            }
+        }
 
+
+        int buttonToStart = 0;
+        for (int i = 0; i < enemySelectButtons.Count; i++) {
+            if (enemySelectButtons[i] == null) continue;
+            enemySelectButtons[i].SetActive(true);
+        }
+        while (enemySelectButtons[buttonToStart] == null)
+            buttonToStart++;
+        UnityEngine.EventSystems.EventSystem.current.SetSelectedGameObject(enemySelectButtons[buttonToStart]);
+    }
+
+    void commenceSlashButton(int index, int enemyIndex) {
+
+        for (int i = 0; i < enemySelectButtons.Count; i++) {
+            if (enemySelectButtons[i] == null) continue;
+            enemySelectButtons[i].SetActive(false);
+        }
+
+        for (int i = 0; i < enemySelectButtons.Count; i++) {
+            int origionalIndex = i;
+            if (enemySelectButtons[i] != null) {
+                enemySelectButtons[i].GetComponent<Button>().onClick.RemoveAllListeners();
+                enemySelectButtons[i].GetComponent<Button>().onClick.AddListener(() => ApplyDamage(origionalIndex));
+            }
+        }
         // DO EVENT SYSTEM CALL OR SOMTHING HERE!!!!
         playerOneSkills[0].PlayMinigame((result) => {
             if (result == 1)    {
@@ -233,23 +294,14 @@ public class BattleSystem : MonoBehaviour
                 characterList.characters[index].playerHud.gameObject.SetActive(true);
                 characterList.characters[index].playerHealth.SetActive(true);
                 characterList.characters[index].healthBarPanel.gameObject.SetActive(true);
-                enemyList[2].enemyUnit.healthChange(-1 * playerOneSkills[0].skillInflict());
-                enemyList[2].enemyHealth.GetComponent<Slider>().value = enemyList[2].enemyUnit.getCurrentHP();
+                enemyList[enemyIndex].enemyUnit.healthChange(-1 * playerOneSkills[0].skillInflict());
+                enemyList[enemyIndex].enemyHealth.GetComponent<Slider>().value = enemyList[enemyIndex].enemyUnit.getCurrentHP();
 
                 // goin back to the enemy turn
-                if (enemyList[2].enemyUnit.getCurrentHP() <= 0)
+                if (currentEnemyCount <= 0)
                     GameManager2D.instance.UpdateBattleState(BattleState.WON);
                 else {
-                    if (PlayerCountTurn < characterList.characters.Count - 1)
-                    {
-                        PlayerCountTurn++;
-                        GameManager2D.instance.UpdateBattleState(BattleState.PLAYERTURN);
-                    }
-                    else
-                    {
-                        PlayerCountTurn = 0;
-                        GameManager2D.instance.UpdateBattleState(BattleState.ENEMYTURN);
-                    }
+                    checkplayerTurn();
                 }
             }
             else    {
@@ -258,19 +310,10 @@ public class BattleSystem : MonoBehaviour
                 characterList.characters[index].playerHud.gameObject.SetActive(true);
                 characterList.characters[index].playerHealth.SetActive(true);
                 // goin back to the enemy turn
-                if (enemyList[2].enemyUnit.getCurrentHP() <= 0)
+                if (currentEnemyCount <= 0)
                     GameManager2D.instance.UpdateBattleState(BattleState.WON);
                 else {
-                    if (PlayerCountTurn < characterList.characters.Count - 1)
-                    {
-                        PlayerCountTurn++;
-                        GameManager2D.instance.UpdateBattleState(BattleState.PLAYERTURN);
-                    }
-                    else
-                    {
-                        PlayerCountTurn = 0;
-                        GameManager2D.instance.UpdateBattleState(BattleState.ENEMYTURN);
-                    }
+                    checkplayerTurn();
                 }
             }
         });
@@ -298,44 +341,51 @@ public class BattleSystem : MonoBehaviour
         characterList.characters[index].playerUnit.healthChange(playerTwoSkills[0].skillHeal());
         characterList.characters[index].playerHealth.GetComponent<Slider>().value = characterList.characters[index].playerUnit.getCurrentHP();
         
-        if (enemyList[2].enemyUnit.getCurrentHP() <= 0)
+        if (currentEnemyCount <= 0)
             GameManager2D.instance.UpdateBattleState(BattleState.WON);
         else {
-            if (PlayerCountTurn < characterList.characters.Count - 1)
-            {
-                PlayerCountTurn++;
-                GameManager2D.instance.UpdateBattleState(BattleState.PLAYERTURN);
-            }
-            else
-            {
-                PlayerCountTurn = 0;
-                GameManager2D.instance.UpdateBattleState(BattleState.ENEMYTURN);
-            }
+            checkplayerTurn();
         }
     }
 
     void ApplyDamage(int index)
     {
-        enemyList[2].enemyUnit.healthChange(-1 * characterList.characters[index].playerUnit.unitAttack());
-        enemyList[2].enemyHealth.GetComponent<Slider>().value = enemyList[2].enemyUnit.getCurrentHP();
+        enemyList[index].enemyUnit.healthChange(-1 * characterList.characters[currentPlayerSelected].playerUnit.unitAttack());
+        enemyList[index].enemyHealth.GetComponent<Slider>().value = enemyList[index].enemyUnit.getCurrentHP();
 
-        characterList.characters[index].healthBarPanel.gameObject.SetActive(true);
-        characterList.characters[index].playerHud.gameObject.SetActive(true);
-        characterList.characters[index].playerHealth.SetActive(true);
+        characterList.characters[currentPlayerSelected].healthBarPanel.gameObject.SetActive(true);
+        characterList.characters[currentPlayerSelected].playerHud.gameObject.SetActive(true);
+        characterList.characters[currentPlayerSelected].playerHealth.SetActive(true);
 
-        if (enemyList[2].enemyUnit.getCurrentHP() <= 0)
+        if (enemyList[index].enemyUnit.getCurrentHP() <= 0) 
+            removeEnemy(index); // create a funciton to remove the enemy fully
+        checkplayerTurn();
+    }
+
+    void removeEnemy(int index)
+    {
+        // TODO: check nulls and make sure to remove the enemy from the list correctly
+        // try setting the empty space to NULL instead but we need to check for nulls
+        Debug.Log("Removing enemy at index: " + index);
+        enemyList[index].enemy.SetActive(false);
+        GameObject buttonToRemove = enemySelectButtons[index];
+        enemySelectButtons[index] = null;
+        Destroy(buttonToRemove);
+        currentEnemyCount--;
+
+        // check if all enemies are gone, if so, battle won
+        if (currentEnemyCount <= 0)
             GameManager2D.instance.UpdateBattleState(BattleState.WON);
-        else {
-            if (PlayerCountTurn < characterList.characters.Count - 1)
-            {
+    }
+
+    void checkplayerTurn() {
+        if (PlayerCountTurn < characterList.characters.Count - 1)   {
                 PlayerCountTurn++;
                 GameManager2D.instance.UpdateBattleState(BattleState.PLAYERTURN);
-            }
-            else
-            {
+        }
+        else    {
                 PlayerCountTurn = 0;
                 GameManager2D.instance.UpdateBattleState(BattleState.ENEMYTURN);
-            }
         }
     }
 }

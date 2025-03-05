@@ -21,6 +21,7 @@ public class EnemySystem : MonoBehaviour {
 
         // this deals with the health aspect of enemy
         public GameObject enemyHealth;
+        public Transform healthPanel;
     }
 
     public List<EnemyHealthAndInfo> loadEnemies(int enemyCount) {
@@ -34,6 +35,7 @@ public class EnemySystem : MonoBehaviour {
             newEnemy.enemyHud = enemyHud[i];
             newEnemy.enemyHud.text = newEnemy.enemyUnit.getName();
             newEnemy.enemyHealth = Instantiate(healthBarEnemy, healthBarEnemyPanels[i]);
+            newEnemy.healthPanel = healthBarEnemyPanels[i];
             newEnemy.enemyHealth.GetComponent<Slider>().maxValue = newEnemy.enemyUnit.getMaxHP();
             newEnemy.enemyHealth.GetComponent<Slider>().value = newEnemy.enemyUnit.getCurrentHP();
             enemyList.Add(newEnemy);
