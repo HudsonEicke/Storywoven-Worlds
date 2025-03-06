@@ -26,6 +26,7 @@ public class Shop : MonoBehaviour
     public void Sell10(){
         Currency.modifyMoney(10);
         moneyT.text = "Total: $" + Currency.getMoney().ToString();
+        Debug.Log("Sold Item");
     }
 
     public void Buy10(){
