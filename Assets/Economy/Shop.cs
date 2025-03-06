@@ -11,6 +11,8 @@ public class Shop : MonoBehaviour
     
     private Button buyButton;
     private Text notEnoughMoney;
+
+    
     // Start is called before the first frame update
     void Start()
     {
