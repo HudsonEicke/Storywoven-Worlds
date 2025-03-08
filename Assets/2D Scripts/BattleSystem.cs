@@ -114,14 +114,14 @@ public class BattleSystem : MonoBehaviour
             case BattleState.WON:
                 Debug.Log("[BattleSystem] You won the battle!");
                 statusText.text = "YOU WON!!!";
-                yield return new WaitForSeconds(2);
-                UnityEditor.EditorApplication.isPlaying = false;
+                //yield return new WaitForSeconds(2);
+                // UnityEditor.EditorApplication.isPlaying = false;
                 break;
             case BattleState.LOST:
                 Debug.Log("[BattleSystem] You lost the battle!");
                 statusText.text = "YOU Lost!!!";
-                yield return new WaitForSeconds(2);
-                UnityEditor.EditorApplication.isPlaying = false;
+                //yield return new WaitForSeconds(2);
+                // UnityEditor.EditorApplication.isPlaying = false;
                 break;
         }
     }

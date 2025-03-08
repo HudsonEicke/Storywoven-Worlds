@@ -9,6 +9,7 @@ public class GameManager3D : MonoBehaviour
     static GameManager3D _instance;
     public static GameManager3D Instance { get { return _instance; } }
     public bool startBattle = false;
+    private GameManager2D gameManager2D;
 
     private void Awake()
     {
@@ -20,6 +21,13 @@ public class GameManager3D : MonoBehaviour
         {
             _instance = this;
         }
+        Debug.Log("[GameManager3D] subscribing to OnGameEnd");
+        GameManager2D.OnGameEnd += OnGameEnd;
+    }
+
+    private void Start()
+    {
+        gameManager2D = FindObjectOfType<GameManager2D>();
     }
 
     // Update is called once per frame
@@ -41,7 +49,32 @@ public class GameManager3D : MonoBehaviour
     {
         Debug.Log("Start Battle");
         camera1.SetActive(false);
+
+        // made the variables static so they can be modified from the 3D scene
+        GameManager2D.characterCount = 2; 
+        GameManager2D.enemyCount = 1; 
+
         SceneManager.LoadScene("AngeloScene", LoadSceneMode.Additive);
-        // Time.timeScale = 0;
     }
+
+    private void OnGameEnd(int isEnd) {
+        StartCoroutine(handleGameEnd(isEnd));
+    }
+
+    private IEnumerator handleGameEnd(int isEnd)
+{
+    Debug.Log("[GameManager3D] Game Ended");
+    if (isEnd == 1) {
+        Debug.Log("[GameManager3D] Game WON");
+        // do whatever here for game win
+    }
+    else {
+        Debug.Log("[GameManager3D] Game LOST");
+        // do whatever here for game lost
+    }
+    SceneManager.UnloadSceneAsync("AngeloScene");
+
+    yield return new WaitForSeconds(0); // We need a very slight delay or else it will yell at us
+    camera1.SetActive(true); 
+}
 }

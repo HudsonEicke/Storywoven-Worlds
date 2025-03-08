@@ -5,11 +5,11 @@ using UnityEngine.UI;
 
 public class EnemySystem : MonoBehaviour {
     // some variables we need to set for Unity
-    [SerializeField] GameObject enemyPrefab;
-    [SerializeField] List<Transform> enemyBattleStation;
-    [SerializeField] GameObject healthBarEnemy;
-    [SerializeField] List<Transform> healthBarEnemyPanels;
-    [SerializeField] List<Text> enemyHud;
+    [SerializeField] private GameObject enemyPrefab;
+    [SerializeField] private List<Transform> enemyBattleStation;
+    [SerializeField] private GameObject healthBarEnemy;
+    [SerializeField] private List<Transform> healthBarEnemyPanels;
+    [SerializeField] private List<Text> enemyHud;
 
     // class to store all of the stuff we need for one enemy
     public class EnemyHealthAndInfo {

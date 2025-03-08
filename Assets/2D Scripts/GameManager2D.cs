@@ -14,14 +14,14 @@ public class GameManager2D : MonoBehaviour
     private EnemySystem enemySystem;
     private SkillSystemPlayer skillSystemPlayer;
     public static event Action<BattleState> OnBattleStateChanged;
-    private BattleSystem battleSystem;
+    // private BattleSystem battleSystem;
     public CharacterList characterList;
     public SkillListPlayer1 skillListPlayer1;
     public SkillListPlayer2 skillListPlayer2;
     public List<EnemySystem.EnemyHealthAndInfo> enemyList;
 
-    [SerializeField] int enemyCount;
-    [SerializeField] int characterCount;
+    [SerializeField] public static int enemyCount;
+    [SerializeField] public static int characterCount;
 
     // for 3D manager stuff
     public static event Action<int> OnGameEnd; // Event to notify game result
@@ -30,7 +30,11 @@ public class GameManager2D : MonoBehaviour
     {
         enemyCount = enemies;
         characterCount = characters;
-        UpdateBattleState(BattleState.START);
+        // UpdateBattleState(BattleState.START);
+    }
+
+    public void test() {
+        Debug.Log("TEST");
     }
 
     private void Awake()
@@ -81,7 +85,7 @@ public class GameManager2D : MonoBehaviour
                 Debug.Log("COUNT: " + enemyList.Count);
                 break;
             case BattleState.PLAYERTURN:
-                System.Threading.Thread.Sleep(1000);
+                // System.Threading.Thread.Sleep(1000);
                 Debug.Log("[GameManager2D] Player's Turn");
                 break;
             case BattleState.ENEMYTURN:
