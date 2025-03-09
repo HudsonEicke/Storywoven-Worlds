@@ -19,6 +19,29 @@ public class EnemyNavigation : MonoBehaviour
         stateTime = idleTime;
     }
 
+    private void Awake()
+    {
+        GameManager3D.freezeWorld += Freeze;
+        GameManager3D.unFreezeWorld += unFreeze;
+    }
+
+    private void OnDestroy()
+    {
+        GameManager3D.freezeWorld -= Freeze;
+        GameManager3D.unFreezeWorld -= unFreeze;
+    }
+
+    private void Freeze()
+    {
+        state = EnemyState.frozen;
+    }
+
+    private void unFreeze()
+    {
+        state = EnemyState.wandering;
+        changeState();
+    }
+
     void changeState()
     {
         if(state == EnemyState.idle)
@@ -27,7 +50,6 @@ public class EnemyNavigation : MonoBehaviour
             stateTime = wanderTime;
             timeChange = 0;
         } 
-
         else
         {
             state = EnemyState.idle;
@@ -38,6 +60,11 @@ public class EnemyNavigation : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(state == EnemyState.frozen)
+        {
+            return;
+        }
+
         if(state != EnemyState.chasing)
         {
             stateTime -= Time.deltaTime;
@@ -79,17 +106,26 @@ public class EnemyNavigation : MonoBehaviour
     void chasing()
     {
         Agent.SetDestination(player.transform.position);
-
     }
 
-    void OnTriggerEnter(Collider other)
+    public void StartChasing()
     {
-        if(other.gameObject.tag == "Player")
+        if (state == EnemyState.frozen)
         {
-            state = EnemyState.chasing;
+            return;
         }
-        
+
+        state = EnemyState.chasing;
     }
+
+    //void OnTriggerEnter(Collider other)
+    //{
+    //    if(other.gameObject.tag == "Player")
+    //    {
+    //        state = EnemyState.chasing;
+    //    }
+        
+    //}
 
     void OnTriggerExit(Collider other)
     {
@@ -102,8 +138,9 @@ public class EnemyNavigation : MonoBehaviour
  
 }
 public enum EnemyState
-    {
-        idle,
-        wandering,
-        chasing,
-    }
+{
+    idle,
+    wandering,
+    chasing,
+    frozen,
+}

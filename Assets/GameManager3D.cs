@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System;
 
 public class GameManager3D : MonoBehaviour
 {
@@ -10,6 +11,9 @@ public class GameManager3D : MonoBehaviour
     public static GameManager3D Instance { get { return _instance; } }
     public bool startBattle = false;
     private GameManager2D gameManager2D;
+
+    public static event Action freezeWorld;
+    public static event Action unFreezeWorld;
 
     private void Awake()
     {
@@ -53,28 +57,32 @@ public class GameManager3D : MonoBehaviour
         // made the variables static so they can be modified from the 3D scene
         GameManager2D.characterCount = 2; 
         GameManager2D.enemyCount = 1; 
-
+        freezeWorld?.Invoke();
         SceneManager.LoadScene("AngeloScene", LoadSceneMode.Additive);
     }
 
-    private void OnGameEnd(int isEnd) {
+    private void OnGameEnd(int isEnd) 
+    {
         StartCoroutine(handleGameEnd(isEnd));
+        unFreezeWorld?.Invoke();
     }
 
     private IEnumerator handleGameEnd(int isEnd)
-{
-    Debug.Log("[GameManager3D] Game Ended");
-    if (isEnd == 1) {
-        Debug.Log("[GameManager3D] Game WON");
-        // do whatever here for game win
-    }
-    else {
-        Debug.Log("[GameManager3D] Game LOST");
-        // do whatever here for game lost
-    }
-    SceneManager.UnloadSceneAsync("AngeloScene");
+    {
+        Debug.Log("[GameManager3D] Game Ended");
+        if (isEnd == 1) 
+        {
+            Debug.Log("[GameManager3D] Game WON");
+            // do whatever here for game win
+        }
+        else 
+        {
+            Debug.Log("[GameManager3D] Game LOST");
+            // do whatever here for game lost
+        }
+        SceneManager.UnloadSceneAsync("AngeloScene");
 
-    yield return new WaitForSeconds(0); // We need a very slight delay or else it will yell at us
-    camera1.SetActive(true); 
-}
+        yield return new WaitForSeconds(0); // We need a very slight delay or else it will yell at us
+        camera1.SetActive(true); 
+    }
 }
