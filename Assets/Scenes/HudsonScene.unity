@@ -711,6 +711,7 @@ GameObject:
   m_Component:
   - component: {fileID: 707586482}
   - component: {fileID: 707586481}
+  - component: {fileID: 707586483}
   m_Layer: 0
   m_Name: 3D World Manager
   m_TagString: Untagged
@@ -732,9 +733,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   camera1: {fileID: 563003653}
   event1: {fileID: 1305153227}
-  playerCamera: {fileID: 0}
+  playerCamera: {fileID: 1110827441}
   startBattle: 0
-  characterList:
+  characterList3D:
     characters: []
 --- !u!4 &707586482
 Transform:
@@ -751,6 +752,25 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &707586483
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 707586480}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b9b886141a5ce7448e29f8a4a20a039, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  jsonFile: {fileID: 4900000, guid: c5704f572f1e3db4d99d97755df16941, type: 3}
+--- !u!1 &1110827441 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3867391223065582448, guid: f3d8f659ad1478d488b08fe590f5289d,
+    type: 3}
+  m_PrefabInstance: {fileID: 2116506648}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1205152016
 GameObject:
   m_ObjectHideFlags: 0
