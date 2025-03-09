@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using GameBattle;
 using System;
 using Unity.VisualScripting;
+using Random = UnityEngine.Random;
 
 public class BattleSystem : MonoBehaviour
 {
@@ -49,6 +50,7 @@ public class BattleSystem : MonoBehaviour
     [SerializeField] public GameObject enemySelectPrefab;
     public int currentPlayerSelected;
     public int currentEnemyCount;
+    public int currentPlayerCount;
 
     [SerializeField] Text statusText;
 
@@ -75,6 +77,7 @@ public class BattleSystem : MonoBehaviour
                 characterList = GameManager2D.instance.characterList; // easier to reference
                 enemyList = GameManager2D.instance.enemyList; // easier to reference
                 currentEnemyCount = enemyList.Count;
+                currentPlayerCount = characterList.characters.Count;
                 playerTurnSetup();
                 playerSelectSetup();
                 player1SkillSetup();
@@ -86,6 +89,9 @@ public class BattleSystem : MonoBehaviour
                 statusText.text = "Player's Turn";
                 for (int i = 0; i < characterList.characters.Count; i++) {
                     Debug.Log("Setting up player: " + i);
+
+                    if (characterList.characters[i].playerUnit.getCurrentHP() <= 0)
+                        continue;
                     characterList.characters[i].playerHudAttack.gameObject.SetActive(false);
                     characterList.characters[i].playerHudSkill.gameObject.SetActive(false);
                 }
@@ -93,12 +99,19 @@ public class BattleSystem : MonoBehaviour
                     if (enemySelectButtons[i] == null) continue;
                     enemySelectButtons[i].SetActive(false);
                 }
+                while (characterList.characters[PlayerCountTurn] != null && characterList.characters[PlayerCountTurn].playerUnit.getCurrentHP() <= 0) {
+                    PlayerCountTurn++;
+                    if (PlayerCountTurn >= characterList.characters.Count)
+                        GameManager2D.instance.UpdateBattleState(BattleState.ENEMYTURN);
+                }
                 OnButtonClicked(PlayerCountTurn);
                 break;
             case BattleState.ENEMYTURN:
                 statusText.text = "Enemie's Turn";
                 foreach (var btn in buttons) btn.SetActive(false);
                 for (int i = 0; i < characterList.characters.Count; i++) {
+                    if (characterList.characters[i].playerUnit.getCurrentHP() <= 0) 
+                        continue;
                     characterList.characters[i].playerHudAttack.gameObject.SetActive(false);
                     characterList.characters[i].playerHudSkill.gameObject.SetActive(false);
                 }
@@ -108,7 +121,38 @@ public class BattleSystem : MonoBehaviour
                 }
                 if (currentEnemyCount <= 0)
                     GameManager2D.instance.UpdateBattleState(BattleState.WON);
+                
 
+                // do some enemy logic here
+                for (int i = 0 ; i < enemyList.Count; i++) {
+                    if (enemyList[i].enemyUnit.getCurrentHP() <= 0) 
+                        continue;
+                    int randomint = Random.Range(0, characterList.characters.Count);
+                    while (characterList.characters[randomint].playerUnit.getCurrentHP() <= 0)
+                        randomint = Random.Range(0, characterList.characters.Count);
+                    
+                    Debug.Log("Enemy: " + i + " attacking player: " + randomint);
+                    characterList.characters[randomint].playerUnit.healthChange(-1 * enemyList[i].enemyUnit.unitAttack());
+                    characterList.characters[randomint].playerHealth.GetComponent<Slider>().value = characterList.characters[randomint].playerUnit.getCurrentHP();
+                    yield return new WaitForSeconds(1);
+
+                    // check if player died
+                    if (characterList.characters[randomint].playerUnit.getCurrentHP() <= 0) {
+                        characterList.characters[randomint].player.SetActive(false);
+                        //characterList.characters[randomint].playerHud.gameObject.SetActive(false);
+                        //characterList.characters[randomint].playerHealth.SetActive(false);
+                        //characterList.characters[randomint].healthBarPanel.gameObject.SetActive(false);
+
+                        GameObject buttonToRemove = characterList.characters[randomint].playerHudAttack.gameObject;
+                        characterList.characters[randomint].playerHudAttack = null;
+                        Destroy(buttonToRemove);
+                        currentPlayerCount--;
+                    }
+
+                }
+
+                if (currentPlayerCount <= 0)
+                    GameManager2D.instance.UpdateBattleState(BattleState.LOST);
                 yield return new WaitForSeconds(2);
                 GameManager2D.instance.UpdateBattleState(BattleState.PLAYERTURN);
                 break;

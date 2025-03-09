@@ -60,7 +60,7 @@ public class CharacterSystem : MonoBehaviour {
             GameObject newPlayer = Instantiate(playerPrefab[i], playerBattleStations[i]);
             characterList.characters[i].player = newPlayer;
             characterList.characters[i].playerUnit = newPlayer.GetComponent<Unit>();
-            characterList.characters[i].playerUnit.SetStats(characterList.characters[i].health, characterList.characters[i].attack, characterList.characters[i].defense, 20, characterList.characters[i].name, 0,  characterList.characters[i].energy);
+            characterList.characters[i].playerUnit.SetStats(characterList.characters[i].health, characterList.characters[i].attack, characterList.characters[i].defense, 50, characterList.characters[i].name, 0,  characterList.characters[i].energy);
             characterList.characters[i].playerHud = playerHuds[i];
             characterList.characters[i].playerHud.text = characterList.characters[i].playerUnit.getName();
             characterList.characters[i].playerHudAttack = playerHudsAttack[i];
