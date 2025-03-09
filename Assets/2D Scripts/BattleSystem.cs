@@ -85,6 +85,7 @@ public class BattleSystem : MonoBehaviour
             case BattleState.PLAYERTURN:
                 statusText.text = "Player's Turn";
                 for (int i = 0; i < characterList.characters.Count; i++) {
+                    Debug.Log("Setting up player: " + i);
                     characterList.characters[i].playerHudAttack.gameObject.SetActive(false);
                     characterList.characters[i].playerHudSkill.gameObject.SetActive(false);
                 }

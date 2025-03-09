@@ -764,7 +764,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b9b886141a5ce7448e29f8a4a20a039, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jsonFile: {fileID: 4900000, guid: c5704f572f1e3db4d99d97755df16941, type: 3}
+  jsonFile3: {fileID: 4900000, guid: c5704f572f1e3db4d99d97755df16941, type: 3}
 --- !u!1 &1110827441 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3867391223065582448, guid: f3d8f659ad1478d488b08fe590f5289d,

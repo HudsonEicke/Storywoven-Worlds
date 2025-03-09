@@ -56,6 +56,7 @@ public class CharacterSystem : MonoBehaviour {
         }
         
         for (int i = 0; i < characterCount; i++) {
+            Debug.Log("Creating player: " + characterList.characters[i].name);
             GameObject newPlayer = Instantiate(playerPrefab[i], playerBattleStations[i]);
             characterList.characters[i].player = newPlayer;
             characterList.characters[i].playerUnit = newPlayer.GetComponent<Unit>();

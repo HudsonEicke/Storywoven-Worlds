@@ -98,7 +98,7 @@ public class GameManager3D : MonoBehaviour
         SceneManager.UnloadSceneAsync("AngeloScene");
 
         yield return new WaitForSeconds(0); // We need a very slight delay or else it will yell at us
-        camera1.SetActive(true); 
+        // camera1.SetActive(true); 
         event1.enabled = true;
         playerCamera.SetActive(true);
     }
