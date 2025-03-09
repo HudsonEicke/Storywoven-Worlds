@@ -9,6 +9,8 @@ public class Character3D {
     public int attack;
     public int defense;
     public int energy;
+    public Unit playerUnit;
+    public GameObject player;
 }
 
 [System.Serializable]
@@ -17,6 +19,8 @@ public class CharacterList3D {
 }
 
 public class CharacterSystem3D : MonoBehaviour {
+    [SerializeField] List<Transform> TransformForHealth;
+    [SerializeField] List<GameObject> GameObjectForHealth;
     public TextAsset jsonFile3;
 
     public CharacterList3D Load(int characterCount) {
@@ -24,6 +28,8 @@ public class CharacterSystem3D : MonoBehaviour {
     }
 
     private CharacterList3D LoadCharacters3D(int characterCount) {
+
+
         Debug.Log("[CharacterSystem] LOADING CHARACTERS");
 
         string json = jsonFile3.text;
@@ -36,6 +42,15 @@ public class CharacterSystem3D : MonoBehaviour {
             Debug.Log($"[CharacterSystem] Attack: {character3D.attack}");
             Debug.Log($"[CharacterSystem] Defense: {character3D.defense}");
             Debug.Log($"[CharacterSystem] Energy: {character3D.energy}");
+        }
+
+        for (int i = 0; i < characterCount; i++) {
+            if (GameObjectForHealth.Count > 0) {
+                GameObject newPlayer = Instantiate(GameObjectForHealth[i], TransformForHealth[i]);
+                characterList.characters[i].player = newPlayer;
+                characterList.characters[i].playerUnit = newPlayer.GetComponent<Unit>();
+                characterList.characters[i].playerUnit.SetStats(characterList.characters[i].health, characterList.characters[i].attack, characterList.characters[i].defense, 50, characterList.characters[i].name, 0,  characterList.characters[i].energy);
+            }
         }
 
         return characterList;
