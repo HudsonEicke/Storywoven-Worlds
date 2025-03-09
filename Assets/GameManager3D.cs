@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System;
+using UnityEngine.EventSystems;
 
 public class GameManager3D : MonoBehaviour
 {
     [SerializeField] GameObject camera1;
+    [SerializeField] EventSystem event1;
+    [SerializeField] GameObject playerCamera;
     static GameManager3D _instance;
     public static GameManager3D Instance { get { return _instance; } }
     public bool startBattle = false;
@@ -14,6 +17,10 @@ public class GameManager3D : MonoBehaviour
 
     public static event Action freezeWorld;
     public static event Action unFreezeWorld;
+
+    // getting character information from character system
+    private CharacterSystem3D characterSystem3D;
+    public CharacterList3D characterList3D;
 
     private void Awake()
     {
@@ -27,11 +34,17 @@ public class GameManager3D : MonoBehaviour
         }
         Debug.Log("[GameManager3D] subscribing to OnGameEnd");
         GameManager2D.OnGameEnd += OnGameEnd;
+
+        // for character system
+        characterSystem3D = FindObjectOfType<CharacterSystem3D>();
     }
 
     private void Start()
     {
         gameManager2D = FindObjectOfType<GameManager2D>();
+        characterList3D = characterSystem3D.Load(2);
+        Debug.Log("HEALTH: " + characterList3D.characters[0].health);
+        Debug.Log("HEALTH: " + characterList3D.characters[1].health);
     }
 
     // Update is called once per frame
@@ -53,6 +66,8 @@ public class GameManager3D : MonoBehaviour
     {
         Debug.Log("Start Battle");
         camera1.SetActive(false);
+        event1.enabled = false;
+        playerCamera.SetActive(false);
 
         // made the variables static so they can be modified from the 3D scene
         GameManager2D.characterCount = 2; 
@@ -84,5 +99,7 @@ public class GameManager3D : MonoBehaviour
 
         yield return new WaitForSeconds(0); // We need a very slight delay or else it will yell at us
         camera1.SetActive(true); 
+        event1.enabled = true;
+        playerCamera.SetActive(true);
     }
 }

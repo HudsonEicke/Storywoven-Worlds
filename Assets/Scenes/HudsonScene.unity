@@ -731,7 +731,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   camera1: {fileID: 563003653}
+  event1: {fileID: 1305153227}
+  playerCamera: {fileID: 0}
   startBattle: 0
+  characterList:
+    characters: []
 --- !u!4 &707586482
 Transform:
   m_ObjectHideFlags: 0
