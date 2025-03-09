@@ -12,6 +12,7 @@ public class EnemyNavigation : MonoBehaviour
     public float stateTime;
     private float timeChange = 1;
     public GameObject player;
+    public CombatStartDetection startDetection;
 
     // Start is called before the first frame update
     void Start()
@@ -34,12 +35,15 @@ public class EnemyNavigation : MonoBehaviour
     private void Freeze()
     {
         state = EnemyState.frozen;
+        Agent.SetDestination(gameObject.transform.position);
+        startDetection.shutDownCombatDetection();
     }
 
     private void unFreeze()
     {
         state = EnemyState.wandering;
         changeState();
+        startDetection.startDownCombatDetection();
     }
 
     void changeState()
