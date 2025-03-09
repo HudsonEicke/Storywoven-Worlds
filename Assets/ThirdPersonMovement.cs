@@ -24,9 +24,15 @@ public class ThirdPersonMovement : MonoBehaviour
     public bool isGrounded;
     public Vector3 lastGroundPosition;
     public bool moveBack = false;
+    bool isFroze = false;
 
     private void FixedUpdate()
     {
+        if(isFroze)
+        {
+            return;
+        }
+
         if (moveBack)
         {
             moveBack = false;
@@ -34,9 +40,30 @@ public class ThirdPersonMovement : MonoBehaviour
         }
     }
 
+    private void Awake()
+    {
+        GameManager3D.freezeWorld += Freeze;
+        GameManager3D.unFreezeWorld += unFreeze;
+    }
+
+    void Freeze()
+    {
+        isFroze = true;
+    }
+
+    void unFreeze()
+    {
+        isFroze = false;
+    }
+
     // Update is called once per frame
     void Update()
     {
+        if (isFroze)
+        {
+            return;
+        }
+
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
         
 
