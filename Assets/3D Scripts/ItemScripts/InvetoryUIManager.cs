@@ -62,7 +62,7 @@ public class InvetoryUIManager : MonoBehaviour
         }
     }
 
-    void OpenInventory()
+    public void OpenInventory()
     {
         inventoryBackground.SetActive(true);
 
@@ -91,7 +91,7 @@ public class InvetoryUIManager : MonoBehaviour
         }
     }
 
-    void CloseInventory()
+    public void CloseInventory()
     {
         inventoryBackground.SetActive(false);
 
