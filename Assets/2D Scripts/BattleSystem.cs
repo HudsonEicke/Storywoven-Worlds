@@ -232,6 +232,23 @@ public class BattleSystem : MonoBehaviour
         player1SkillButtonsSelect.Add(Instantiate(player1SkillButtons[0], buttonPanel));
         player1SkillButtonsSelect[0].GetComponent<Button>().onClick.AddListener(() => SlashButtonClicked(0));
         player1SkillButtonsSelect[0].SetActive(false);
+
+        skillObject = new GameObject("fireballSkill");
+        fireballSkill newSkillF = skillObject.AddComponent<fireballSkill>();
+        Skill secondSkill = GameManager2D.instance.skillListPlayer1.P1Skills[1];
+        newSkillF.Setskill(secondSkill.name, secondSkill.description, secondSkill.attack, secondSkill.cost, secondSkill.type, secondSkill.healAmt);
+
+        newSkillF.fireball = GameObject.Find("Fireball");
+        newSkillF.setup();
+        playerOneSkills.Add(newSkillF);
+
+        //setup buttons and text
+        player1SkillOptions[1].text = secondSkill.name;
+        player1SkillOptions[1].gameObject.SetActive(false);
+        player1SkillButtonsSelect.Add(Instantiate(player1SkillButtons[1], buttonPanel));
+        player1SkillButtonsSelect[1].GetComponent<Button>().onClick.AddListener(() => FireballButtonClicked(0));
+        player1SkillButtonsSelect[1].SetActive(false);
+
     }
 
     void player2SkillSetup() {
@@ -304,8 +321,10 @@ public class BattleSystem : MonoBehaviour
         // doing skill stuff here
         ToggleTextFirst(index);
         foreach (var button in buttons) button.SetActive(false);
-        if (index == 0)
+        if (index == 0) {
             player1SkillOptions[0].gameObject.SetActive(true);
+            player1SkillOptions[1].gameObject.SetActive(true);
+        }
         else
             player2SkillOptions[0].gameObject.SetActive(true);
         characterList.characters[index].playerHudAttack.gameObject.SetActive(false);
@@ -316,6 +335,7 @@ public class BattleSystem : MonoBehaviour
         }
         if (index == 0) {
             player1SkillButtonsSelect[0].SetActive(true);
+            player1SkillButtonsSelect[1].SetActive(true);
             UnityEngine.EventSystems.EventSystem.current.SetSelectedGameObject(player1SkillButtonsSelect[0]);
         }
         else {
@@ -326,8 +346,10 @@ public class BattleSystem : MonoBehaviour
 
     void SlashButtonClicked(int index) {
         Debug.Log("Slash button clicked");
-        player1SkillOptions[0].gameObject.SetActive(false);
-        player1SkillButtonsSelect[index].SetActive(false);
+        for (int i = 0; i < player1SkillButtons.Count; i++) {
+            player1SkillOptions[i].gameObject.SetActive(false);
+            player1SkillButtonsSelect[i].SetActive(false);
+        }
         // get the enemy index to attack
         for (int i = 0; i < enemySelectButtons.Count; i++) {
             int enemyindex = i;
@@ -346,6 +368,33 @@ public class BattleSystem : MonoBehaviour
         while (enemySelectButtons[buttonToStart] == null)
             buttonToStart++;
         UnityEngine.EventSystems.EventSystem.current.SetSelectedGameObject(enemySelectButtons[buttonToStart]);
+    }
+
+    void FireballButtonClicked(int index) {
+        Debug.Log("Fireball button clicked");
+
+        for (int i = 0; i < player1SkillButtons.Count; i++) {
+            player1SkillOptions[i].gameObject.SetActive(false);
+            player1SkillButtonsSelect[i].SetActive(false);
+        }
+        // get the enemy index to attack
+        for (int i = 0; i < enemySelectButtons.Count; i++) {
+            int enemyindex = i;
+            if (enemySelectButtons[i] != null) {
+                enemySelectButtons[i].GetComponent<Button>().onClick.RemoveAllListeners();
+                enemySelectButtons[i].GetComponent<Button>().onClick.AddListener(() => commenceFireballButton(index, enemyindex));
+            }
+        }
+
+        int buttonToStart = 0;
+        for (int i = 0; i < enemySelectButtons.Count; i++) {
+            if (enemySelectButtons[i] == null) continue;
+            enemySelectButtons[i].SetActive(true);
+        }
+        while (enemySelectButtons[buttonToStart] == null)
+            buttonToStart++;
+        UnityEngine.EventSystems.EventSystem.current.SetSelectedGameObject(enemySelectButtons[buttonToStart]);
+
     }
 
     void commenceSlashButton(int index, int enemyIndex) {
@@ -370,6 +419,53 @@ public class BattleSystem : MonoBehaviour
                 characterList.characters[index].playerHealth.SetActive(true);
                 characterList.characters[index].healthBarPanel.gameObject.SetActive(true);
                 enemyList[enemyIndex].enemyUnit.healthChange(-1 * playerOneSkills[0].skillInflict());
+                enemyList[enemyIndex].enemyHealth.GetComponent<Slider>().value = enemyList[enemyIndex].enemyUnit.getCurrentHP();
+                if (enemyList[enemyIndex].enemyUnit.getCurrentHP() <= 0) 
+                    removeEnemy(enemyIndex);
+                // goin back to the enemy turn
+                if (currentEnemyCount <= 0)
+                    GameManager2D.instance.UpdateBattleState(BattleState.WON);
+                else {
+                    checkplayerTurn();
+                }
+            }
+            else    {
+                Debug.Log("Player failed in minigame!");
+                characterList.characters[index].healthBarPanel.gameObject.SetActive(true);
+                characterList.characters[index].playerHud.gameObject.SetActive(true);
+                characterList.characters[index].playerHealth.SetActive(true);
+                // goin back to the enemy turn
+                if (currentEnemyCount <= 0)
+                    GameManager2D.instance.UpdateBattleState(BattleState.WON);
+                else {
+                    checkplayerTurn();
+                }
+            }
+        });
+    }
+
+    void commenceFireballButton(int index, int enemyIndex) {
+        for (int i = 0; i < enemySelectButtons.Count; i++) {
+            if (enemySelectButtons[i] == null) continue;
+            enemySelectButtons[i].SetActive(false);
+        }
+
+        for (int i = 0; i < enemySelectButtons.Count; i++) {
+            int origionalIndex = i;
+            if (enemySelectButtons[i] != null) {
+                enemySelectButtons[i].GetComponent<Button>().onClick.RemoveAllListeners();
+                enemySelectButtons[i].GetComponent<Button>().onClick.AddListener(() => ApplyDamage(origionalIndex));
+            }
+        }
+
+        // EVENT SYS CALL FOR FIREBALL
+        playerOneSkills[1].PlayMinigame((result) => {
+            if (result == 1)    {
+                Debug.Log("Player succeeded in minigame!");
+                characterList.characters[index].playerHud.gameObject.SetActive(true);
+                characterList.characters[index].playerHealth.SetActive(true);
+                characterList.characters[index].healthBarPanel.gameObject.SetActive(true);
+                enemyList[enemyIndex].enemyUnit.healthChange(-1 * playerOneSkills[1].skillInflict());
                 enemyList[enemyIndex].enemyHealth.GetComponent<Slider>().value = enemyList[enemyIndex].enemyUnit.getCurrentHP();
                 if (enemyList[enemyIndex].enemyUnit.getCurrentHP() <= 0) 
                     removeEnemy(enemyIndex);
