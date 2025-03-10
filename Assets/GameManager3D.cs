@@ -62,7 +62,7 @@ public class GameManager3D : MonoBehaviour
 
     }
 
-    public void StartBattle()
+    public void StartBattle(int enemyCount)
     {
         Debug.Log("Start Battle");
         camera1.SetActive(false);
@@ -71,7 +71,7 @@ public class GameManager3D : MonoBehaviour
 
         // made the variables static so they can be modified from the 3D scene
         GameManager2D.characterCount = 2; 
-        GameManager2D.enemyCount = 2; 
+        GameManager2D.enemyCount = enemyCount; 
         freezeWorld?.Invoke();
         SceneManager.LoadScene("AngeloScene", LoadSceneMode.Additive);
     }
