@@ -53,7 +53,7 @@ public class GameManager3D : MonoBehaviour
         if (startBattle)
         {
             startBattle = false;
-            StartBattle();
+            StartBattle(2);
         }
     }
 
