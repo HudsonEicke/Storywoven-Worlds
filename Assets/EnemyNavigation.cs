@@ -101,10 +101,10 @@ public class EnemyNavigation : MonoBehaviour
         }
     
         float xOffset = Random.Range(-5f, 5f);
-        float yOffset = Random.Range(-5f, 5f);
+        float zOffset = Random.Range(-5f, 5f);
 
-        Agent.SetDestination(new Vector3(gameObject.transform.position.x + xOffset, gameObject.transform.position.y + yOffset, gameObject.transform.position.z));
-        timeChange = 5;
+        Agent.SetDestination(new Vector3(gameObject.transform.position.x + xOffset, gameObject.transform.position.y, gameObject.transform.position.z + zOffset));
+        timeChange = 2.5f;
     }
 
     void chasing()
