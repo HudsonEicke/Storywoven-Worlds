@@ -46,6 +46,7 @@ public class CharacterSystem3D : MonoBehaviour {
 
         for (int i = 0; i < characterCount; i++) {
             if (GameObjectForHealth.Count > 0) {
+                Debug.Log("TEST");
                 GameObject newPlayer = Instantiate(GameObjectForHealth[i], TransformForHealth[i]);
                 characterList.characters[i].player = newPlayer;
                 characterList.characters[i].playerUnit = newPlayer.GetComponent<Unit>();
