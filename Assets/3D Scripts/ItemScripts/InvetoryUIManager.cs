@@ -28,6 +28,11 @@ public class InvetoryUIManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(Input.GetKeyDown(KeyCode.I))
+        {
+            pressedButton = true;
+        }
+
         //IF PLAYER HIT INVENTORY BUTTON
         if(pressedButton)
         {

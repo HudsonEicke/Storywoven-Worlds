@@ -22,11 +22,11 @@ public class DeathChecker : MonoBehaviour
     public void PlayerFell()
     {
         StringBuilder coordinate = new StringBuilder();
-        coordinate.Append(lastGroundPos.x);
+        coordinate.Append(player.lastGroundPosition.x);
         coordinate.Append(',');
-        coordinate.Append(lastGroundPos.y);
+        coordinate.Append(player.lastGroundPosition.y);
         coordinate.Append(',');
-        coordinate.Append(lastGroundPos.z);
+        coordinate.Append(player.lastGroundPosition.z);
         coordinate.Append(' ');
         coordinate.Append(player.GFX.position.x);
         coordinate.Append(',');
