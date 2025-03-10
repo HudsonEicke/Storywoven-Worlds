@@ -9,6 +9,9 @@ public class HealthPotion : Item
 
     public override void Use()
     {
-        //ADD CODE HERE TO ADD HEALTH
+        for(int i = 0; i < GameManager3D.Instance.characterList3D.characters.Count; i++)
+        {
+            GameManager3D.Instance.characterList3D.characters[i].playerUnit.healthChange(healthToAdd);
+        }
     }
 }

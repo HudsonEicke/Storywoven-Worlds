@@ -764,6 +764,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b9b886141a5ce7448e29f8a4a20a039, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TransformForHealth: []
+  GameObjectForHealth: []
   jsonFile3: {fileID: 4900000, guid: c5704f572f1e3db4d99d97755df16941, type: 3}
 --- !u!1 &1110827441 stripped
 GameObject:
@@ -801,8 +803,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ID: 0
-  quantity: 0
-  addItem: 0
+  quantity: 5
+  addItem: 1
 --- !u!4 &1205152018
 Transform:
   m_ObjectHideFlags: 0
@@ -943,11 +945,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2441192425257918638, guid: 84bf6afd402d5fc42b495e0133ae629c,
-        type: 3}
-      propertyPath: m_IsTrigger
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 2925098421646719017, guid: 84bf6afd402d5fc42b495e0133ae629c,
         type: 3}
       propertyPath: m_Name
