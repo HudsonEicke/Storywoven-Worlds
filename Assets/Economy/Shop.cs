@@ -36,14 +36,14 @@ public class Shop : MonoBehaviour
 
     public void Sell10(){
         Currency.modifyMoney(10);
-        moneyT.text = "Total: $" + Currency.getMoney().ToString();
+        moneyT.text = Currency.getMoney().ToString() + "g";
         Debug.Log("Sold Item");
     }
 
     public void Buy10(){
 
         StartCoroutine(moneyCheck(buyButton, 0.5f, 10, 0, 1));
-        moneyT.text = "Total: $" + Currency.getMoney().ToString();
+        moneyT.text = Currency.getMoney().ToString() + "g";
     }
 
     private IEnumerator moneyCheck(Button button, float duration, int price, int id, int quantity)

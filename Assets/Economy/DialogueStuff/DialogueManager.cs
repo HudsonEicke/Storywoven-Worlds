@@ -73,6 +73,8 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
+    
+
     void Start()
     {
 
