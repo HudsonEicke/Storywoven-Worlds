@@ -3,6 +3,7 @@ namespace GameBattle
 {
     public enum BattleState
     {
+        PREPARE,
         START, 
         PLAYERTURN, 
         ENEMYTURN, 

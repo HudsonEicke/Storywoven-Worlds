@@ -4,12 +4,15 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using System;
 using UnityEngine.EventSystems;
+using GameBattle;
 
 public class GameManager3D : MonoBehaviour
 {
     [SerializeField] GameObject camera1;
     [SerializeField] EventSystem event1;
     [SerializeField] GameObject playerCamera;
+    [SerializeField] GameObject camera2D;
+    [SerializeField] EventSystem event2D;
     static GameManager3D _instance;
     public static GameManager3D Instance { get { return _instance; } }
     public bool startBattle = false;
@@ -34,7 +37,8 @@ public class GameManager3D : MonoBehaviour
         }
         Debug.Log("[GameManager3D] subscribing to OnGameEnd");
         GameManager2D.OnGameEnd += OnGameEnd;
-
+        camera2D.SetActive(false);
+        event2D.enabled = false;
         // for character system
         characterSystem3D = FindObjectOfType<CharacterSystem3D>();
     }
@@ -42,6 +46,7 @@ public class GameManager3D : MonoBehaviour
     private void Start()
     {
         gameManager2D = FindObjectOfType<GameManager2D>();
+        gameManager2D.UpdateBattleState(BattleState.PREPARE);
         characterList3D = characterSystem3D.Load(2);
         Debug.Log("HEALTH: " + characterList3D.characters[0].health);
         Debug.Log("HEALTH: " + characterList3D.characters[1].health);
@@ -73,7 +78,10 @@ public class GameManager3D : MonoBehaviour
         GameManager2D.characterCount = 2; 
         GameManager2D.enemyCount = enemyCount; 
         freezeWorld?.Invoke();
-        SceneManager.LoadScene("AngeloScene", LoadSceneMode.Additive);
+        camera2D.SetActive(true);
+        event2D.enabled = true;
+        gameManager2D.UpdateBattleState(BattleState.START);
+        // SceneManager.LoadScene("AngeloScene", LoadSceneMode.Additive);
     }
 
     private void OnGameEnd(int isEnd) 
@@ -95,8 +103,9 @@ public class GameManager3D : MonoBehaviour
             Debug.Log("[GameManager3D] Game LOST");
             // do whatever here for game lost
         }
-        SceneManager.UnloadSceneAsync("AngeloScene");
-
+        // SceneManager.UnloadSceneAsync("AngeloScene");
+        camera2D.SetActive(false);
+        event2D.enabled = false;
         yield return new WaitForSeconds(0); // We need a very slight delay or else it will yell at us
         // camera1.SetActive(true); 
         event1.enabled = true;

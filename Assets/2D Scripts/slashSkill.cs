@@ -15,10 +15,22 @@ public class slashSkill : skill
 
     private void Start()
     {
-        // Get the onCollissionHit component from the target
-        collisionComponent = target.GetComponent<onCollissionHit>();
+        
+        if (target == null)
+        {
+            Debug.LogError("Target is NULL in slashSkill!");
+            return;
+        }
 
-        // Subscribe to the event
+        collisionComponent = target.GetComponent<onCollissionHit>();
+        if (collisionComponent == null)
+        {
+            Debug.LogError("No onCollissionHit found on target!");
+            return;
+        }
+
+        // Prevent duplicate subscriptions
+        collisionComponent.OnTriggerChanged -= HandleTriggerChanged;
         collisionComponent.OnTriggerChanged += HandleTriggerChanged;
     }
 
@@ -97,9 +109,9 @@ public class slashSkill : skill
 
     public void setup() 
     {
-        minigamebackground.SetActive(false);
-        slash.SetActive(false);
-        target.SetActive(false);
+        if (minigamebackground != null) minigamebackground.SetActive(false);
+        if (slash != null) slash.SetActive(false);
+        if (target != null) target.SetActive(false);
     }
 
     private IEnumerator MoveSlash()

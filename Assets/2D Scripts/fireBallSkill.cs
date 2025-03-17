@@ -68,7 +68,7 @@ public class fireballSkill : skill
 
     public void setup() 
     {
-        fireball.SetActive(false);
+        if (fireball != null) fireball.SetActive(false);
     }
 
     private IEnumerator Fireball2()

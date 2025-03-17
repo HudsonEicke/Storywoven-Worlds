@@ -22,6 +22,9 @@ public class GameManager2D : MonoBehaviour
 
     [SerializeField] public static int enemyCount;
     [SerializeField] public static int characterCount;
+    [SerializeField] GameObject backGround;
+    [SerializeField] GameObject allyBattleStations;
+    [SerializeField] GameObject enemyBattleStations;
 
     // for 3D manager stuff
     public static event Action<int> OnGameEnd; // Event to notify game result
@@ -47,7 +50,6 @@ public class GameManager2D : MonoBehaviour
         {
             Destroy(gameObject); // destroy if instance already exists
         }
-
         // audiosystem2D = gameObject.GetComponent<AudioSystem2D>();
         // get characters
         characterSystem = FindObjectOfType<CharacterSystem>();
@@ -58,7 +60,7 @@ public class GameManager2D : MonoBehaviour
 
     void Start()
     {
-        UpdateBattleState(BattleState.START);
+        UpdateBattleState(BattleState.PREPARE);
     }
 
     public void playAudio()
@@ -76,7 +78,12 @@ public class GameManager2D : MonoBehaviour
 
         switch(newState) 
         {
+            case BattleState.PREPARE:
+                Debug.Log("[GameManager2D] Preparing Game");
+                backGround.SetActive(false);
+                break;
             case BattleState.START:
+                backGround.SetActive(true);
                 Debug.Log("[GameManager2D] Game Started");
                 characterList = characterSystem.Load(characterCount); // Load data from file
                 skillListPlayer1 = skillSystemPlayer.Load();
@@ -93,10 +100,12 @@ public class GameManager2D : MonoBehaviour
                 break;
             case BattleState.WON:
                 Debug.Log("[GameManager2D] You Won!");
+                backGround.SetActive(false);
                 OnGameEnd?.Invoke(1); // Notify win
                 break;
             case BattleState.LOST:
                 Debug.Log("[GameManager2D] You Lost!");
+                backGround.SetActive(false);
                 OnGameEnd?.Invoke(0); // Notify loss
                 // StartCoroutine(EndBattle());
                 break;

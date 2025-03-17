@@ -51,8 +51,10 @@ public class BattleSystem : MonoBehaviour
     public int currentPlayerSelected;
     public int currentEnemyCount;
     public int currentPlayerCount;
+    public static int first = 0;
 
     [SerializeField] Text statusText;
+    private Coroutine battleStateCoroutine;
 
     void Awake()
     {
@@ -61,7 +63,10 @@ public class BattleSystem : MonoBehaviour
     }
 
     private void OnBattleStateChanged(BattleState newState) {
-        StartCoroutine(HandleBattleStateChanged(newState));
+        if (battleStateCoroutine != null) {
+            StopCoroutine(battleStateCoroutine); // Stop the previous coroutine if it's running
+        }
+        battleStateCoroutine = StartCoroutine(HandleBattleStateChanged(newState));
     }
 
     private IEnumerator HandleBattleStateChanged(BattleState newState)
@@ -70,6 +75,9 @@ public class BattleSystem : MonoBehaviour
 
         switch (state)
         {
+            case BattleState.PREPARE:
+                Debug.Log("[BattleSystem] Preparing battle system!");
+                break;
             case BattleState.START:
                 statusText.text = "Start of Battle";
                 Debug.Log("[BattleSystem] Setting up battle system!");
@@ -80,8 +88,11 @@ public class BattleSystem : MonoBehaviour
                 currentPlayerCount = characterList.characters.Count;
                 playerTurnSetup();
                 playerSelectSetup();
-                player1SkillSetup();
-                player2SkillSetup();
+                if (first == 0) {
+                    player1SkillSetup();
+                    player2SkillSetup();
+                }
+                first = 1;
                 yield return new WaitForSeconds(1);
                 GameManager2D.instance.UpdateBattleState(BattleState.PLAYERTURN);
                 break;
@@ -161,6 +172,7 @@ public class BattleSystem : MonoBehaviour
                 statusText.text = "YOU WON!!!";
                 //yield return new WaitForSeconds(2);
                 // UnityEditor.EditorApplication.isPlaying = false;
+                StopCoroutine(HandleBattleStateChanged(newState));
                 break;
             case BattleState.LOST:
                 Debug.Log("[BattleSystem] You lost the battle!");
@@ -174,6 +186,15 @@ public class BattleSystem : MonoBehaviour
     // function to set up the button for healing skills
     void playerTurnSetup()
     {
+        foreach (var button in buttons) {
+            Destroy(button);
+        }
+        buttons.Clear();
+
+        foreach (var enemyButton in enemySelectButtons) {
+            Destroy(enemyButton);
+        }
+        enemySelectButtons.Clear();
         for (int i = 0; i < characterList.characters.Count; i++)
         {
             int index = i;
@@ -216,6 +237,20 @@ public class BattleSystem : MonoBehaviour
 
     // function to set up player one skillset
     void player1SkillSetup() {
+        // Clear old skills before adding new ones
+        foreach (var skill in playerOneSkills)
+        {
+            Destroy(skill.gameObject);
+        }
+        playerOneSkills.Clear();
+
+        // Clear old buttons
+        foreach (var button in player1SkillButtonsSelect)
+        {
+            Destroy(button);
+        }
+        player1SkillButtonsSelect.Clear();
+
         GameObject skillObject = new GameObject("SlashSkill");
         slashSkill newSkill = skillObject.AddComponent<slashSkill>();
         Skill firstSkill = GameManager2D.instance.skillListPlayer1.P1Skills[0];
