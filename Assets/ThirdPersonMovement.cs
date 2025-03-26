@@ -59,24 +59,28 @@ public class ThirdPersonMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //for combat is running
         if (isFroze)
         {
             return;
         }
 
+        //Added jumping logic stuff
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
         
-
+        //For reverting back to last platform the player was on
         if (isGrounded)
         {
             lastGroundPosition = gameObject.transform.position;
         }
 
+        //gravity stuff
         if (isGrounded && velocity.y < 0)
         {
             velocity.y = -2f;
         }
 
+        //This is what actually handles jumping
         if(Input.GetButtonDown("Jump") && isGrounded)
         {
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
@@ -84,6 +88,7 @@ public class ThirdPersonMovement : MonoBehaviour
 
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
+        //End of added logic
         
         //cam.position = lockedCameraPosition;
         //cam.rotation = Quaternion.Euler(0f, 45f, 0f);
