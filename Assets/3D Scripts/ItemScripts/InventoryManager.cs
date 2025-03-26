@@ -127,7 +127,7 @@ public class InventoryManager : MonoBehaviour
     }
 
     //returns how many items were removed
-    public int RemoveItem(int id, int amountToRemove)
+    public int RemoveItemAmount(int id, int amountToRemove)
     {
         for (int i = 0; i < inventory.Count; i++)
         {
