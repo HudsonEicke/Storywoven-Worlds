@@ -113,4 +113,46 @@ public class InventoryManager : MonoBehaviour
             }
         }
     }
+
+    //gets the quantity of the given id
+    public int GetItemQuantity(int id)
+    {
+        for (int i = 0; i < inventory.Count; i++)
+        {
+            if (inventory[i].itemId == id)
+                return inventory[i].quantity;
+        }
+
+        return 0;
+    }
+
+    //returns how many items were removed
+    public int RemoveItem(int id, int amountToRemove)
+    {
+        for (int i = 0; i < inventory.Count; i++)
+        {
+            if (inventory[i].itemId == id)
+            {
+                if(amountToRemove > inventory[i].itemId)
+                {
+                    int quantity = inventory[i].quantity;
+                    inventory.RemoveAt(i);
+                    return quantity;
+                }
+                else
+                {
+                    inventory[i].quantity -= amountToRemove;
+
+                    if(inventory[i].quantity <= 0)
+                    {
+                        inventory.RemoveAt(i);
+                    }
+
+                    return amountToRemove;
+                }
+            }
+        }
+
+        return 0;
+    }
 }
