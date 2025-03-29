@@ -106,4 +106,9 @@ public class ThirdPersonMovement : MonoBehaviour
             controller.Move(moveDir.normalized * speed * Time.deltaTime);
         }
     }
+
+    public void MoveWithPlatform(Vector3 platformVelocity)
+    {
+        controller.Move(platformVelocity * Time.deltaTime);
+    }
 }
