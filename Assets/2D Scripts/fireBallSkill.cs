@@ -2,14 +2,13 @@ using System;
 using System.Collections;
 using System.Numerics;
 using UnityEngine;
-using UnityEngine.UIElements;
-
+using UnityEngine.UI;
 public class fireballSkill : skill 
 {
     [SerializeField] public GameObject fireball;
-
-    private bool leftArrowPressed = false; 
-    private bool rightArrowPressed = false; 
+    [SerializeField] public GameObject fireballBackground;
+    [SerializeField] public GameObject fireballFill;
+    [SerializeField] public Slider fireballSlider;
 
     private int count = 0;
 
@@ -26,13 +25,15 @@ public class fireballSkill : skill
 
         // Enabling UI stuff
         fireball.SetActive(true);
+        fireballBackground.SetActive(true);
+        fireballFill.SetActive(true);
         count = 0;
         
 
         yield return StartCoroutine(Fireball2());
     
 
-        if (count >= 20)
+        if (count >= 40)
         {
             result = 1;
         }
@@ -55,12 +56,10 @@ public class fireballSkill : skill
         
         if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
-            leftArrowPressed = true;
             count++;
         }
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
-            rightArrowPressed = true;
             count++;
         }
         
@@ -69,12 +68,14 @@ public class fireballSkill : skill
     public void setup() 
     {
         if (fireball != null) fireball.SetActive(false);
+        if (fireballBackground != null) fireballBackground.SetActive(false);
+        if (fireballFill != null) fireballFill.SetActive(false);
     }
 
     private IEnumerator Fireball2()
     {
         
-        float duration = 5.0f;
+        float duration = 4.0f;
         float elapsedTime = 0f;
 
         UnityEngine.Vector3 startPos = fireball.transform.position;
@@ -95,10 +96,14 @@ public class fireballSkill : skill
             fireball.transform.localScale = UnityEngine.Vector3.Lerp(startScale, endScale, elapsedTime / duration);
         
             elapsedTime += Time.deltaTime;
+
+            fireballFill.GetComponent<Slider>().value = count;
+            
             yield return null;
         }
 
         // Ensure final position is exact
+        fireballFill.GetComponent<Slider>().value = 0;
         fireball.transform.position = startPos;
         fireball.transform.localScale = startScale;
         

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class slashSkill : skill
 {
@@ -104,7 +105,7 @@ public class slashSkill : skill
         if (Input.GetKeyDown(KeyCode.Space))
         {
             spaceBarPressed = true;
-            Debug.Log("Pressed spacebar");
+            //Debug.Log("Pressed spacebar");
         }
     }
 
@@ -117,7 +118,8 @@ public class slashSkill : skill
 
     private IEnumerator MoveSlash()
     {
-        float duration = 2.0f;
+        yield return new WaitForSeconds(1);
+        float duration = 1.3f;
         float elapsedTime = 0f;
 
         Vector3 startPos = slash.transform.position;
