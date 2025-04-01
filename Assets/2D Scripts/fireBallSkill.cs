@@ -9,6 +9,7 @@ public class fireballSkill : skill
     [SerializeField] public GameObject fireballBackground;
     [SerializeField] public GameObject fireballFill;
     [SerializeField] public Slider fireballSlider;
+    [SerializeField] public GameObject text;
 
     private int count = 0;
 
@@ -27,6 +28,7 @@ public class fireballSkill : skill
         fireball.SetActive(true);
         fireballBackground.SetActive(true);
         fireballFill.SetActive(true);
+        text.SetActive(true);
         count = 0;
         
 
@@ -70,6 +72,7 @@ public class fireballSkill : skill
         if (fireball != null) fireball.SetActive(false);
         if (fireballBackground != null) fireballBackground.SetActive(false);
         if (fireballFill != null) fireballFill.SetActive(false);
+        if (text != null) text.SetActive(false);
     }
 
     private IEnumerator Fireball2()

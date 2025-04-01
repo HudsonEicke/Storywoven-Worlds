@@ -311,6 +311,7 @@ public class BattleSystem : MonoBehaviour
         newSkillF.fireball = GameObject.Find("Fireball");
         newSkillF.fireballBackground = GameObject.Find("FireballBackground");
         newSkillF.fireballFill = GameObject.Find("Firefill");
+        newSkillF.text = GameObject.Find("DirectionsFireball");
         //newSkillF.fireballSlider = newSkillF.fireballFill.GetComponent<Slider>();
         newSkillF.setup();
         playerOneSkills.Add(newSkillF);
