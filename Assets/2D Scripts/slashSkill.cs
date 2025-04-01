@@ -9,6 +9,7 @@ public class slashSkill : skill
     [SerializeField] public GameObject minigamebackground;
     [SerializeField] public GameObject slash;
     [SerializeField] public GameObject target;
+    [SerializeField] public GameObject text;
     private onCollissionHit collisionComponent;
 
     private bool spaceBarPressed = false; 
@@ -67,6 +68,7 @@ public class slashSkill : skill
         minigamebackground.SetActive(true);
         slash.SetActive(true);
         target.SetActive(true);
+        text.SetActive(true); // Show the text
         
         // Move slash across the screen
         yield return StartCoroutine(MoveSlash());
@@ -115,6 +117,7 @@ public class slashSkill : skill
         if (minigamebackground != null) minigamebackground.SetActive(false);
         if (slash != null) slash.SetActive(false);
         if (target != null) target.SetActive(false);
+        if (text != null) text.SetActive(false); 
     }
 
     private IEnumerator MoveSlash()

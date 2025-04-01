@@ -292,6 +292,7 @@ public class BattleSystem : MonoBehaviour
         newSkill.minigamebackground = GameObject.Find("MiniGameBackground");
         newSkill.slash = GameObject.Find("Slash");
         newSkill.target = GameObject.Find("Target");
+        newSkill.text = GameObject.Find("DirectionsSlash");
         newSkill.setup();
         playerOneSkills.Add(newSkill);
 
@@ -348,8 +349,8 @@ public class BattleSystem : MonoBehaviour
     void ToggleTextFirst(int index)
     {
         characterList.characters[index].playerHud.gameObject.SetActive(false);
-        characterList.characters[index].playerHealth.SetActive(false);
-        characterList.characters[index].healthBarPanel.gameObject.SetActive(false);
+        //characterList.characters[index].playerHealth.SetActive(false);
+        //characterList.characters[index].healthBarPanel.gameObject.SetActive(false);
     }
 
     void ToggleTextSecond(int index)
