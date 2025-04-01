@@ -13,6 +13,7 @@ public class slashSkill : skill
 
     private bool spaceBarPressed = false; 
     private bool isTriggerActive = false;
+    private bool miniGameStart = false; // This is to check if the minigame has started
 
     private void Start()
     {
@@ -102,7 +103,7 @@ public class slashSkill : skill
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && miniGameStart)
         {
             spaceBarPressed = true;
             //Debug.Log("Pressed spacebar");
@@ -119,6 +120,7 @@ public class slashSkill : skill
     private IEnumerator MoveSlash()
     {
         yield return new WaitForSeconds(1);
+        miniGameStart = true; // Set this to true when the minigame starts
         float duration = 1.3f;
         float elapsedTime = 0f;
 
@@ -134,6 +136,7 @@ public class slashSkill : skill
             yield return null;
             if(spaceBarPressed) break; // gotta break it early so we can tell if the player press the spacebar at the right time
         }
+        miniGameStart = false; // Reset this to false after the minigame ends
         slash.transform.position = startPos; // Ensure it resets
     }
 }
