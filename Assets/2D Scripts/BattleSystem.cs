@@ -120,7 +120,7 @@ public class BattleSystem : MonoBehaviour
             statusText.text = "Start of Battle";
             Debug.Log("[BattleSystem] Setting up battle system!");
             for (int i = 0; i < currentPlayerCount; i++) {
-                characterList.characters[i].playerUnit.revive();
+                //characterList.characters[i].playerUnit.revive();
                 characterList.characters[i].playerHealth.GetComponent<Slider>().value = characterList.characters[i].playerUnit.getCurrentHP();
             }
 
