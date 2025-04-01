@@ -32,6 +32,7 @@ public class slashSkill : skill
         // Prevent duplicate subscriptions
         collisionComponent.OnTriggerChanged -= HandleTriggerChanged;
         collisionComponent.OnTriggerChanged += HandleTriggerChanged;
+        
     }
 
     private void OnDestroy()

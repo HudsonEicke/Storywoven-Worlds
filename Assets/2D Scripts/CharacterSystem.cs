@@ -55,7 +55,7 @@ public class CharacterSystem : MonoBehaviour {
             Debug.Log($"[CharacterSystem] Energy: {character.energy}");
         }
         
-        for (int i = 0; i < characterCount; i++) {
+        for (int i = 0; i < 2; i++) {
             Debug.Log("Creating player: " + characterList.characters[i].name);
             GameObject newPlayer = Instantiate(playerPrefab[i], playerBattleStations[i]);
             characterList.characters[i].player = newPlayer;
@@ -69,12 +69,16 @@ public class CharacterSystem : MonoBehaviour {
             characterList.characters[i].playerHudSkill = playerHudsSkill[i];
             characterList.characters[i].playerHudSkill.text = "Skill: ";
             characterList.characters[i].playerHudSkill.gameObject.SetActive(false);
+            characterList.characters[i].playerUnit.gameObject.SetActive(false);
 
             GameObject healthBar = Instantiate(healthBarsAllies, healthBarPanels[i]);
             characterList.characters[i].healthBarPanel = healthBarPanels[i];
             healthBar.GetComponent<Slider>().maxValue = characterList.characters[i].playerUnit.getMaxHP();
             healthBar.GetComponent<Slider>().value = characterList.characters[i].playerUnit.getCurrentHP();
             characterList.characters[i].playerHealth = healthBar;
+            characterList.characters[i].playerHealth.gameObject.SetActive(false);
+            characterList.characters[i].healthBarPanel.gameObject.SetActive(false);
+            characterList.characters[i].playerHud.gameObject.SetActive(false);
         }
 
         return characterList;

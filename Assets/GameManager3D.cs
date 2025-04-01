@@ -46,7 +46,7 @@ public class GameManager3D : MonoBehaviour
     private void Start()
     {
         gameManager2D = FindObjectOfType<GameManager2D>();
-        gameManager2D.UpdateBattleState(BattleState.PREPARE);
+        gameManager2D.UpdateBattleState(BattleState.SETUP);
         characterList3D = characterSystem3D.Load(2);
         Debug.Log("HEALTH: " + characterList3D.characters[0].health);
         Debug.Log("HEALTH: " + characterList3D.characters[1].health);
@@ -75,12 +75,14 @@ public class GameManager3D : MonoBehaviour
         playerCamera.SetActive(false);
 
         // made the variables static so they can be modified from the 3D scene
-        GameManager2D.characterCount = 2; 
-        GameManager2D.enemyCount = enemyCount; 
+        //GameManager2D.characterCount = 2; 
+        //GameManager2D.enemyCount = enemyCount; 
+        int players = 2;
         freezeWorld?.Invoke();
         camera2D.SetActive(true);
         event2D.enabled = true;
-        gameManager2D.UpdateBattleState(BattleState.START);
+        //gameManager2D.UpdateBattleState(BattleState.START);
+        GameManager2D.instance.InitializeGame(enemyCount, players);
         // SceneManager.LoadScene("AngeloScene", LoadSceneMode.Additive);
     }
 

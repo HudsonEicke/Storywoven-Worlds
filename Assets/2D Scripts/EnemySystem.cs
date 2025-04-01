@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -39,6 +40,10 @@ public class EnemySystem : MonoBehaviour {
             newEnemy.enemyHealth.GetComponent<Slider>().maxValue = newEnemy.enemyUnit.getMaxHP();
             newEnemy.enemyHealth.GetComponent<Slider>().value = newEnemy.enemyUnit.getCurrentHP();
             enemyList.Add(newEnemy);
+            enemyList[i].enemyUnit.gameObject.SetActive(false);
+            enemyList[i].enemyHealth.gameObject.SetActive(false);
+            enemyList[i].healthPanel.gameObject.SetActive(false);
+            enemyList[i].enemyHud.gameObject.SetActive(false);
         }
 
         return enemyList;

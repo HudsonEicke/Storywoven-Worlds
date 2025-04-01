@@ -13,6 +13,7 @@ public class Unit : MonoBehaviour
     private int currentHP;
     private int currentEnergy;
     private int defense;
+    private bool isDead;
 
     public string getName() {
         return unitName;
@@ -34,15 +35,19 @@ public class Unit : MonoBehaviour
         currentHP = current;
         currentEnergy = energy;
         defense = def;
+        isDead = false;
     }
 
     public bool healthChange(int change)
     {
+        Debug.Log("HealthChange");
         currentHP += change;
 
         if (currentHP <= 0)
         {   
+            currentHP = 0;
             Debug.Log("[Unit] Unit had died");
+            isDead = true;
             return true;
         }
         else
@@ -58,5 +63,14 @@ public class Unit : MonoBehaviour
     public int unitAttack() {
         return damage;
         // will add more advanced calculations later
+    }
+
+    public bool getDead() {
+        return isDead;
+    }
+
+    public void revive() {
+        isDead = false;
+        currentHP = maxHP;
     }
 }

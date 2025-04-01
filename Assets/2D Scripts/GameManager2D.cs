@@ -33,7 +33,7 @@ public class GameManager2D : MonoBehaviour
     {
         enemyCount = enemies;
         characterCount = characters;
-        // UpdateBattleState(BattleState.START);
+        UpdateBattleState(BattleState.START);
     }
 
     public void test() {
@@ -60,6 +60,7 @@ public class GameManager2D : MonoBehaviour
 
     void Start()
     {
+        Debug.Log("STARTINGS STUFF");
         UpdateBattleState(BattleState.PREPARE);
     }
 
@@ -78,6 +79,14 @@ public class GameManager2D : MonoBehaviour
 
         switch(newState) 
         {
+            case BattleState.SETUP:
+                Debug.Log("[GameManager2D] Setting up everything");
+                characterList = characterSystem.Load(2); // Load data from file
+                skillListPlayer1 = skillSystemPlayer.Load();
+                skillListPlayer2 = skillSystemPlayer.Load2(); // Load data from file
+                enemyList = enemySystem.loadEnemies(3);
+                backGround.SetActive(false);
+                break;
             case BattleState.PREPARE:
                 Debug.Log("[GameManager2D] Preparing Game");
                 backGround.SetActive(false);
@@ -85,11 +94,7 @@ public class GameManager2D : MonoBehaviour
             case BattleState.START:
                 backGround.SetActive(true);
                 Debug.Log("[GameManager2D] Game Started");
-                characterList = characterSystem.Load(characterCount); // Load data from file
-                skillListPlayer1 = skillSystemPlayer.Load();
-                skillListPlayer2 = skillSystemPlayer.Load2(); // Load data from file
-                enemyList = enemySystem.loadEnemies(enemyCount);
-                Debug.Log("COUNT: " + enemyList.Count);
+                Debug.Log("COUNT: " + characterCount);
                 break;
             case BattleState.PLAYERTURN:
                 // System.Threading.Thread.Sleep(1000);
