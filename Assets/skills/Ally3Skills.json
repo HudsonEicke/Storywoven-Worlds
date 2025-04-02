@@ -1,0 +1,36 @@
+{
+    "P3Skills": [
+      {
+        "name": "Rocky Taunt",
+        "description": "Use earth magic to rumble the ground and annoy the enemies, increasing your chance of being attacked",
+        "attack": 10,
+        "cost": 10,
+        "type": "Support",
+        "healAmt": 0
+      },
+      {
+        "name": "Rumble and Tumble",
+        "description": "Charge up your rocky fist and smash your oponent, chance to stun the enemy",
+        "attack": 30,
+        "cost": 25,
+        "type": "melee",
+        "healAmount": 0
+      },
+      {
+        "name": "Rocky Wall",
+        "description": "Grant 100% chance of being targeted next turn and greatly reduced damage during that turn",
+        "attack": 0,
+        "cost": 25,
+        "type": "Support",
+        "healAmt": 0
+      },
+      {
+        "name": "RagnaROCK",
+        "description": "Cause mass earthquakes and stun all enemies",
+        "attack": 55,
+        "cost": 40,
+        "type": "Super",
+        "healAmt": 0
+      }
+    ]
+  }

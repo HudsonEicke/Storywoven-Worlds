@@ -172,7 +172,6 @@ public class BattleSystem : MonoBehaviour
                         if (PlayerCountTurn >= currentPlayerCount)
                             GameManager2D.instance.UpdateBattleState(BattleState.ENEMYTURN);
                     }
-                    Debug.Log("NOW GOING TO ONBUTTON CLICKED");
                     OnButtonClicked(PlayerCountTurn);
                 }
                 break;

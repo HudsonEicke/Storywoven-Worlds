@@ -3,7 +3,7 @@
       {
         "name": "Slash",
         "description": "Summon a sword to slash your opponent.",
-        "attack": 50,
+        "attack": 40,
         "cost": 10,
         "type": "melee",
         "healAmt": 10
@@ -11,18 +11,26 @@
       {
         "name": "Fireball",
         "description": "Conjure a ball of fire to burn your opponent.",
-        "attack": 70,
-        "cost": 25,
+        "attack": 50,
+        "cost": 20,
         "type": "range",
         "healAmount": 10
       },
       {
-        "name": "Heal",
-        "description": "Restores a small amount of health.",
-        "attack": 0,
-        "cost": 5,
-        "type": "Support",
-        "healAmt": 10
+        "name": "Piercing Flame",
+        "description": "Pierce the oppoenent, leaving a burning effect that lasts for 3 turns.",
+        "attack": 15,
+        "cost": 20,
+        "type": "melee",
+        "healAmt": 0
+      },
+      {
+        "name": "Flame Shower",
+        "description": "Rain down a shower of fire swords and damage all enemies",
+        "attack": 60,
+        "cost": 30,
+        "type": "Super",
+        "healAmt": 0
       }
     ]
   }

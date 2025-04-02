@@ -6,7 +6,31 @@
       "attack": 0,
       "cost": 5,
       "type": "Support",
+      "healAmt": 40
+    },
+    {
+      "name": "Light Arrow",
+      "description": "Shoot a arrow of pure light energy at an oponent and lower your chance of being attacked",
+      "attack": 25,
+      "cost": 10,
+      "type": "Range",
+      "healAmt": 0
+    },
+    {
+      "name": "Soothing Arrays",
+      "description": "Restore an initial small amount of health and allow the player to keep restoring a small amount for 3 turns",
+      "attack": 0,
+      "cost": 30,
+      "type": "Support",
       "healAmt": 20
+    },
+    {
+      "name": "Heaven's Delight",
+      "description": "Heal all allies and grant invulnerability for 1 turn",
+      "attack": 0,
+      "cost": 35,
+      "type": "Super",
+      "healAmt": 75
     }
   ]
 }

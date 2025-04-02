@@ -55,7 +55,7 @@ public class CharacterSystem : MonoBehaviour {
             Debug.Log($"[CharacterSystem] Energy: {character.energy}");
         }
         
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < 3; i++) {
             Debug.Log("Creating player: " + characterList.characters[i].name);
             GameObject newPlayer = Instantiate(playerPrefab[i], playerBattleStations[i]);
             characterList.characters[i].player = newPlayer;

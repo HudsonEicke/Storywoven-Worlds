@@ -2,17 +2,24 @@
     "characters": [
         {
             "name": "John",
-            "health": 100,
-            "attack": 20,
+            "health": 80,
+            "attack": 30,
             "defense": 10,
-            "energy": 20
+            "energy": 45
         },
         {
             "name": "Allie",
             "health": 50,
-            "attack": 25,
+            "attack": 15,
             "defense": 5,
-            "energy": 50
+            "energy": 70
+        },
+        {
+            "name": "Astrid",
+            "health": 150,
+            "attack": 20,
+            "defense": 30,
+            "energy": 55
         }
     ]
 }

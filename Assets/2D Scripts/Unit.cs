@@ -14,6 +14,7 @@ public class Unit : MonoBehaviour
     private int currentEnergy;
     private int defense;
     private bool isDead;
+    private int weight;
 
     public string getName() {
         return unitName;

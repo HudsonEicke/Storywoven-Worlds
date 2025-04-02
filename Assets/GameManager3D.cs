@@ -77,7 +77,7 @@ public class GameManager3D : MonoBehaviour
         // made the variables static so they can be modified from the 3D scene
         //GameManager2D.characterCount = 2; 
         //GameManager2D.enemyCount = enemyCount; 
-        int players = 2;
+        int players = 3;
         freezeWorld?.Invoke();
         camera2D.SetActive(true);
         event2D.enabled = true;
