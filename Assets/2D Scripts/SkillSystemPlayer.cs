@@ -27,6 +27,7 @@ public class SkillListPlayer3 {
 public class SkillSystemPlayer : MonoBehaviour {
     public TextAsset jsonFile;
     public TextAsset jsonFile2;
+    public TextAsset jsonFile3;
 
     public SkillListPlayer1 Load() {
         return LoadSkills();
@@ -64,8 +65,8 @@ public class SkillSystemPlayer : MonoBehaviour {
     }
 
     SkillListPlayer3 LoadSkills3() {
-        Debug.Log("[SkillSystemPlayer] LOADING SKILLS2");
-        string json = jsonFile2.ToString();
+        Debug.Log("[SkillSystemPlayer] LOADING SKILLS3");
+        string json = jsonFile3.ToString();
         SkillListPlayer3 skillList = JsonUtility.FromJson<SkillListPlayer3>(json);
         // Print out the skill data
         foreach (var skill in skillList.P3Skills) {

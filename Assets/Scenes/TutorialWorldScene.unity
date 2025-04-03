@@ -9657,6 +9657,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jsonFile: {fileID: 4900000, guid: 790a9157f2be2ac478507183ae2b0873, type: 3}
   jsonFile2: {fileID: 4900000, guid: b3a04cee3f61e2749a06d66864d88341, type: 3}
+  jsonFile3: {fileID: 4900000, guid: 585cab46a0cf85c43a70c7103855fd1e, type: 3}
 --- !u!114 &1740785696
 MonoBehaviour:
   m_ObjectHideFlags: 0
