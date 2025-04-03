@@ -349,6 +349,15 @@ public class BattleSystem : MonoBehaviour
         RockyTauntSkill newSkill = skillObject.AddComponent<RockyTauntSkill>();
         Skill firstSkill = GameManager2D.instance.skillListPlayer3.P3Skills[0];
         newSkill.Setskill(firstSkill.name, firstSkill.description, firstSkill.attack, firstSkill.cost, firstSkill.type, firstSkill.healAmt);
+
+        newSkill.minigamebackground = GameObject.Find("MiniGameBackground2");
+        newSkill.leftFoot = GameObject.Find("leftStomp");
+        newSkill.rightFoot = GameObject.Find("rightStomp");
+        newSkill.Smash = GameObject.Find("Smash");
+        newSkill.leftFootHit = GameObject.Find("Leftfoot");
+        newSkill.rightFootHit = GameObject.Find("Rightfoot");
+        newSkill.SmashHit = GameObject.Find("SmashHit");
+        newSkill.setup();
         playerThreeSkills.Add(newSkill);
 
         // set up the button and text
@@ -622,44 +631,10 @@ public class BattleSystem : MonoBehaviour
         Debug.Log("Rocky Taunt button clicked");
         player3SkillOptions[0].gameObject.SetActive(false);
         player3SkillButtonsSelect[0].SetActive(false);
-/* 
-        // get the enemy index to attack
-        for (int i = 0; i < enemySelectButtons.Count; i++) {
-            int enemyindex = i;
-            if (!enemyList[i].enemyUnit.getDead()) {
-                enemySelectButtons[i].GetComponent<Button>().onClick.RemoveAllListeners();
-                enemySelectButtons[i].GetComponent<Button>().onClick.AddListener(() => commenceRockyTauntButton(index, enemyindex));
-            }
-        }
-
-        int buttonToStart = 0;
-        for (int i = 0; i < enemySelectButtons.Count; i++) {
-            if (enemyList[i].enemyUnit.getDead()) continue;
-            enemySelectButtons[i].SetActive(true);
-        }
-        while (enemyList[buttonToStart].enemyUnit.getDead())
-            buttonToStart++;
-        UnityEngine.EventSystems.EventSystem.current.SetSelectedGameObject(enemySelectButtons[buttonToStart]);
-        lastSelected = enemySelectButtons[buttonToStart];
-*/
         commenceRockyTauntButton(index, 0); // Do all enemies
     }
 
     void commenceRockyTauntButton(int index, int enemyIndex) {
-/*
-        for (int i = 0; i < enemySelectButtons.Count; i++) {
-            if (enemyList[i].enemyUnit.getDead()) continue;
-            enemySelectButtons[i].SetActive(false);
-        }
-
-        for (int i = 0; i < enemySelectButtons.Count; i++) {
-            int origionalIndex = i;
-            if (!enemyList[i].enemyUnit.getDead()) {
-                enemySelectButtons[i].GetComponent<Button>().onClick.RemoveAllListeners();
-                enemySelectButtons[i].GetComponent<Button>().onClick.AddListener(() => ApplyDamage(origionalIndex));
-            }
-        }
-*/
         playerThreeSkills[0].PlayMinigame((result) => {
             if (result == 1)    {
                 Debug.Log("Player succeeded in minigame!");

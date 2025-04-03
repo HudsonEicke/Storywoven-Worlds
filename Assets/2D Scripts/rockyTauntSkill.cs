@@ -1,11 +1,17 @@
 using System;
 using System.Collections;
-using System.Runtime.InteropServices;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class RockyTauntSkill : skill
 {
+    [SerializeField] public GameObject minigamebackground;
+    [SerializeField] public GameObject leftFoot;
+    [SerializeField] public GameObject rightFoot;
+    [SerializeField] public GameObject Smash;
+    [SerializeField] public GameObject leftFootHit;
+    [SerializeField] public GameObject rightFootHit;
+    [SerializeField] public GameObject SmashHit;
+
     // TODO: MAKE THIS A MINIGAME
     public override int skillInflict()
     {
@@ -21,6 +27,15 @@ public class RockyTauntSkill : skill
     private IEnumerator MinigameCoroutine(Action<int> onComplete)
     {
        int result;
+
+        // Enable UI stuff
+        minigamebackground.SetActive(true); 
+        leftFoot.SetActive(true);
+        rightFoot.SetActive(true);
+        Smash.SetActive(true);
+        leftFootHit.SetActive(true);
+        rightFootHit.SetActive(true);
+        SmashHit.SetActive(true);
         
 
         yield return StartCoroutine(RockyTaunt());
@@ -47,11 +62,19 @@ public class RockyTauntSkill : skill
 
     public void setup() 
     {
- 
+        // Disable UI stuff
+        minigamebackground.SetActive(false);
+        leftFoot.SetActive(false);
+        rightFoot.SetActive(false);
+        Smash.SetActive(false);
+        leftFootHit.SetActive(false);
+        rightFootHit.SetActive(false);
+        SmashHit.SetActive(false);
     }
 
     private IEnumerator RockyTaunt()
     {
+        yield return new WaitForSeconds(1);
     
         yield return null;
     }
