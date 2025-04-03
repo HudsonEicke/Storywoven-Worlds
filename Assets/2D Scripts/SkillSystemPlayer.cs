@@ -20,6 +20,10 @@ public class SkillListPlayer2 {
     public List<Skill> P2Skills;
 }
 
+public class SkillListPlayer3 {
+    public List<Skill> P3Skills;
+}
+
 public class SkillSystemPlayer : MonoBehaviour {
     public TextAsset jsonFile;
     public TextAsset jsonFile2;
@@ -30,6 +34,9 @@ public class SkillSystemPlayer : MonoBehaviour {
 
     public SkillListPlayer2 Load2() {
         return LoadSkills2();
+    }
+    public SkillListPlayer3 Load3() {
+        return LoadSkills3();
     }
 
     SkillListPlayer1 LoadSkills() {
@@ -50,6 +57,18 @@ public class SkillSystemPlayer : MonoBehaviour {
         SkillListPlayer2 skillList = JsonUtility.FromJson<SkillListPlayer2>(json);
         // Print out the skill data
         foreach (var skill in skillList.P2Skills) {
+            Debug.Log($"Name: {skill.name}, Description: {skill.description}, Attack: {skill.attack}, Cost: {skill.cost}, Type: {skill.type}, Heal Amount: {skill.healAmt}");
+        }
+
+        return skillList;
+    }
+
+    SkillListPlayer3 LoadSkills3() {
+        Debug.Log("[SkillSystemPlayer] LOADING SKILLS2");
+        string json = jsonFile2.ToString();
+        SkillListPlayer3 skillList = JsonUtility.FromJson<SkillListPlayer3>(json);
+        // Print out the skill data
+        foreach (var skill in skillList.P3Skills) {
             Debug.Log($"Name: {skill.name}, Description: {skill.description}, Attack: {skill.attack}, Cost: {skill.cost}, Type: {skill.type}, Heal Amount: {skill.healAmt}");
         }
 

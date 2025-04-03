@@ -31,12 +31,16 @@ public class BattleSystem : MonoBehaviour
     [SerializeField] public List<GameObject> player1SkillButtons;
     [SerializeField] public List<Text> player2SkillOptions;
     [SerializeField] public List<GameObject> player2SkillButtons;
+    [SerializeField] public List<Text> player3SkillOptions;
+    [SerializeField] public List<GameObject> player3SkillButtons;
 
     List<GameObject> player1SkillButtonsSelect = new List<GameObject>();
     List<GameObject> player2SkillButtonsSelect = new List<GameObject>();
+    List<GameObject> player3SkillButtonsSelect = new List<GameObject>();
 
     public List<skill> playerOneSkills = new List<skill>();
     public List<skill> playerTwoSkills = new List<skill>();
+    public List<skill> playerThreeSkills = new List<skill>();
 
     int PlayerCountTurn = 0;
 
@@ -339,6 +343,21 @@ public class BattleSystem : MonoBehaviour
         player2SkillButtonsSelect[0].SetActive(false);
     }
 
+    void player3SkillSetup() {
+        GameObject skillObject = new GameObject("RockyTauntSkill");
+        RockyTauntSkill newSkill = skillObject.AddComponent<RockyTauntSkill>();
+        Skill firstSkill = GameManager2D.instance.skillListPlayer3.P3Skills[0];
+        newSkill.Setskill(firstSkill.name, firstSkill.description, firstSkill.attack, firstSkill.cost, firstSkill.type, firstSkill.healAmt);
+        playerThreeSkills.Add(newSkill);
+
+        // set up the button and text
+        player3SkillOptions[0].text = firstSkill.name;
+        player3SkillOptions[0].gameObject.SetActive(false);
+        player3SkillButtonsSelect.Add(Instantiate(player2SkillButtons[0], buttonPanel));
+        player3SkillButtonsSelect[0].GetComponent<Button>().onClick.AddListener(() => healButtonClicked(1)); // CONTINUE HERE
+        player3SkillButtonsSelect[0].SetActive(false);
+    }
+
     void OnButtonClicked(int index)
     {
         Debug.Log("Button: " + index);
@@ -388,7 +407,7 @@ public class BattleSystem : MonoBehaviour
 
     void SkillButtonClicked(int index)
     {
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < 3; i++) {
             foreach (var button in buttonsForPlayer[i].buttonsForPlayer)
             {
                 button.SetActive(false);
@@ -402,8 +421,10 @@ public class BattleSystem : MonoBehaviour
             player1SkillOptions[0].gameObject.SetActive(true);
             player1SkillOptions[1].gameObject.SetActive(true);
         }
-        else
+        else if (index == 1)
             player2SkillOptions[0].gameObject.SetActive(true);
+        else 
+            player3SkillOptions[0].gameObject.SetActive(true);
         characterList.characters[index].playerHudAttack.gameObject.SetActive(false);
         characterList.characters[index].playerHudSkill.gameObject.SetActive(false);
         for (int i = 0; i < 2; i++)
@@ -416,10 +437,15 @@ public class BattleSystem : MonoBehaviour
             UnityEngine.EventSystems.EventSystem.current.SetSelectedGameObject(player1SkillButtonsSelect[0]);
             lastSelected = player1SkillButtonsSelect[0];
         }
-        else {
+        else if (index == 1) {
             player2SkillButtonsSelect[0].SetActive(true);
             UnityEngine.EventSystems.EventSystem.current.SetSelectedGameObject(player2SkillButtonsSelect[0]);
             lastSelected = player2SkillButtonsSelect[0];
+        }
+        else {
+            player3SkillButtonsSelect[0].SetActive(true);
+            UnityEngine.EventSystems.EventSystem.current.SetSelectedGameObject(player3SkillButtonsSelect[0]);
+            lastSelected = player3SkillButtonsSelect[0];
         }
     }
 

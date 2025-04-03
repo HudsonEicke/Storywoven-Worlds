@@ -18,6 +18,7 @@ public class GameManager2D : MonoBehaviour
     public CharacterList characterList;
     public SkillListPlayer1 skillListPlayer1;
     public SkillListPlayer2 skillListPlayer2;
+    public SkillListPlayer3 skillListPlayer3;
     public List<EnemySystem.EnemyHealthAndInfo> enemyList;
 
     [SerializeField] public static int enemyCount;
@@ -84,6 +85,7 @@ public class GameManager2D : MonoBehaviour
                 characterList = characterSystem.Load(2); // Load data from file
                 skillListPlayer1 = skillSystemPlayer.Load();
                 skillListPlayer2 = skillSystemPlayer.Load2(); // Load data from file
+                skillListPlayer3 = skillSystemPlayer.Load3();
                 enemyList = enemySystem.loadEnemies(3);
                 backGround.SetActive(false);
                 break;
