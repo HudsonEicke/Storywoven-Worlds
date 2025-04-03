@@ -622,7 +622,7 @@ public class BattleSystem : MonoBehaviour
         Debug.Log("Rocky Taunt button clicked");
         player3SkillOptions[0].gameObject.SetActive(false);
         player3SkillButtonsSelect[0].SetActive(false);
-
+/* 
         // get the enemy index to attack
         for (int i = 0; i < enemySelectButtons.Count; i++) {
             int enemyindex = i;
@@ -631,6 +631,7 @@ public class BattleSystem : MonoBehaviour
                 enemySelectButtons[i].GetComponent<Button>().onClick.AddListener(() => commenceRockyTauntButton(index, enemyindex));
             }
         }
+
         int buttonToStart = 0;
         for (int i = 0; i < enemySelectButtons.Count; i++) {
             if (enemyList[i].enemyUnit.getDead()) continue;
@@ -640,9 +641,12 @@ public class BattleSystem : MonoBehaviour
             buttonToStart++;
         UnityEngine.EventSystems.EventSystem.current.SetSelectedGameObject(enemySelectButtons[buttonToStart]);
         lastSelected = enemySelectButtons[buttonToStart];
+*/
+        commenceRockyTauntButton(index, 0); // Do all enemies
     }
 
     void commenceRockyTauntButton(int index, int enemyIndex) {
+/*
         for (int i = 0; i < enemySelectButtons.Count; i++) {
             if (enemyList[i].enemyUnit.getDead()) continue;
             enemySelectButtons[i].SetActive(false);
@@ -655,23 +659,28 @@ public class BattleSystem : MonoBehaviour
                 enemySelectButtons[i].GetComponent<Button>().onClick.AddListener(() => ApplyDamage(origionalIndex));
             }
         }
-
+*/
         playerThreeSkills[0].PlayMinigame((result) => {
             if (result == 1)    {
                 Debug.Log("Player succeeded in minigame!");
                 characterList.characters[index].playerHud.gameObject.SetActive(true);
                 characterList.characters[index].playerHealth.SetActive(true);
                 characterList.characters[index].healthBarPanel.gameObject.SetActive(true);
-                enemyList[enemyIndex].enemyUnit.healthChange(-1 * playerThreeSkills[0].skillInflict());
-                enemyList[enemyIndex].enemyHealth.GetComponent<Slider>().value = enemyList[enemyIndex].enemyUnit.getCurrentHP();
-                if (enemyList[enemyIndex].enemyUnit.getCurrentHP() <= 0) 
-                    removeEnemy(enemyIndex);
-                // goin back to the enemy turn
-                if (currentEnemyCount <= 0)
-                    GameManager2D.instance.UpdateBattleState(BattleState.WON);
-                else {
-                    checkplayerTurn();
+
+                // attack all enemies
+                for (int i = 0; i < enemySelectButtons.Count; i++) {
+                    if (!enemyList[i].enemyUnit.getDead()) {
+                        enemyList[i].enemyUnit.healthChange(-1 * playerThreeSkills[0].skillInflict());
+                        enemyList[i].enemyHealth.GetComponent<Slider>().value = enemyList[i].enemyUnit.getCurrentHP();
+                        if (enemyList[i].enemyUnit.getCurrentHP() <= 0) 
+                            removeEnemy(i);
+                        // goin back to the enemy turn
+                        if (currentEnemyCount <= 0)
+                            GameManager2D.instance.UpdateBattleState(BattleState.WON);
+                    }
                 }
+
+                checkplayerTurn();
             }
             else    {
                 Debug.Log("Player failed in minigame!");
