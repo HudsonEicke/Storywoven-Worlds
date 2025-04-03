@@ -9,7 +9,7 @@ EditorBuildSettings:
     path: Assets/Scenes/MenuScene.unity
     guid: 4e3227d576286499496e9e8b709a91d9
   - enabled: 1
-    path: Assets/Scenes/FantasyWorldScene.unity
+    path: Assets/Scenes/TutorialWorldScene.unity
     guid: 7630cefd984f75f4bafbbe83d87f3a6e
   - enabled: 1
     path: Assets/Scenes/AngeloScene.unity
