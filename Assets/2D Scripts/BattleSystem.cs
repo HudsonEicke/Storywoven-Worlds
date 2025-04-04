@@ -357,6 +357,10 @@ public class BattleSystem : MonoBehaviour
         newSkill.leftFootHit = GameObject.Find("Leftfoot");
         newSkill.rightFootHit = GameObject.Find("Rightfoot");
         newSkill.SmashHit = GameObject.Find("SmashHit");
+        newSkill.left = GameObject.Find("DirectionsLeft");
+        newSkill.right = GameObject.Find("DirectionsRight");
+        newSkill.space = GameObject.Find("DirectionsSpace");
+        newSkill.COUNT = GameObject.Find("COUNT");
         newSkill.setup();
         playerThreeSkills.Add(newSkill);
 
