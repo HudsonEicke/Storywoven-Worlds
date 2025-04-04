@@ -124,10 +124,12 @@ public class RockyTauntSkill : skill
         Debug.Log("Count: " + count);
         if (count >= 5) {
             result = 1; // Success
+            count = 0;
             Debug.Log("Success!");
         }
         else {
             result = 0; // Failure
+            count = 0;
             Debug.Log("Failure!");
         }
 
@@ -214,7 +216,6 @@ public class RockyTauntSkill : skill
         Smash.GetComponent<Image>().color = Color.red;
         leftFoot.GetComponent<Image>().color = Color.red;
         rightFoot.GetComponent<Image>().color = Color.red;
-        count = 0;
         miniGameStart = false;
         yield return null;
     }

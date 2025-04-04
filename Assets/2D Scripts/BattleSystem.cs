@@ -57,6 +57,7 @@ public class BattleSystem : MonoBehaviour
     public bool gamestart = false;
     int currentPlayerForMouse = 0;
     GameObject lastSelected = null;
+    int taunt = 0;
 
     [SerializeField] Text statusText;
 
@@ -198,13 +199,29 @@ public class BattleSystem : MonoBehaviour
                     GameManager2D.instance.UpdateBattleState(BattleState.WON);
                 
                 // do some enemy logic here
-                for (int i = 0 ; i < enemyList.Count; i++) {
+                for (int i = 0 ; i < totalEnemyCount; i++) {
                     if (enemyList[i].enemyUnit.getDead()) 
                         continue;
-                    int randomint = Random.Range(0, characterList.characters.Count);
-                    while (characterList.characters[randomint].playerUnit.getDead())
-                        randomint = Random.Range(0, characterList.characters.Count);
-                    
+
+
+                    // sum weights for each player and find the player to attack
+                    int sumWeights = 0;
+                    for (int j = 0; j < characterList.characters.Count; j++) {
+                        if (characterList.characters[j].playerUnit.getDead()) 
+                            continue;
+                        sumWeights += characterList.characters[j].playerUnit.getWeight();
+                    }
+                    Debug.Log("Sum of weights: " + sumWeights);
+                    int randomint = Random.Range(0, sumWeights);
+                    for (int j = 0; j < characterList.characters.Count; j++) {
+                        if (characterList.characters[j].playerUnit.getDead()) 
+                            continue;
+                        randomint -= characterList.characters[j].playerUnit.getWeight();
+                        if (randomint <= 0) {
+                            randomint = j;
+                            break;
+                        }
+                    }
                     Debug.Log("Enemy: " + i + " attacking player: " + randomint);
                     characterList.characters[randomint].playerUnit.healthChange(-1 * enemyList[i].enemyUnit.unitAttack());
                     characterList.characters[randomint].playerHealth.GetComponent<Slider>().value = characterList.characters[randomint].playerUnit.getCurrentHP();
@@ -226,6 +243,13 @@ public class BattleSystem : MonoBehaviour
                 if (currentPlayerCount <= 0)
                     GameManager2D.instance.UpdateBattleState(BattleState.LOST);
                 else {
+                    if (taunt > 0) {
+                        taunt--;
+                        if (taunt == 0) {
+                            Debug.Log("Taunt Wore Off");
+                            characterList.characters[2].playerUnit.addWeight(-25);
+                        }
+                    }
                     GameManager2D.instance.UpdateBattleState(BattleState.PLAYERTURN);
                 }
                 break;
@@ -642,6 +666,11 @@ public class BattleSystem : MonoBehaviour
         playerThreeSkills[0].PlayMinigame((result) => {
             if (result == 1)    {
                 Debug.Log("Player succeeded in minigame!");
+                if (taunt == 0) {
+                    taunt = 3;
+                    Debug.Log("Taunt Activated!");
+                    characterList.characters[2].playerUnit.addWeight(25);
+                }
                 characterList.characters[index].playerHud.gameObject.SetActive(true);
                 characterList.characters[index].playerHealth.SetActive(true);
                 characterList.characters[index].healthBarPanel.gameObject.SetActive(true);

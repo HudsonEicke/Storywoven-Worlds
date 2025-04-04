@@ -5,21 +5,24 @@
             "health": 80,
             "attack": 30,
             "defense": 10,
-            "energy": 45
+            "energy": 45,
+            "weight": 20
         },
         {
             "name": "Allie",
             "health": 50,
             "attack": 15,
             "defense": 5,
-            "energy": 70
+            "energy": 70,
+            "weight": 10
         },
         {
             "name": "Astrid",
             "health": 150,
             "attack": 20,
             "defense": 30,
-            "energy": 55
+            "energy": 55,
+            "weight": 35
         }
     ]
 }

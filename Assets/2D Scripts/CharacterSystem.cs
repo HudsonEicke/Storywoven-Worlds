@@ -13,6 +13,7 @@ public class Character {
     public int attack;
     public int defense;
     public int energy;
+    public int weight;
 
     // player UI stuff
     public GameObject player;
@@ -53,6 +54,7 @@ public class CharacterSystem : MonoBehaviour {
             Debug.Log($"[CharacterSystem] Attack: {character.attack}");
             Debug.Log($"[CharacterSystem] Defense: {character.defense}");
             Debug.Log($"[CharacterSystem] Energy: {character.energy}");
+            Debug.Log($"[CharacterSystem] Weight: {character.weight}");
         }
         
         for (int i = 0; i < 3; i++) {
@@ -60,7 +62,7 @@ public class CharacterSystem : MonoBehaviour {
             GameObject newPlayer = Instantiate(playerPrefab[i], playerBattleStations[i]);
             characterList.characters[i].player = newPlayer;
             characterList.characters[i].playerUnit = newPlayer.GetComponent<Unit>();
-            characterList.characters[i].playerUnit.SetStats(characterList.characters[i].health, characterList.characters[i].attack, characterList.characters[i].defense, 50, characterList.characters[i].name, 0,  characterList.characters[i].energy);
+            characterList.characters[i].playerUnit.SetStats(characterList.characters[i].health, characterList.characters[i].attack, characterList.characters[i].defense, 50, characterList.characters[i].name, 0,  characterList.characters[i].energy, characterList.characters[i].weight);
             characterList.characters[i].playerHud = playerHuds[i];
             characterList.characters[i].playerHud.text = characterList.characters[i].playerUnit.getName();
             characterList.characters[i].playerHudAttack = playerHudsAttack[i];

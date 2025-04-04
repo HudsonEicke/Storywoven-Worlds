@@ -14,7 +14,7 @@ public class Unit : MonoBehaviour
     private int currentEnergy;
     private int defense;
     private bool isDead;
-    private int weight;
+    private int isWeight;
 
     public string getName() {
         return unitName;
@@ -28,7 +28,7 @@ public class Unit : MonoBehaviour
         return currentHP;
     }
 
-    public void SetStats(int health, int dmg, int def, int current, string name, int lvl, int energy) {
+    public void SetStats(int health, int dmg, int def, int current, string name, int lvl, int energy, int weight) {
         unitName = name;
         unitLevel = lvl;
         damage = dmg;
@@ -37,6 +37,7 @@ public class Unit : MonoBehaviour
         currentEnergy = energy;
         defense = def;
         isDead = false;
+        isWeight = weight;
     }
 
     public bool healthChange(int change)
@@ -73,5 +74,12 @@ public class Unit : MonoBehaviour
     public void revive() {
         isDead = false;
         currentHP = maxHP;
+    }
+
+    public int getWeight() {
+        return isWeight;
+    }
+    public void addWeight(int weight) {
+        isWeight += weight;
     }
 }

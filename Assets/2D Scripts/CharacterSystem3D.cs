@@ -11,6 +11,7 @@ public class Character3D {
     public int energy;
     public Unit playerUnit;
     public GameObject player;
+    public int weight;
 }
 
 [System.Serializable]
@@ -50,7 +51,7 @@ public class CharacterSystem3D : MonoBehaviour {
                 GameObject newPlayer = Instantiate(GameObjectForHealth[i], TransformForHealth[i]);
                 characterList.characters[i].player = newPlayer;
                 characterList.characters[i].playerUnit = newPlayer.GetComponent<Unit>();
-                characterList.characters[i].playerUnit.SetStats(characterList.characters[i].health, characterList.characters[i].attack, characterList.characters[i].defense, 50, characterList.characters[i].name, 0,  characterList.characters[i].energy);
+                characterList.characters[i].playerUnit.SetStats(characterList.characters[i].health, characterList.characters[i].attack, characterList.characters[i].defense, 50, characterList.characters[i].name, 0,  characterList.characters[i].energy, characterList.characters[i].weight);
             }
         }
 
