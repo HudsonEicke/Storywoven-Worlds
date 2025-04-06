@@ -10,6 +10,7 @@ public class PlayerData
     public int[] inventoryIDs;
     public int[] itemQuantity;
 
+    //Normal save file generator
     public PlayerData(CheckpointManager checkpointManager, InventoryManager inventoryManager)
     {
         sceneID = checkpointManager.sceneID;
@@ -19,6 +20,7 @@ public class PlayerData
         itemQuantity = tempInventoryData.itemQuantity;
     }
 
+    //New save case
     public PlayerData()
     {
         sceneID = 1;
@@ -27,6 +29,7 @@ public class PlayerData
         itemQuantity = new int[0];
     }
 
+    //Next level save file generator
     public PlayerData(int sceneID, int checkpointID, InventoryManager inventoryManager)
     {
         this.sceneID = sceneID;

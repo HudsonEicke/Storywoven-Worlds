@@ -4,7 +4,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 public static class SaveSystem
 {
-    static string path = Application.persistentDataPath + "/player.save";
+    public static string path = Application.persistentDataPath + "/player.save";
 
     public static void SavePlayer(CheckpointManager checkpointManager, InventoryManager inventoryManager)
     {
