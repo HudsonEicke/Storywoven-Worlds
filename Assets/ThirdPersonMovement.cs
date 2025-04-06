@@ -21,10 +21,12 @@ public class ThirdPersonMovement : MonoBehaviour
     public Transform groundCheck;
     public float groundDistance = 0.4f;
     public LayerMask groundMask;
+    public LayerMask safeGroundMask;
     public bool isGrounded;
     public Vector3 lastGroundPosition;
     public bool moveBack = false;
     bool isFroze = false;
+    bool onSafeGround = true;
 
     public bool QueuedMove = false;
     public Vector3 newPosition;
@@ -81,9 +83,10 @@ public class ThirdPersonMovement : MonoBehaviour
 
         //Added jumping logic stuff
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
-        
+        onSafeGround = Physics.CheckSphere(groundCheck.position, groundDistance, safeGroundMask);
+
         //For reverting back to last platform the player was on
-        if (isGrounded)
+        if (onSafeGround)
         {
             lastGroundPosition = gameObject.transform.position;
         }

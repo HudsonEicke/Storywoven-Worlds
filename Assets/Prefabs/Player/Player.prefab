@@ -1350,7 +1350,15 @@ MonoBehaviour:
   groundDistance: 0.4
   groundMask:
     serializedVersion: 2
+    m_Bits: 384
+  safeGroundMask:
+    serializedVersion: 2
     m_Bits: 128
+  isGrounded: 0
+  lastGroundPosition: {x: 0, y: 0, z: 0}
+  moveBack: 0
+  QueuedMove: 0
+  newPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &6831359126917505496
 GameObject:
   m_ObjectHideFlags: 0
