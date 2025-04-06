@@ -26,6 +26,9 @@ public class ThirdPersonMovement : MonoBehaviour
     public bool moveBack = false;
     bool isFroze = false;
 
+    public bool QueuedMove = false;
+    public Vector3 newPosition;
+
     private void FixedUpdate()
     {
         if(isFroze)
@@ -36,8 +39,19 @@ public class ThirdPersonMovement : MonoBehaviour
         if (moveBack)
         {
             moveBack = false;
-            gameObject.transform.position = lastGroundPosition;
+            MovePlayer(lastGroundPosition);
         }
+
+        if (QueuedMove)
+        {
+            QueuedMove = false;
+            MovePlayer(newPosition);
+        }
+    }
+
+    public void MovePlayer(Vector3 newPos)
+    {
+        gameObject.transform.position = newPos;
     }
 
     private void Awake()

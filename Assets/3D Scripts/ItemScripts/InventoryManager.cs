@@ -155,4 +155,26 @@ public class InventoryManager : MonoBehaviour
 
         return 0;
     }
+
+    public void EmptyInventory()
+    {
+        while (inventory.Count > 0)
+        {
+            RemoveItemAmount(inventory[0].itemId, inventory[0].quantity);
+        }
+    }
+
+    public (int[] id, int[] quantity) GenerateInventorySaveFile()
+    {
+        int[] id = new int[inventory.Count];
+        int[] quantity = new int[inventory.Count];
+
+        for(int i = 0; i < inventory.Count; i++)
+        {
+            id[i] = inventory[i].itemId;
+            quantity[i] = inventory[i].quantity;
+        }
+
+        return (id, quantity);
+    }
 }

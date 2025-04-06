@@ -41,4 +41,18 @@ public class ItemIdManager : MonoBehaviour
 
         return true;
     }
+
+    public void LoadInventory(int[] id, int[] quantity)
+    {
+        InventoryManager.Instance.EmptyInventory();
+
+        //No items to load case
+        if (id == null || quantity == null)
+            return;
+
+        for (int i = 0; i < id.Length; i++)
+        {
+            AddItem(id[i], quantity[i]);
+        }
+    }
 }
