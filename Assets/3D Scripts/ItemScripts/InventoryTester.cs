@@ -8,12 +8,6 @@ public class InventoryTester : MonoBehaviour
     public int quantity;
     public bool addItem;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
     // Update is called once per frame
     void Update()
     {

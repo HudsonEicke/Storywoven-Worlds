@@ -30,14 +30,7 @@ public class InvetoryUIManager : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.I))
         {
-            pressedButton = true;
-        }
-
-        //IF PLAYER HIT INVENTORY BUTTON
-        if(pressedButton)
-        {
-            pressedButton = false;
-            if(isInventoryOpen)
+            if (isInventoryOpen)
             {
                 CloseInventory();
             }
@@ -47,16 +40,29 @@ public class InvetoryUIManager : MonoBehaviour
             }
         }
 
+        //IF PLAYER HIT INVENTORY BUTTON
+        //if(pressedButton)
+        //{
+        //    pressedButton = false;
+        //    if(isInventoryOpen)
+        //    {
+        //        CloseInventory();
+        //    }
+        //    else
+        //    {
+        //        OpenInventory();
+        //    }
+        //}
+
         if(isInventoryOpen)
         {
-            if(scrollDown)
+            if (Input.mouseScrollDelta.y < 0)
             {
-                scrollDown = false;
                 ScrollDown();
             }
-            else if(scrollUp)
+
+            if (Input.mouseScrollDelta.y > 0)
             {
-                scrollUp = false;
                 ScrollUp();
             }
         }
