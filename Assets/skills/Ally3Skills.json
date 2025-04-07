@@ -18,11 +18,11 @@
       },
       {
         "name": "Rocky Wall",
-        "description": "Grant 100% chance of being targeted next turn and greatly reduced damage during that turn",
+        "description": "Grant 100% chance of being targeted next turn and greatly reduced damage during that turn and heal a small amount",
         "attack": 0,
         "cost": 25,
         "type": "Support",
-        "healAmt": 0
+        "healAmt": 20
       },
       {
         "name": "RagnaROCK",

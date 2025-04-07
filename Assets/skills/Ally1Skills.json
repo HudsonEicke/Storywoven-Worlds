@@ -18,7 +18,7 @@
       },
       {
         "name": "Piercing Flame",
-        "description": "Pierce the oppoenent, leaving a burning effect that lasts for 3 turns.",
+        "description": "Pierce the opponent, leaving a burning effect that lasts for 3 turns.",
         "attack": 15,
         "cost": 20,
         "type": "melee",
