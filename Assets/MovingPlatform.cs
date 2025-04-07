@@ -10,6 +10,9 @@ public class MovingPlatform : MonoBehaviour
     [Space]
     [Header("Insert points in the order you want the platform to move")]
     public List<Transform> points = new List<Transform>();
+    [Space]
+    [Header("If you want the platform after hitting the last point to go to the first")]
+    public bool cycle = false;
 
     private bool forward = true;
     private int nextPointIdx = 0;
@@ -33,7 +36,14 @@ public class MovingPlatform : MonoBehaviour
 
         if (transform.position == nextPos)
         {
-            GetNextPos();
+            if (cycle)
+            {
+                GetNextPosCycle();
+            }
+            else
+            {
+                GetNextPos();
+            }
         }
     }
 
@@ -59,6 +69,12 @@ public class MovingPlatform : MonoBehaviour
         }
     }
 
+    private void GetNextPosCycle()
+    {
+        nextPointIdx = (nextPointIdx + 1) % points.Count;
+        nextPos = points[nextPointIdx].position;
+    }
+
     private void OnDrawGizmos()
     {
         if (!points.Contains(null))
@@ -66,6 +82,11 @@ public class MovingPlatform : MonoBehaviour
             for (int i = 0; i < points.Count - 1; i++)
             {
                 Gizmos.DrawLine(points[i].transform.position, points[i + 1].transform.position);
+            }
+
+            if(cycle)
+            {
+                Gizmos.DrawLine(points[points.Count - 1].position, points[0].position);
             }
         }
     }
