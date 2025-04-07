@@ -83,17 +83,14 @@ public class RockyTauntSkill : skill
     private void HandleTriggerChanged1(bool isTriggered)
     {
         isTriggerActive1 = isTriggered;
-        Debug.Log($"Trigger status changed: {isTriggerActive1}");
     }
     private void HandleTriggerChanged2(bool isTriggered)
     {
         isTriggerActive2 = isTriggered;
-        Debug.Log($"Trigger status changed: {isTriggerActive2}");
     }
     private void HandleTriggerChanged3(bool isTriggered)
     {
         isTriggerActive3 = isTriggered;
-        Debug.Log($"Trigger status changed: {isTriggerActive3}");
     }
 
     public override void PlayMinigame(Action<int> onComplete)
