@@ -369,6 +369,18 @@ public class BattleSystem : MonoBehaviour
         player1SkillButtonsSelect[2].GetComponent<Button>().onClick.AddListener(() => PierceButtonClicked(0));
         player1SkillButtonsSelect[2].SetActive(false);
 
+        skillObject = new GameObject("flameShowerSkill");
+        flameShowerSkill newSkillFS = skillObject.AddComponent<flameShowerSkill>();
+        Skill fourthSkill = GameManager2D.instance.skillListPlayer1.P1Skills[3];
+        newSkillFS.Setskill(fourthSkill.name, fourthSkill.description, fourthSkill.attack, fourthSkill.cost, fourthSkill.type, fourthSkill.healAmt);
+        playerOneSkills.Add(newSkillFS);
+
+        //setup butons and text
+        player1SkillOptions[3].text = fourthSkill.name;
+        player1SkillOptions[3].gameObject.SetActive(false);
+        player1SkillButtonsSelect.Add(Instantiate(player1SkillButtons[3], buttonPanel));
+        player1SkillButtonsSelect[3].GetComponent<Button>().onClick.AddListener(() => flameShowerButtonClicked(0));
+        player1SkillButtonsSelect[3].SetActive(false);
     }
 
     void player2SkillSetup() {
@@ -479,6 +491,7 @@ public class BattleSystem : MonoBehaviour
             player1SkillOptions[0].gameObject.SetActive(true);
             player1SkillOptions[1].gameObject.SetActive(true);
             player1SkillOptions[2].gameObject.SetActive(true);
+            player1SkillOptions[3].gameObject.SetActive(true);
         }
         else if (index == 1)
             player2SkillOptions[0].gameObject.SetActive(true);
@@ -494,6 +507,7 @@ public class BattleSystem : MonoBehaviour
             player1SkillButtonsSelect[0].SetActive(true);
             player1SkillButtonsSelect[1].SetActive(true);
             player1SkillButtonsSelect[2].SetActive(true);
+            player1SkillButtonsSelect[3].SetActive(true);
             UnityEngine.EventSystems.EventSystem.current.SetSelectedGameObject(player1SkillButtonsSelect[0]);
             lastSelected = player1SkillButtonsSelect[0];
         }
@@ -754,6 +768,52 @@ public class BattleSystem : MonoBehaviour
         player3SkillOptions[0].gameObject.SetActive(false);
         player3SkillButtonsSelect[0].SetActive(false);
         commenceRockyTauntButton(index, 0); // Do all enemies
+    }
+
+    void flameShowerButtonClicked(int index) {
+        Debug.Log("Flame Shower Button Clicked");
+        for (int i = 0; i < player1SkillButtons.Count; i++) {
+            player1SkillOptions[i].gameObject.SetActive(false);
+            player1SkillButtonsSelect[i].SetActive(false);
+        }
+        commenceFlameShowerButtonClicked(index, 0); // Do all enemies
+    }
+
+    void commenceFlameShowerButtonClicked(int index, int enemyIndex) {
+
+        // EVENT SYS CALL FOR FLAME SHOWER 
+        playerOneSkills[3].PlayMinigame((result) => {
+            if (result == 1)    {
+                // attack all enemies
+                for (int i = 0; i < enemySelectButtons.Count; i++) {
+                    if (!enemyList[i].enemyUnit.getDead()) {
+                        enemyList[i].enemyUnit.healthChange(-1 * playerOneSkills[3].skillInflict());
+                        enemyList[i].enemyHealth.GetComponent<Slider>().value = enemyList[i].enemyUnit.getCurrentHP();
+                        if (enemyList[i].enemyUnit.getCurrentHP() <= 0) 
+                            removeEnemy(i);
+                        // goin back to the enemy turn
+                        if (currentEnemyCount <= 0)
+                            GameManager2D.instance.UpdateBattleState(BattleState.WON);
+                    }
+                }
+                characterList.characters[index].healthBarPanel.gameObject.SetActive(true);
+                characterList.characters[index].playerHud.gameObject.SetActive(true);
+                characterList.characters[index].playerHealth.SetActive(true);
+                checkplayerTurn();
+            }
+            else    {
+                Debug.Log("Player failed in minigame!");
+                characterList.characters[index].healthBarPanel.gameObject.SetActive(true);
+                characterList.characters[index].playerHud.gameObject.SetActive(true);
+                characterList.characters[index].playerHealth.SetActive(true);
+                // goin back to the enemy turn
+                if (currentEnemyCount <= 0)
+                    GameManager2D.instance.UpdateBattleState(BattleState.WON);
+                else {
+                    checkplayerTurn();
+                }
+            }
+        });
     }
 
     void commenceRockyTauntButton(int index, int enemyIndex) {
