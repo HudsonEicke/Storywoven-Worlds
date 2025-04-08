@@ -32,7 +32,7 @@ public class EnemySystem : MonoBehaviour {
             GameObject enemy = Instantiate(enemyPrefab, enemyBattleStation[i]);
             newEnemy.enemy = enemy;
             newEnemy.enemyUnit = enemy.GetComponent<Unit>();
-            newEnemy.enemyUnit.SetStats(100, 10, 5, 100, "Warrior " + (i + 1), 1, 100, 10);
+            newEnemy.enemyUnit.SetStats(100, 20, 5, 100, "Warrior " + (i + 1), 1, 100, 10);
             newEnemy.enemyHud = enemyHud[i];
             newEnemy.enemyHud.text = newEnemy.enemyUnit.getName();
             newEnemy.enemyHealth = Instantiate(healthBarEnemy, healthBarEnemyPanels[i]);

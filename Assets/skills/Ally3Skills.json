@@ -9,7 +9,7 @@
         "healAmt": 0
       },
       {
-        "name": "Rumble and Tumble",
+        "name": "Rumble & Tumble",
         "description": "Charge up your rocky fist and smash your oponent, chance to stun the enemy",
         "attack": 30,
         "cost": 25,
@@ -18,7 +18,7 @@
       },
       {
         "name": "Rocky Wall",
-        "description": "Grant 100% chance of being targeted next turn and greatly reduced damage during that turn and heal a small amount",
+        "description": "Grant 100% chance of being targeted next turn and greatly reduced damage during that turn and heal a small amount, any previous taunts get removed",
         "attack": 0,
         "cost": 25,
         "type": "Support",
