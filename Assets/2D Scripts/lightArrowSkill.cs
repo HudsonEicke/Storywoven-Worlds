@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class lightArrowSkill : skill
 {
     [SerializeField] public GameObject minigamebackground;
-    [SerializeField] public GameObject slash;
+    [SerializeField] public GameObject arrow;
     [SerializeField] public GameObject target;
     [SerializeField] public GameObject text;
     private onCollissionHit collisionComponent;
@@ -15,8 +15,8 @@ public class lightArrowSkill : skill
     private bool spaceBarPressed = false; 
     private bool isTriggerActive = false;
     private bool miniGameStart = false; // This is to check if the minigame has started
+    bool hit;
 
-/*
     private void Start()
     {
         
@@ -57,23 +57,28 @@ public class lightArrowSkill : skill
 
     public override void PlayMinigame(Action<int> onComplete)
     {
-        Debug.Log("Playing Flame Shower minigame...");
+        Debug.Log("Playing Light Arrow minigame...");
         spaceBarPressed = false; // Reset input
         StartCoroutine(MinigameCoroutine(onComplete));
     }
-*/
 
     private IEnumerator MinigameCoroutine(Action<int> onComplete)
     {
         int result;
+        hit = false;
+        minigamebackground.SetActive(true);
+        arrow.SetActive(true);
+        target.SetActive(true);
+        text.SetActive(true);
         
-        // Move slash across the screen
-        yield return StartCoroutine(MoveSlash());
+        yield return StartCoroutine(MoveArrow());
 
- 
-        result = 1;
+        if (hit)
+            result = 1;
+        else
+            result = 0;
 
-        // setup(); // Disable UI stuff
+        setup(); // Disable UI stuff
         onComplete?.Invoke(result); // when its done we just gonna return the result
     }
 
@@ -94,17 +99,41 @@ public class lightArrowSkill : skill
     public void setup() 
     {
         if (minigamebackground != null) minigamebackground.SetActive(false);
-        if (slash != null) slash.SetActive(false);
+        if (arrow != null) arrow.SetActive(false);
         if (target != null) target.SetActive(false);
-        if (text != null) text.SetActive(false); 
+        if (text != null) text.SetActive(false);
     }
 
-    private IEnumerator MoveSlash()
+    private IEnumerator MoveArrow()
     {
-        yield return new WaitForSeconds(1);
         miniGameStart = true; // Set this to true when the minigame starts
-        
-        miniGameStart = false; // Reset this to false after the minigame ends
-        
+        UnityEngine.Vector3 startPos = arrow.transform.position;
+        UnityEngine.Vector3 startScale = arrow.transform.localScale;
+        yield return new WaitForSeconds(1);
+        float duration = 3.0f;
+        float elapsedTime = 0f;
+
+        while (!spaceBarPressed && miniGameStart)
+        {
+            arrow.transform.Rotate(new UnityEngine.Vector3(0, 0, 360) * Time.deltaTime / 2, Space.Self);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        elapsedTime = 0f;
+        while (elapsedTime < duration) {
+            Debug.Log(arrow.transform.position);
+            Vector3 moveDirection = new Vector3(Mathf.Cos(arrow.transform.eulerAngles.z * Mathf.Deg2Rad), Mathf.Sin(arrow.transform.eulerAngles.z * Mathf.Deg2Rad), 0);
+            arrow.transform.position += moveDirection * 500.0f * Time.deltaTime;
+            elapsedTime += Time.deltaTime;
+            if (isTriggerActive)
+            {
+                hit = true;
+                break;
+            }
+            yield return null;
+        }
+        arrow.transform.position = startPos;
+        arrow.transform.localScale = startScale;
+        miniGameStart = false;
     }
 }

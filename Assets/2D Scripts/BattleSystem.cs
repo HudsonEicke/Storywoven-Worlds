@@ -431,6 +431,11 @@ private IEnumerator EnemyAttackSequence()
         lightArrowSkill newSkill2 = healObject2.AddComponent<lightArrowSkill>();
         Skill secondSkill = GameManager2D.instance.skillListPlayer2.P2Skills[1];
         newSkill2.Setskill(secondSkill.name, secondSkill.description, secondSkill.attack, secondSkill.cost, secondSkill.type, secondSkill.healAmt);
+        newSkill2.minigamebackground = GameObject.Find("lightArrowBackground");
+        newSkill2.arrow = GameObject.Find("Arrow");
+        newSkill2.target = GameObject.Find("ArrowTarget");
+        newSkill2.text = GameObject.Find("DirectionsArrow");
+        newSkill2.setup();
         playerTwoSkills.Add(newSkill2);
 
         // set up the button and text
