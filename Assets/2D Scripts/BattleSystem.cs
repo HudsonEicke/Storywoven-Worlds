@@ -504,6 +504,11 @@ private IEnumerator EnemyAttackSequence()
         rumbleAndTumbleSkill newSkill2 = skillObject2.AddComponent<rumbleAndTumbleSkill>();
         Skill secondSkill = GameManager2D.instance.skillListPlayer3.P3Skills[1];
         newSkill2.Setskill(secondSkill.name, secondSkill.description, secondSkill.attack, secondSkill.cost, secondSkill.type, secondSkill.healAmt);
+        newSkill2.minigamebackground = GameObject.Find("RumbleBackground");
+        newSkill2.fist = GameObject.Find("RockFist");
+        newSkill2.fillBar = GameObject.Find("Rumblefill");
+        newSkill2.text = GameObject.Find("DirectionsRumble");
+        newSkill2.setup();
         playerThreeSkills.Add(newSkill2);
 
         // set up the button and text

@@ -121,7 +121,7 @@ public class lightArrowSkill : skill
         }
         elapsedTime = 0f;
         while (elapsedTime < duration) {
-            Debug.Log(arrow.transform.position);
+            // Debug.Log(arrow.transform.position);
             Vector3 moveDirection = new Vector3(Mathf.Cos(arrow.transform.eulerAngles.z * Mathf.Deg2Rad), Mathf.Sin(arrow.transform.eulerAngles.z * Mathf.Deg2Rad), 0);
             arrow.transform.position += moveDirection * 500.0f * Time.deltaTime;
             elapsedTime += Time.deltaTime;

@@ -11,7 +11,7 @@
       {
         "name": "Rumble & Tumble",
         "description": "Charge up your rocky fist and smash your oponent, chance to stun the enemy",
-        "attack": 30,
+        "attack": 25,
         "cost": 25,
         "type": "melee",
         "healAmount": 0
