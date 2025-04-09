@@ -399,6 +399,10 @@ private IEnumerator EnemyAttackSequence()
         flameShowerSkill newSkillFS = skillObject.AddComponent<flameShowerSkill>();
         Skill fourthSkill = GameManager2D.instance.skillListPlayer1.P1Skills[3];
         newSkillFS.Setskill(fourthSkill.name, fourthSkill.description, fourthSkill.attack, fourthSkill.cost, fourthSkill.type, fourthSkill.healAmt);
+        newSkillFS.minigamebackground = GameObject.Find("miniGameBackgroundFlame");
+        newSkillFS.slash = GameObject.Find("FSlash");
+        newSkillFS.target = GameObject.Find("FTarget");
+        newSkillFS.setup();
         playerOneSkills.Add(newSkillFS);
 
         //setup butons and text

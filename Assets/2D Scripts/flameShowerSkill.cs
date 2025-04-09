@@ -3,20 +3,21 @@ using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class flameShowerSkill : skill
 {
     [SerializeField] public GameObject minigamebackground;
     [SerializeField] public GameObject slash;
     [SerializeField] public GameObject target;
-    [SerializeField] public GameObject text;
     private onCollissionHit collisionComponent;
 
     private bool spaceBarPressed = false; 
     private bool isTriggerActive = false;
     private bool miniGameStart = false; // This is to check if the minigame has started
+    private int count = 0;
 
-/*
+
     private void Start()
     {
         
@@ -61,19 +62,33 @@ public class flameShowerSkill : skill
         spaceBarPressed = false; // Reset input
         StartCoroutine(MinigameCoroutine(onComplete));
     }
-*/
+
 
     private IEnumerator MinigameCoroutine(Action<int> onComplete)
     {
-        int result;
+        int result = 0;
+
+        // Enabling UI stuff
+        minigamebackground.SetActive(true);
+        slash.SetActive(true);
+        target.SetActive(true);
+        // text.SetActive(true); // Show the text
         
         // Move slash across the screen
         yield return StartCoroutine(MoveSlash());
 
- 
-        result = 1;
-
-        // setup(); // Disable UI stuff
+        // event handler allows us to check if the trigger is active real time, this was so painful to figure out
+        if (miniGameStart == false && count == 3) {
+            Debug.Log(count);
+            result = 1;
+            count = 0;
+        }
+        else if (miniGameStart == false && count < 3) {
+            Debug.Log(count);
+            result = 0;
+            count = 0;
+        }
+        setup(); // Disable UI stuff
         onComplete?.Invoke(result); // when its done we just gonna return the result
     }
 
@@ -96,15 +111,44 @@ public class flameShowerSkill : skill
         if (minigamebackground != null) minigamebackground.SetActive(false);
         if (slash != null) slash.SetActive(false);
         if (target != null) target.SetActive(false);
-        if (text != null) text.SetActive(false); 
+        // if (text != null) text.SetActive(false); 
     }
 
     private IEnumerator MoveSlash()
     {
-        yield return new WaitForSeconds(1);
         miniGameStart = true; // Set this to true when the minigame starts
-        
-        miniGameStart = false; // Reset this to false after the minigame ends
-        
+        Vector3 startPos = slash.transform.position;
+        Vector3 endPos = new Vector3(startPos.x + 700, startPos.y, startPos.z);
+        Vector3 startTargetPos = target.transform.position;
+        int randomint = 0;
+        float duration = 1.3f;
+        float elapsedTime = 0f;
+        float sub = 0.2f;
+        yield return new WaitForSeconds(1);
+        for (int i = 0; i < 3; i++) {
+            Debug.Log("Moving slash...");
+
+            slash.transform.position = startPos;
+            target.transform.position = new Vector3(startTargetPos.x + randomint, startTargetPos.y, startTargetPos.z);
+            while (elapsedTime < duration)
+            {
+                slash.transform.position = Vector3.Lerp(startPos, endPos, elapsedTime / duration);
+                elapsedTime += Time.deltaTime;
+                yield return null;
+                if(spaceBarPressed) break; // gotta break it early so we can tell if the player press the spacebar at the right time
+            }
+            if (isTriggerActive && spaceBarPressed)
+            {
+                Debug.Log("Minigame success!");
+                count++;
+            }
+
+            randomint = Random.Range(-150, 200);
+            spaceBarPressed = false; // Reset input for the next iteration
+            elapsedTime = 0f + (sub * i); // Reset elapsed time for the next iteration
+            slash.transform.position = startPos; // Ensure it resets
+        }
+        miniGameStart = false;
+        target.transform.position = startTargetPos;
     }
 }
