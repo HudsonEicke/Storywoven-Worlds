@@ -8476,7 +8476,7 @@ GameObject:
   - component: {fileID: 1114259762}
   - component: {fileID: 1114259761}
   m_Layer: 0
-  m_Name: minigameBackgroundFlame
+  m_Name: miniGameBackgroundFlame
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
