@@ -23,6 +23,8 @@ public class Character {
     public Text playerHudAttack;
     public Text playerHudSkill;
     public Transform healthBarPanel;
+    public Transform manaBarPanel;
+    public GameObject playerMana;
 }
 [System.Serializable]
 public class CharacterList {
@@ -37,6 +39,8 @@ public class CharacterSystem : MonoBehaviour {
     [SerializeField] List<Text> playerHuds;
     [SerializeField] List<Text> playerHudsAttack;
     [SerializeField] List<Text> playerHudsSkill;
+    [SerializeField] GameObject manaBarsAllies;
+    [SerializeField] List<Transform> manaBarPanels;
     public TextAsset jsonFile;
 
     public CharacterList Load(int characterCount) {
@@ -81,6 +85,14 @@ public class CharacterSystem : MonoBehaviour {
             characterList.characters[i].playerHealth.gameObject.SetActive(false);
             characterList.characters[i].healthBarPanel.gameObject.SetActive(false);
             characterList.characters[i].playerHud.gameObject.SetActive(false);
+
+            GameObject manaBar = Instantiate(manaBarsAllies, manaBarPanels[i]);
+            characterList.characters[i].manaBarPanel = manaBarPanels[i];
+            characterList.characters[i].playerMana = manaBar;
+            manaBar.GetComponent<Slider>().maxValue = characterList.characters[i].playerUnit.getEnergy();
+            manaBar.GetComponent<Slider>().value = characterList.characters[i].playerUnit.getEnergy();
+            characterList.characters[i].manaBarPanel.gameObject.SetActive(false);
+            characterList.characters[i].playerMana.gameObject.SetActive(false);
         }
 
         return characterList;

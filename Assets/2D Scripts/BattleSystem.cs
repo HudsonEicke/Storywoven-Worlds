@@ -143,6 +143,8 @@ public class BattleSystem : MonoBehaviour
                     characterList.characters[i].playerHealth.gameObject.SetActive(true);
                     characterList.characters[i].healthBarPanel.gameObject.SetActive(true);
                     characterList.characters[i].playerHud.gameObject.SetActive(true);
+                    characterList.characters[i].manaBarPanel.gameObject.SetActive(true);
+                    characterList.characters[i].playerMana.gameObject.SetActive(true);
                 }
             for (int i = 0; i < currentEnemyCount; i++)
             {

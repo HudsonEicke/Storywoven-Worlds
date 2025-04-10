@@ -82,4 +82,8 @@ public class Unit : MonoBehaviour
     public void addWeight(int weight) {
         isWeight += weight;
     }
+
+    public int getEnergy() {
+        return currentEnergy;
+    }
 }
