@@ -13,49 +13,9 @@ public class rumbleAndTumbleSkill : skill
     [SerializeField] public GameObject text;
     private onCollissionHit collisionComponent;
 
-    private bool spaceBarPressed = false; 
-    private bool isTriggerActive = false;
+    private bool spaceBarPressed = false;
     private bool miniGameStart = false; // This is to check if the minigame has started
     int count = 0;
-
-/*
-    private void Start()
-    {
-        
-        if (target == null)
-        {
-            Debug.LogError("Target is NULL in slashSkill!");
-            return;
-        }
-
-        collisionComponent = target.GetComponent<onCollissionHit>();
-        if (collisionComponent == null)
-        {
-            Debug.LogError("No onCollissionHit found on target!");
-            return;
-        }
-
-        // Prevent duplicate subscriptions
-        collisionComponent.OnTriggerChanged -= HandleTriggerChanged;
-        collisionComponent.OnTriggerChanged += HandleTriggerChanged;
-        
-    }
-
-    private void OnDestroy()
-    {
-        if (collisionComponent != null)
-        {
-            collisionComponent.OnTriggerChanged -= HandleTriggerChanged;
-        }
-    }
-
-    // Event handler for the OnTriggerChanged event
-    private void HandleTriggerChanged(bool isTriggered)
-    {
-        isTriggerActive = isTriggered;
-        Debug.Log($"Trigger status changed: {isTriggerActive}");
-    }
-*/
 
     public override void PlayMinigame(Action<int> onComplete)
     {

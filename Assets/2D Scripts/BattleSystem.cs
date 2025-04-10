@@ -537,6 +537,12 @@ private IEnumerator EnemyAttackSequence()
         ragnaROCKSkill newSkill4 = skillObject4.AddComponent<ragnaROCKSkill>();
         Skill fourthSkill = GameManager2D.instance.skillListPlayer3.P3Skills[3];
         newSkill4.Setskill(fourthSkill.name, fourthSkill.description, fourthSkill.attack, fourthSkill.cost, fourthSkill.type, fourthSkill.healAmt);
+        newSkill4.minigamebackground = GameObject.Find("ragnaROCKBackground");
+        newSkill4.fist = GameObject.Find("RagnaFist");
+        newSkill4.hitTarget = GameObject.Find("HitTarget");
+        newSkill4.missTarget = GameObject.Find("MissTarget");
+        newSkill4.text = GameObject.Find("DirectionsRagna");
+        newSkill4.setup();
         playerThreeSkills.Add(newSkill4);
 
         //set up the button and text

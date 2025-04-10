@@ -129,9 +129,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5e8f9fb5427d0d42bbbbe3738d30dc4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitName: Billy
-  unitLevel: 5
-  damage: 10
-  maxHP: 50
-  currentHP: 50
-  currentEnergy: 0
