@@ -241,7 +241,13 @@ private IEnumerator EnemyAttackSequence()
                 enemyList[i].enemyHealth.gameObject.SetActive(false);
                 enemyList[i].healthPanel.gameObject.SetActive(false);
                 enemyList[i].enemyHud.gameObject.SetActive(false);
+                enemyList[i].enemyStat.gameObject.SetActive(false);
+                enemyList[i].enemyStun.gameObject.SetActive(false);
                 currentEnemyCount--;
+                if (currentEnemyCount <= 0) {
+                    GameManager2D.instance.UpdateBattleState(BattleState.WON);
+                    yield break;
+                }
             }
             if (!enemyList[i].enemyUnit.getBurn())
                 enemyList[i].enemyStat.gameObject.SetActive(false);
@@ -250,8 +256,10 @@ private IEnumerator EnemyAttackSequence()
             enemyList[i].enemyStat.gameObject.SetActive(false);
         }
 
-        if (enemyList[i].enemyUnit.getDead())
+        if (enemyList[i].enemyUnit.getDead() || enemyList[i].enemyUnit.getStun()) {
+            enemyList[i].enemyStun.gameObject.SetActive(false);
             continue;
+        }
 
 
         // Sum weights for each player and determine the target
@@ -1117,13 +1125,44 @@ private IEnumerator EnemyAttackSequence()
             player3SkillOptions[i].gameObject.SetActive(false);
             player3SkillButtonsSelect[i].SetActive(false);
         }
-        commenceRumbleAndTumbleButton(index, 0); // Do all enemies
+        // get the enemy index to attack
+        for (int i = 0; i < enemySelectButtons.Count; i++) {
+            int enemyindex = i;
+            if (!enemyList[i].enemyUnit.getDead()) {
+                enemySelectButtons[i].GetComponent<Button>().onClick.RemoveAllListeners();
+                enemySelectButtons[i].GetComponent<Button>().onClick.AddListener(() => commenceRumbleAndTumbleButton(index, enemyindex));
+            }
+        }
+
+        int buttonToStart = 0;
+        for (int i = 0; i < enemySelectButtons.Count; i++) {
+            if (enemyList[i].enemyUnit.getDead()) continue;
+            enemySelectButtons[i].SetActive(true);
+        }
+        while (enemyList[buttonToStart].enemyUnit.getDead())
+            buttonToStart++;
+        UnityEngine.EventSystems.EventSystem.current.SetSelectedGameObject(enemySelectButtons[buttonToStart]);
+        lastSelected = enemySelectButtons[buttonToStart];
     }
 
     void commenceRumbleAndTumbleButton(int index, int enemyIndex) {
+        for (int i = 0; i < enemySelectButtons.Count; i++) {
+            if (enemyList[i].enemyUnit.getDead()) continue;
+            enemySelectButtons[i].SetActive(false);
+        }
+
+        for (int i = 0; i < enemySelectButtons.Count; i++) {
+            int origionalIndex = i;
+            if (!enemyList[i].enemyUnit.getDead()) {
+                enemySelectButtons[i].GetComponent<Button>().onClick.RemoveAllListeners();
+                enemySelectButtons[i].GetComponent<Button>().onClick.AddListener(() => ApplyDamage(origionalIndex));
+            }
+        }
         playerThreeSkills[1].PlayMinigame((result) => {
             if (result == 1)    {
                 Debug.Log("Player succeeded in minigame!");
+                enemyList[enemyIndex].enemyUnit.setStunned();
+                enemyList[enemyIndex].enemyStun.gameObject.SetActive(true);
                 characterList.characters[index].playerHud.gameObject.SetActive(true);
                 characterList.characters[index].playerHealth.SetActive(true);
                 characterList.characters[index].healthBarPanel.gameObject.SetActive(true);

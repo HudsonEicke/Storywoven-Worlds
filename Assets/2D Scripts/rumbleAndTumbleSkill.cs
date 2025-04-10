@@ -83,7 +83,7 @@ public class rumbleAndTumbleSkill : skill
         UnityEngine.Vector3 chargePosLeft = startPos + new UnityEngine.Vector3(-10, 0, 0); 
         UnityEngine.Vector3 chargePosRight = startPos + new UnityEngine.Vector3(+10, 0, 0);
         bool left = false; 
-        float duration = 7.0f;
+        float duration = 8.0f;
         float elapsedTime = 0f;
         miniGameStart = true; // Set this to true when the minigame starts
         while (elapsedTime < duration) {
