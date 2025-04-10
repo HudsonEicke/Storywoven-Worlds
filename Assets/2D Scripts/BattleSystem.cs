@@ -150,6 +150,7 @@ public class BattleSystem : MonoBehaviour
             {
                 Debug.Log("TEST ENEMY: " + i);
                 enemyList[i].enemyUnit.revive();
+                enemyList[i].enemyStat.gameObject.SetActive(false);
                 enemyList[i].enemyHealth.GetComponent<Slider>().value = enemyList[i].enemyUnit.getCurrentHP();
                 enemyList[i].enemyUnit.gameObject.SetActive(true);
                 enemyList[i].enemyHealth.gameObject.SetActive(true);
@@ -230,6 +231,28 @@ private IEnumerator EnemyAttackSequence()
     {
         if (enemyList[i].enemyUnit.getDead())
             continue;
+        if (enemyList[i].enemyUnit.isBurnt())
+        {
+            enemyList[i].enemyUnit.healthChange(-1 * enemyList[i].enemyUnit.burnDamage());
+            enemyList[i].enemyHealth.GetComponent<Slider>().value = enemyList[i].enemyUnit.getCurrentHP();
+            if (enemyList[i].enemyUnit.getCurrentHP() <= 0)
+            {
+                enemyList[i].enemyUnit.gameObject.SetActive(false);
+                enemyList[i].enemyHealth.gameObject.SetActive(false);
+                enemyList[i].healthPanel.gameObject.SetActive(false);
+                enemyList[i].enemyHud.gameObject.SetActive(false);
+                currentEnemyCount--;
+            }
+            if (!enemyList[i].enemyUnit.getBurn())
+                enemyList[i].enemyStat.gameObject.SetActive(false);
+        }
+        else {
+            enemyList[i].enemyStat.gameObject.SetActive(false);
+        }
+
+        if (enemyList[i].enemyUnit.getDead())
+            continue;
+
 
         // Sum weights for each player and determine the target
         int sumWeights = 0;
@@ -812,7 +835,10 @@ private IEnumerator EnemyAttackSequence()
         // EVENT SYS CALL FOR PIERCE
         playerOneSkills[2].PlayMinigame((result) => {
             if (result == 1)    {
+                enemyList[enemyIndex].enemyUnit.setBurnt(3);
+                enemyList[enemyIndex].enemyStat.gameObject.SetActive(true);
                 Debug.Log("Player succeeded in minigame!");
+                enemyList[enemyIndex].enemyUnit.setBurnt(3);
                 characterList.characters[index].playerHud.gameObject.SetActive(true);
                 characterList.characters[index].playerHealth.SetActive(true);
                 characterList.characters[index].healthBarPanel.gameObject.SetActive(true);

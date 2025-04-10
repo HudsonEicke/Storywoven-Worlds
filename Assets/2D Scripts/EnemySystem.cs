@@ -11,6 +11,7 @@ public class EnemySystem : MonoBehaviour {
     [SerializeField] private GameObject healthBarEnemy;
     [SerializeField] private List<Transform> healthBarEnemyPanels;
     [SerializeField] private List<Text> enemyHud;
+    [SerializeField] private List<Text> enemyStat;
 
     // class to store all of the stuff we need for one enemy
     public class EnemyHealthAndInfo {
@@ -18,6 +19,7 @@ public class EnemySystem : MonoBehaviour {
         // this deals with what we see of the enemy
         public GameObject enemy;        
         public Text enemyHud;
+        public Text enemyStat;
         public Unit enemyUnit; // this is where we can start filling the stats of the enemy
 
         // this deals with the health aspect of enemy
@@ -34,6 +36,8 @@ public class EnemySystem : MonoBehaviour {
             newEnemy.enemyUnit = enemy.GetComponent<Unit>();
             newEnemy.enemyUnit.SetStats(100, 20, 5, 100, "Warrior " + (i + 1), 1, 100, 10);
             newEnemy.enemyHud = enemyHud[i];
+            newEnemy.enemyStat = enemyStat[i];
+            newEnemy.enemyStat.text = "Burn";
             newEnemy.enemyHud.text = newEnemy.enemyUnit.getName();
             newEnemy.enemyHealth = Instantiate(healthBarEnemy, healthBarEnemyPanels[i]);
             newEnemy.healthPanel = healthBarEnemyPanels[i];
@@ -44,6 +48,7 @@ public class EnemySystem : MonoBehaviour {
             enemyList[i].enemyHealth.gameObject.SetActive(false);
             enemyList[i].healthPanel.gameObject.SetActive(false);
             enemyList[i].enemyHud.gameObject.SetActive(false);
+            enemyList[i].enemyStat.gameObject.SetActive(false);
         }
 
         return enemyList;

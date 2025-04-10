@@ -15,6 +15,8 @@ public class Unit : MonoBehaviour
     private int defense;
     private bool isDead;
     private int isWeight;
+    private int burn;
+    private int stun;
 
     public string getName() {
         return unitName;
@@ -28,6 +30,44 @@ public class Unit : MonoBehaviour
         return currentHP;
     }
 
+    public bool isBurnt() {
+        if (burn > 0) {
+            burn--;
+            return true;
+        }
+        return false;
+    }
+
+    public bool isStunned() {
+        if (stun > 0) {
+            stun--;
+            return true;
+        }
+        return false;
+    }
+
+    public bool getBurn(){
+        return burn > 0;
+    }
+    
+    public bool getStun(){
+        return stun > 0;
+    }
+
+    public int burnDamage() {
+        int burnDamage = 0;
+        burnDamage = (int)(maxHP * 0.1f);
+        return burnDamage;
+    }
+
+    public void setBurnt(int burn) {
+        this.burn = burn;
+    }
+
+    public void setStunned(int stun) {
+        this.stun = stun;
+    }
+
     public void SetStats(int health, int dmg, int def, int current, string name, int lvl, int energy, int weight) {
         unitName = name;
         unitLevel = lvl;
@@ -38,6 +78,8 @@ public class Unit : MonoBehaviour
         defense = def;
         isDead = false;
         isWeight = weight;
+        burn = 0;
+        stun = 0;
     }
 
     public bool healthChange(int change)
@@ -73,6 +115,7 @@ public class Unit : MonoBehaviour
 
     public void revive() {
         isDead = false;
+        burn = 0;
         currentHP = maxHP;
     }
 
