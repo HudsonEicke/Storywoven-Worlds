@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 48a7c6c58a958fb43b04ec79cb80761b
+guid: 28455bc00c592be4fbfa323286f05556
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -43,7 +43,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -108,112 +108,7 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites:
-    - serializedVersion: 2
-      name: meleeMaleMainCharacterFantasyIdle_0
-      rect:
-        serializedVersion: 2
-        x: 1
-        y: 18
-        width: 15
-        height: 15
-      alignment: 1
-      pivot: {x: 0, y: 1}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 442099de874394947b2bd1748bac781c
-      internalID: -1562726633
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: meleeMaleMainCharacterFantasyIdle_1
-      rect:
-        serializedVersion: 2
-        x: 18
-        y: 18
-        width: 15
-        height: 14
-      alignment: 1
-      pivot: {x: 0, y: 1}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: b18cff22c7988304eb3738c1dad1f7b9
-      internalID: -683013368
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: meleeMaleMainCharacterFantasyIdle_2
-      rect:
-        serializedVersion: 2
-        x: 34
-        y: 18
-        width: 16
-        height: 15
-      alignment: 1
-      pivot: {x: 0, y: 1}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 09a5325133fe7574889106a7dfd531db
-      internalID: 1050130622
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: meleeMaleMainCharacterFantasyIdle_3
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 1
-        width: 15
-        height: 15
-      alignment: 1
-      pivot: {x: 0, y: 1}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 05ba9896b6032ea45bad8ec2422f9766
-      internalID: -551790426
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: meleeMaleMainCharacterFantasyIdle_4
-      rect:
-        serializedVersion: 2
-        x: 18
-        y: 1
-        width: 15
-        height: 15
-      alignment: 1
-      pivot: {x: 0, y: 1}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 27a43c93c0838d24a9dc0ba788b41816
-      internalID: -1854802420
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
+    sprites: []
     outline: []
     physicsShape: []
     bones: []
@@ -224,12 +119,7 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable:
-      meleeMaleMainCharacterFantasyIdle_0: -1562726633
-      meleeMaleMainCharacterFantasyIdle_1: -683013368
-      meleeMaleMainCharacterFantasyIdle_2: 1050130622
-      meleeMaleMainCharacterFantasyIdle_3: -551790426
-      meleeMaleMainCharacterFantasyIdle_4: -1854802420
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

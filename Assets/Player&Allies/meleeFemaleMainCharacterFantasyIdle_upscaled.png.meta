@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 48a7c6c58a958fb43b04ec79cb80761b
+guid: dfece14b1eef91e4daf5fe17733b5740
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -110,76 +110,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: meleeMaleMainCharacterFantasyIdle_0
-      rect:
-        serializedVersion: 2
-        x: 1
-        y: 18
-        width: 15
-        height: 15
-      alignment: 1
-      pivot: {x: 0, y: 1}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 442099de874394947b2bd1748bac781c
-      internalID: -1562726633
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: meleeMaleMainCharacterFantasyIdle_1
-      rect:
-        serializedVersion: 2
-        x: 18
-        y: 18
-        width: 15
-        height: 14
-      alignment: 1
-      pivot: {x: 0, y: 1}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: b18cff22c7988304eb3738c1dad1f7b9
-      internalID: -683013368
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: meleeMaleMainCharacterFantasyIdle_2
-      rect:
-        serializedVersion: 2
-        x: 34
-        y: 18
-        width: 16
-        height: 15
-      alignment: 1
-      pivot: {x: 0, y: 1}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 09a5325133fe7574889106a7dfd531db
-      internalID: 1050130622
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: meleeMaleMainCharacterFantasyIdle_3
+      name: meleeFemaleMainCharacterFantasyIdle_upscaled_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 1
-        width: 15
-        height: 15
+        y: 72
+        width: 65
+        height: 60
       alignment: 1
       pivot: {x: 0, y: 1}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -187,20 +124,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 05ba9896b6032ea45bad8ec2422f9766
-      internalID: -551790426
+      spriteID: 41d16a1b88a430c4e88c1b44992ba2fc
+      internalID: -1868954637
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: meleeMaleMainCharacterFantasyIdle_4
+      name: meleeFemaleMainCharacterFantasyIdle_upscaled_2
       rect:
         serializedVersion: 2
-        x: 18
-        y: 1
-        width: 15
-        height: 15
+        x: 72
+        y: 72
+        width: 61
+        height: 60
       alignment: 1
       pivot: {x: 0, y: 1}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -208,8 +145,71 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 27a43c93c0838d24a9dc0ba788b41816
-      internalID: -1854802420
+      spriteID: 00778646b9adc3547ad5a212b9afec61
+      internalID: -1666520573
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: meleeFemaleMainCharacterFantasyIdle_upscaled_3
+      rect:
+        serializedVersion: 2
+        x: 139
+        y: 72
+        width: 61
+        height: 60
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cb4ca593915518848a5a4fabc9c2cbf2
+      internalID: 1060085369
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: meleeFemaleMainCharacterFantasyIdle_upscaled_5
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 4
+        width: 65
+        height: 61
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ad00106dca1ca9c42bf526088fe0a4f7
+      internalID: 180320252
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: meleeFemaleMainCharacterFantasyIdle_upscaled_7
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 4
+        width: 61
+        height: 62
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2f0c330fd6d669642ab2120331994a67
+      internalID: 274655382
       vertices: []
       indices: 
       edges: []
@@ -217,7 +217,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: 26e28e58b1cc09047ae2f22cac8ed1a1
     internalID: 0
     vertices: []
     indices: 
@@ -225,11 +225,15 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      meleeMaleMainCharacterFantasyIdle_0: -1562726633
-      meleeMaleMainCharacterFantasyIdle_1: -683013368
-      meleeMaleMainCharacterFantasyIdle_2: 1050130622
-      meleeMaleMainCharacterFantasyIdle_3: -551790426
-      meleeMaleMainCharacterFantasyIdle_4: -1854802420
+      meleeFemaleMainCharacterFantasyIdle_upscaled_0: -1868954637
+      meleeFemaleMainCharacterFantasyIdle_upscaled_1: -334763735
+      meleeFemaleMainCharacterFantasyIdle_upscaled_2: -1666520573
+      meleeFemaleMainCharacterFantasyIdle_upscaled_3: 1060085369
+      meleeFemaleMainCharacterFantasyIdle_upscaled_4: 1721790525
+      meleeFemaleMainCharacterFantasyIdle_upscaled_5: 180320252
+      meleeFemaleMainCharacterFantasyIdle_upscaled_6: -2144922331
+      meleeFemaleMainCharacterFantasyIdle_upscaled_7: 274655382
+      meleeFemaleMainCharacterFantasyIdle_upscaled_8: -14926127
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
