@@ -20,6 +20,7 @@ public class GameManager2D : MonoBehaviour
     public SkillListPlayer2 skillListPlayer2;
     public SkillListPlayer3 skillListPlayer3;
     public List<EnemySystem.EnemyHealthAndInfo> enemyList;
+    public int level;
 
     [SerializeField] public static int enemyCount;
     [SerializeField] public static int characterCount;

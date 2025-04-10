@@ -14982,6 +14982,7 @@ MonoBehaviour:
     characters: []
   skillListPlayer1:
     P1Skills: []
+  level: 5
   backGround: {fileID: 2024154297}
   allyBattleStations: {fileID: 428892815}
   enemyBattleStations: {fileID: 589798469}

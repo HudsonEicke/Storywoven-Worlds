@@ -64,6 +64,8 @@ public class BattleSystem : MonoBehaviour
 
     int healSwitch = 0; // inefficient, I know...
 
+    int level;
+
     [SerializeField] Text statusText;
 
     void Awake()
@@ -105,6 +107,7 @@ public class BattleSystem : MonoBehaviour
         case BattleState.SETUP:
             characterList = GameManager2D.instance.characterList;
             enemyList = GameManager2D.instance.enemyList;
+            level = GameManager2D.instance.level;
             playerTurnSetup();
             playerSelectSetup();
             break;
@@ -648,22 +651,64 @@ private IEnumerator EnemyAttackSequence()
         ToggleTextFirst(index);
         foreach (var button in buttons) button.SetActive(false);
         if (index == 0) {
-            player1SkillOptions[0].gameObject.SetActive(true);
-            player1SkillOptions[1].gameObject.SetActive(true);
-            player1SkillOptions[2].gameObject.SetActive(true);
-            player1SkillOptions[3].gameObject.SetActive(true);
+            if (level >= 10) {
+                player1SkillOptions[0].gameObject.SetActive(true);
+                player1SkillOptions[1].gameObject.SetActive(true);
+                player1SkillOptions[2].gameObject.SetActive(true);
+                player1SkillOptions[3].gameObject.SetActive(true);
+            }
+            else if (level >= 5) {
+                player1SkillOptions[0].gameObject.SetActive(true);
+                player1SkillOptions[1].gameObject.SetActive(true);
+                player1SkillOptions[2].gameObject.SetActive(true);
+            }
+            else if (level >= 1) {
+                player1SkillOptions[0].gameObject.SetActive(true);
+                player1SkillOptions[1].gameObject.SetActive(true);
+            }
+            else {
+                player1SkillOptions[0].gameObject.SetActive(true);
+            }
         }
         else if (index == 1) {
-            player2SkillOptions[0].gameObject.SetActive(true);
-            player2SkillOptions[1].gameObject.SetActive(true);
-            player2SkillOptions[2].gameObject.SetActive(true);
-            player2SkillOptions[3].gameObject.SetActive(true);
+            if (level >= 10) {
+                player2SkillOptions[0].gameObject.SetActive(true);
+                player2SkillOptions[1].gameObject.SetActive(true);
+                player2SkillOptions[2].gameObject.SetActive(true);
+                player2SkillOptions[3].gameObject.SetActive(true);
+            }
+            else if (level >= 5) {
+                player2SkillOptions[0].gameObject.SetActive(true);
+                player2SkillOptions[1].gameObject.SetActive(true);
+                player2SkillOptions[2].gameObject.SetActive(true);
+            }
+            else if (level >= 1) {
+                player2SkillOptions[0].gameObject.SetActive(true);
+                player2SkillOptions[1].gameObject.SetActive(true);
+            }
+            else {
+                player2SkillOptions[0].gameObject.SetActive(true);
+            }
         }
         else {
-            player3SkillOptions[0].gameObject.SetActive(true);
-            player3SkillOptions[1].gameObject.SetActive(true);
-            player3SkillOptions[2].gameObject.SetActive(true);
-            player3SkillOptions[3].gameObject.SetActive(true);
+            if (level >= 10) {
+                player3SkillOptions[0].gameObject.SetActive(true);
+                player3SkillOptions[1].gameObject.SetActive(true);
+                player3SkillOptions[2].gameObject.SetActive(true);
+                player3SkillOptions[3].gameObject.SetActive(true);
+            }
+            else if (level >= 5) {
+                player3SkillOptions[0].gameObject.SetActive(true);
+                player3SkillOptions[1].gameObject.SetActive(true);
+                player3SkillOptions[2].gameObject.SetActive(true);
+            }
+            else if (level >= 1) {
+                player3SkillOptions[0].gameObject.SetActive(true);
+                player3SkillOptions[1].gameObject.SetActive(true);
+            }
+            else {
+                player3SkillOptions[0].gameObject.SetActive(true);
+            }
         }
         characterList.characters[index].playerHudAttack.gameObject.SetActive(false);
         characterList.characters[index].playerHudSkill.gameObject.SetActive(false);
@@ -672,26 +717,68 @@ private IEnumerator EnemyAttackSequence()
             buttonsForPlayer[index].buttonsForPlayer[i].SetActive(false);
         }
         if (index == 0) {
-            player1SkillButtonsSelect[0].SetActive(true);
-            player1SkillButtonsSelect[1].SetActive(true);
-            player1SkillButtonsSelect[2].SetActive(true);
-            player1SkillButtonsSelect[3].SetActive(true);
+            if (level >= 10) {
+                player1SkillButtonsSelect[0].SetActive(true);
+                player1SkillButtonsSelect[1].SetActive(true);
+                player1SkillButtonsSelect[2].SetActive(true);
+                player1SkillButtonsSelect[3].SetActive(true);
+            }
+            else if (level >= 5) {
+                player1SkillButtonsSelect[0].SetActive(true);
+                player1SkillButtonsSelect[1].SetActive(true);
+                player1SkillButtonsSelect[2].SetActive(true);
+            }
+            else if (level >= 1) {
+                player1SkillButtonsSelect[0].SetActive(true);
+                player1SkillButtonsSelect[1].SetActive(true);
+            }
+            else {
+                player1SkillButtonsSelect[0].SetActive(true);
+            }
             UnityEngine.EventSystems.EventSystem.current.SetSelectedGameObject(player1SkillButtonsSelect[0]);
             lastSelected = player1SkillButtonsSelect[0];
         }
         else if (index == 1) {
-            player2SkillButtonsSelect[0].SetActive(true);
-            player2SkillButtonsSelect[1].SetActive(true);
-            player2SkillButtonsSelect[2].SetActive(true);
-            player2SkillButtonsSelect[3].SetActive(true);
+            if (level >= 10) {
+                player2SkillButtonsSelect[0].SetActive(true);
+                player2SkillButtonsSelect[1].SetActive(true);
+                player2SkillButtonsSelect[2].SetActive(true);
+                player2SkillButtonsSelect[3].SetActive(true);
+            }
+            else if (level >= 5) {
+                player2SkillButtonsSelect[0].SetActive(true);
+                player2SkillButtonsSelect[1].SetActive(true);
+                player2SkillButtonsSelect[2].SetActive(true);
+            }
+            else if (level >= 1) {
+                player2SkillButtonsSelect[0].SetActive(true);
+                player2SkillButtonsSelect[1].SetActive(true);
+            }
+            else {
+                player2SkillButtonsSelect[0].SetActive(true);
+            }
             UnityEngine.EventSystems.EventSystem.current.SetSelectedGameObject(player2SkillButtonsSelect[0]);
             lastSelected = player2SkillButtonsSelect[0];
         }
         else {
-            player3SkillButtonsSelect[0].SetActive(true);
-            player3SkillButtonsSelect[1].SetActive(true);
-            player3SkillButtonsSelect[2].SetActive(true);
-            player3SkillButtonsSelect[3].SetActive(true);
+            if (level >= 10) {
+                player3SkillButtonsSelect[0].SetActive(true);
+                player3SkillButtonsSelect[1].SetActive(true);
+                player3SkillButtonsSelect[2].SetActive(true);
+                player3SkillButtonsSelect[3].SetActive(true);
+            }
+            else if (level >= 5) {
+                player3SkillButtonsSelect[0].SetActive(true);
+                player3SkillButtonsSelect[1].SetActive(true);
+                player3SkillButtonsSelect[2].SetActive(true);
+            }
+            else if (level >= 1) {
+                player3SkillButtonsSelect[0].SetActive(true);
+                player3SkillButtonsSelect[1].SetActive(true);
+            }
+            else {
+                player3SkillButtonsSelect[0].SetActive(true);
+            }
             UnityEngine.EventSystems.EventSystem.current.SetSelectedGameObject(player3SkillButtonsSelect[0]);
             lastSelected = player3SkillButtonsSelect[0];
         }
