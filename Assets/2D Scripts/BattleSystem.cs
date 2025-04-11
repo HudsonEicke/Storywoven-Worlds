@@ -36,10 +36,13 @@ public class BattleSystem : MonoBehaviour
     [SerializeField] public List<GameObject> player2SkillButtons;
     [SerializeField] public List<Text> player3SkillOptions;
     [SerializeField] public List<GameObject> player3SkillButtons;
+    [SerializeField] public List<Text> backButtonsText;
+    [SerializeField] public List<GameObject> backButtons;
 
     List<GameObject> player1SkillButtonsSelect = new List<GameObject>();
     List<GameObject> player2SkillButtonsSelect = new List<GameObject>();
     List<GameObject> player3SkillButtonsSelect = new List<GameObject>();
+    List<GameObject> backButtonSelect = new List<GameObject>();
 
     public List<skill> playerOneSkills = new List<skill>();
     public List<skill> playerTwoSkills = new List<skill>();
@@ -125,6 +128,16 @@ public class BattleSystem : MonoBehaviour
                 player1SkillSetup();
                 player2SkillSetup();
                 player3SkillSetup();
+                // setup back buttons
+                for (int i = 0; i < backButtons.Count; i++)
+                {   
+                    Debug.Log("Setting up back button: " + i);
+                    backButtonsText[i].gameObject.SetActive(false);
+                    backButtonSelect.Add(Instantiate(backButtons[i], buttonPanel));
+                    int index = i;
+                    backButtonSelect[i].GetComponent<Button>().onClick.AddListener(() => BackButtonClicked(index));
+                    backButtonSelect[i].SetActive(false);
+                }
             }
             first = 1;
             currentEnemyCount = GameManager2D.enemyCount;
@@ -447,6 +460,7 @@ private IEnumerator EnemyAttackSequence()
         player1SkillButtonsSelect.Add(Instantiate(player1SkillButtons[3], buttonPanel));
         player1SkillButtonsSelect[3].GetComponent<Button>().onClick.AddListener(() => flameShowerButtonClicked(0));
         player1SkillButtonsSelect[3].SetActive(false);
+
     }
 
     void player2SkillSetup() {
@@ -669,6 +683,7 @@ private IEnumerator EnemyAttackSequence()
             else {
                 player1SkillOptions[0].gameObject.SetActive(true);
             }
+            backButtonsText[0].gameObject.SetActive(true);
         }
         else if (index == 1) {
             if (level >= 10) {
@@ -689,6 +704,7 @@ private IEnumerator EnemyAttackSequence()
             else {
                 player2SkillOptions[0].gameObject.SetActive(true);
             }
+            backButtonsText[1].gameObject.SetActive(true);
         }
         else {
             if (level >= 10) {
@@ -709,6 +725,7 @@ private IEnumerator EnemyAttackSequence()
             else {
                 player3SkillOptions[0].gameObject.SetActive(true);
             }
+            backButtonsText[2].gameObject.SetActive(true);
         }
         characterList.characters[index].playerHudAttack.gameObject.SetActive(false);
         characterList.characters[index].playerHudSkill.gameObject.SetActive(false);
@@ -735,6 +752,7 @@ private IEnumerator EnemyAttackSequence()
             else {
                 player1SkillButtonsSelect[0].SetActive(true);
             }
+            backButtonSelect[0].gameObject.SetActive(true);
             UnityEngine.EventSystems.EventSystem.current.SetSelectedGameObject(player1SkillButtonsSelect[0]);
             lastSelected = player1SkillButtonsSelect[0];
         }
@@ -757,6 +775,7 @@ private IEnumerator EnemyAttackSequence()
             else {
                 player2SkillButtonsSelect[0].SetActive(true);
             }
+            backButtonSelect[1].gameObject.SetActive(true);
             UnityEngine.EventSystems.EventSystem.current.SetSelectedGameObject(player2SkillButtonsSelect[0]);
             lastSelected = player2SkillButtonsSelect[0];
         }
@@ -779,9 +798,29 @@ private IEnumerator EnemyAttackSequence()
             else {
                 player3SkillButtonsSelect[0].SetActive(true);
             }
+            backButtonSelect[2].gameObject.SetActive(true);
             UnityEngine.EventSystems.EventSystem.current.SetSelectedGameObject(player3SkillButtonsSelect[0]);
             lastSelected = player3SkillButtonsSelect[0];
         }
+    }
+
+    void BackButtonClicked(int goBack) {
+        Debug.Log("Back button clicked for player: " + goBack);
+        // characterList.characters[index].playerHud.gameObject.SetActive(true);
+        // characterList.characters[index].playerHudAttack.gameObject.SetActive(true);
+        // characterList.characters[index].playerHudSkill.gameObject.SetActive(true);
+        for (int i = 0; i < 4; i++) {
+            player1SkillButtonsSelect[i].SetActive(false);
+            player2SkillButtonsSelect[i].SetActive(false);
+            player3SkillButtonsSelect[i].SetActive(false);
+            player1SkillOptions[i].gameObject.SetActive(false);
+            player2SkillOptions[i].gameObject.SetActive(false);
+            player3SkillOptions[i].gameObject.SetActive(false);
+
+        }
+        backButtonsText[goBack].gameObject.SetActive(false);
+        backButtonSelect[goBack].gameObject.SetActive(false);
+        OnButtonClicked(goBack);
     }
 
     void SlashButtonClicked(int index) {
@@ -790,6 +829,8 @@ private IEnumerator EnemyAttackSequence()
             player1SkillOptions[i].gameObject.SetActive(false);
             player1SkillButtonsSelect[i].SetActive(false);
         }
+        backButtonsText[index].gameObject.SetActive(false);
+        backButtonSelect[index].gameObject.SetActive(false);
         // get the enemy index to attack
         for (int i = 0; i < enemySelectButtons.Count; i++) {
             int enemyindex = i;
@@ -818,6 +859,8 @@ private IEnumerator EnemyAttackSequence()
             player1SkillOptions[i].gameObject.SetActive(false);
             player1SkillButtonsSelect[i].SetActive(false);
         }
+        backButtonsText[index].gameObject.SetActive(false);
+        backButtonSelect[index].gameObject.SetActive(false);
         // get the enemy index to attack
         for (int i = 0; i < enemySelectButtons.Count; i++) {
             int enemyindex = i;
@@ -846,6 +889,8 @@ private IEnumerator EnemyAttackSequence()
             player1SkillOptions[i].gameObject.SetActive(false);
             player1SkillButtonsSelect[i].SetActive(false);
         }
+        backButtonsText[index].gameObject.SetActive(false);
+        backButtonSelect[index].gameObject.SetActive(false);
         // get the enemy index to attack
         for (int i = 0; i < enemySelectButtons.Count; i++) {
             int enemyindex = i;
@@ -1017,7 +1062,8 @@ private IEnumerator EnemyAttackSequence()
             player2SkillOptions[i].gameObject.SetActive(false);
             player2SkillButtonsSelect[i].SetActive(false);
         }
-
+        backButtonsText[index].gameObject.SetActive(false);
+        backButtonSelect[index].gameObject.SetActive(false);
         // DO HEAL LOGIC HERE
         foreach (var btn in buttons) btn.SetActive(true);
         UnityEngine.EventSystems.EventSystem.current.SetSelectedGameObject(buttons[0]);
@@ -1037,6 +1083,8 @@ private IEnumerator EnemyAttackSequence()
             player2SkillOptions[i].gameObject.SetActive(false);
             player2SkillButtonsSelect[i].SetActive(false);
         }
+        backButtonsText[index].gameObject.SetActive(false);
+        backButtonSelect[index].gameObject.SetActive(false);
         // get the enemy index to attack
         for (int i = 0; i < enemySelectButtons.Count; i++) {
             int enemyindex = i;
@@ -1110,7 +1158,8 @@ private IEnumerator EnemyAttackSequence()
             player2SkillOptions[i].gameObject.SetActive(false);
             player2SkillButtonsSelect[i].SetActive(false);
         }
-
+        backButtonsText[index].gameObject.SetActive(false);
+        backButtonSelect[index].gameObject.SetActive(false);
         // DO HEAL LOGIC HERE
         foreach (var btn in buttons) btn.SetActive(true);
         UnityEngine.EventSystems.EventSystem.current.SetSelectedGameObject(buttons[0]);
@@ -1129,6 +1178,8 @@ private IEnumerator EnemyAttackSequence()
             player2SkillOptions[i].gameObject.SetActive(false);
             player2SkillButtonsSelect[i].SetActive(false);
         }
+        backButtonsText[index].gameObject.SetActive(false);
+        backButtonSelect[index].gameObject.SetActive(false);
         for (int i = 0; i < GameManager2D.characterCount; i++) {
             if (characterList.characters[i].playerUnit.getDead()) continue;
             characterList.characters[i].playerUnit.healthChange(playerTwoSkills[3].skillHeal());
@@ -1149,6 +1200,8 @@ private IEnumerator EnemyAttackSequence()
             player3SkillOptions[i].gameObject.SetActive(false);
             player3SkillButtonsSelect[i].SetActive(false);
         }
+        backButtonsText[index].gameObject.SetActive(false);
+        backButtonSelect[index].gameObject.SetActive(false);
         commenceRagnaROCKBUTTON(index, 0); // Do all enemies
     }
 
@@ -1191,6 +1244,8 @@ private IEnumerator EnemyAttackSequence()
             player3SkillOptions[i].gameObject.SetActive(false);
             player3SkillButtonsSelect[i].SetActive(false);
         }
+        backButtonsText[index].gameObject.SetActive(false);
+        backButtonSelect[index].gameObject.SetActive(false);
         playerThreeSkills[2].PlayMinigame((result) => {
             if (result == 1)    {
                 taunt = 1;
@@ -1212,6 +1267,8 @@ private IEnumerator EnemyAttackSequence()
             player3SkillOptions[i].gameObject.SetActive(false);
             player3SkillButtonsSelect[i].SetActive(false);
         }
+        backButtonsText[index].gameObject.SetActive(false);
+        backButtonSelect[index].gameObject.SetActive(false);
         // get the enemy index to attack
         for (int i = 0; i < enemySelectButtons.Count; i++) {
             int enemyindex = i;
@@ -1285,6 +1342,8 @@ private IEnumerator EnemyAttackSequence()
             player3SkillOptions[i].gameObject.SetActive(false);
             player3SkillButtonsSelect[i].SetActive(false);
         }
+        backButtonsText[index].gameObject.SetActive(false);
+        backButtonSelect[index].gameObject.SetActive(false);
         commenceRockyTauntButton(index, 0); // Do all enemies
     }
 
@@ -1294,6 +1353,8 @@ private IEnumerator EnemyAttackSequence()
             player1SkillOptions[i].gameObject.SetActive(false);
             player1SkillButtonsSelect[i].SetActive(false);
         }
+        backButtonsText[index].gameObject.SetActive(false);
+        backButtonSelect[index].gameObject.SetActive(false);
         commenceFlameShowerButtonClicked(index, 0); // Do all enemies
     }
 
