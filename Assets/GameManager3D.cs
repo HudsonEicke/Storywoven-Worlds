@@ -103,6 +103,7 @@ public class GameManager3D : MonoBehaviour
         else 
         {
             Debug.Log("[GameManager3D] Game LOST");
+            OnDeath();
             // do whatever here for game lost
         }
         // SceneManager.UnloadSceneAsync("AngeloScene");
@@ -112,5 +113,10 @@ public class GameManager3D : MonoBehaviour
         // camera1.SetActive(true); 
         event1.enabled = true;
         playerCamera.SetActive(true);
+    }
+
+    public void OnDeath()
+    {
+        SceneManager.LoadScene("DeathScene");
     }
 }

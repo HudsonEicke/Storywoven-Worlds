@@ -1273,6 +1273,7 @@ GameObject:
   - component: {fileID: 2945269622085984975}
   - component: {fileID: 9183646508419550149}
   - component: {fileID: 8108875306050317988}
+  - component: {fileID: 1627377084225956340}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -1345,7 +1346,7 @@ MonoBehaviour:
   lockedCameraPosition: {x: 0, y: 10, z: -10}
   GFX: {fileID: 9040403233168048659}
   jumpHeight: 3
-  gravity: -14.715
+  gravity: -19.62
   groundCheck: {fileID: 783602581707401048}
   groundDistance: 0.4
   groundMask:
@@ -1359,6 +1360,20 @@ MonoBehaviour:
   moveBack: 0
   QueuedMove: 0
   newPosition: {x: 0, y: 0, z: 0}
+--- !u!114 &1627377084225956340
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6002883251204408199}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 756c345676d17964ebc1b6c77dde34eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentHealth: 0
+  maxHealth: 0
 --- !u!1 &6831359126917505496
 GameObject:
   m_ObjectHideFlags: 0
