@@ -2721,6 +2721,8 @@ MonoBehaviour:
   - {fileID: 693535173}
   - {fileID: 904214891}
   - {fileID: 2083575694}
+  enemyStat: []
+  enemyStun: []
 --- !u!114 &252385927
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2792,6 +2794,8 @@ MonoBehaviour:
   - {fileID: 1597811600}
   - {fileID: 913796505}
   - {fileID: 1960841873}
+  manaBarsAllies: {fileID: 0}
+  manaBarPanels: []
   jsonFile: {fileID: 4900000, guid: c5704f572f1e3db4d99d97755df16941, type: 3}
 --- !u!114 &252385930
 MonoBehaviour:
@@ -2836,6 +2840,8 @@ MonoBehaviour:
   - {fileID: 1103502167}
   player3SkillButtons:
   - {fileID: 8021268271617775633, guid: 69c148418220a994392ba7a455780950, type: 3}
+  backButtonsText: []
+  backButtons: []
   playerOneSkills: []
   playerTwoSkills: []
   playerThreeSkills: []
@@ -2879,6 +2885,7 @@ MonoBehaviour:
     characters: []
   skillListPlayer1:
     P1Skills: []
+  level: 0
   backGround: {fileID: 1792989544}
   allyBattleStations: {fileID: 1552872636}
   enemyBattleStations: {fileID: 664354092}
@@ -5151,6 +5158,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Island_0_Flatter (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 3522259413341704386, guid: 8408b28f176a9084d91f44e5a24f0750,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 6d6508e59e10ace419869c2f8d9768e3, type: 2}
     - target: {fileID: 6807364745986884106, guid: 8408b28f176a9084d91f44e5a24f0750,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -5910,6 +5922,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Island_0_Flatter (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 3522259413341704386, guid: 8408b28f176a9084d91f44e5a24f0750,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 6d6508e59e10ace419869c2f8d9768e3, type: 2}
     - target: {fileID: 6807364745986884106, guid: 8408b28f176a9084d91f44e5a24f0750,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -7663,6 +7680,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Island_0_Flatter (7)
       objectReference: {fileID: 0}
+    - target: {fileID: 3522259413341704386, guid: 8408b28f176a9084d91f44e5a24f0750,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 6d6508e59e10ace419869c2f8d9768e3, type: 2}
     - target: {fileID: 6807364745986884106, guid: 8408b28f176a9084d91f44e5a24f0750,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -7686,7 +7708,7 @@ PrefabInstance:
     - target: {fileID: 6807364745986884106, guid: 8408b28f176a9084d91f44e5a24f0750,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 9.8
+      value: 6.44
       objectReference: {fileID: 0}
     - target: {fileID: 6807364745986884106, guid: 8408b28f176a9084d91f44e5a24f0750,
         type: 3}
@@ -7906,6 +7928,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Island_0_Flatter
       objectReference: {fileID: 0}
+    - target: {fileID: 3522259413341704386, guid: 8408b28f176a9084d91f44e5a24f0750,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 04d931d547716bb4d857bc331ba88fae, type: 2}
+    - target: {fileID: 3522259413341704386, guid: 8408b28f176a9084d91f44e5a24f0750,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 6d6508e59e10ace419869c2f8d9768e3, type: 2}
     - target: {fileID: 6807364745986884106, guid: 8408b28f176a9084d91f44e5a24f0750,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -7989,6 +8021,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Island_0_Flatter (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 3522259413341704386, guid: 8408b28f176a9084d91f44e5a24f0750,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 6d6508e59e10ace419869c2f8d9768e3, type: 2}
     - target: {fileID: 6807364745986884106, guid: 8408b28f176a9084d91f44e5a24f0750,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -8430,6 +8467,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 59.334
       objectReference: {fileID: 0}
+    - target: {fileID: 6982073498458233687, guid: 612984a110508324fb420ed7686e588f,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 6d6508e59e10ace419869c2f8d9768e3, type: 2}
     - target: {fileID: 8942318597835078301, guid: 612984a110508324fb420ed7686e588f,
         type: 3}
       propertyPath: m_Name
@@ -9734,6 +9776,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Island_0_Flatter (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 3522259413341704386, guid: 8408b28f176a9084d91f44e5a24f0750,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 6d6508e59e10ace419869c2f8d9768e3, type: 2}
     - target: {fileID: 6807364745986884106, guid: 8408b28f176a9084d91f44e5a24f0750,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -9900,6 +9947,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Island_0_Flatter (8)
       objectReference: {fileID: 0}
+    - target: {fileID: 3522259413341704386, guid: 8408b28f176a9084d91f44e5a24f0750,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 6d6508e59e10ace419869c2f8d9768e3, type: 2}
     - target: {fileID: 6807364745986884106, guid: 8408b28f176a9084d91f44e5a24f0750,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -10745,6 +10797,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6982073498458233687, guid: 612984a110508324fb420ed7686e588f,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 04d931d547716bb4d857bc331ba88fae, type: 2}
     - target: {fileID: 8942318597835078301, guid: 612984a110508324fb420ed7686e588f,
         type: 3}
       propertyPath: m_Name
@@ -17763,6 +17820,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Island_0_Flatter (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 3522259413341704386, guid: 8408b28f176a9084d91f44e5a24f0750,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 6d6508e59e10ace419869c2f8d9768e3, type: 2}
     - target: {fileID: 6807364745986884106, guid: 8408b28f176a9084d91f44e5a24f0750,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -19455,6 +19517,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3292179988737184655, guid: d8d5c474e57c8ff40ae4e45bd6d0e87a,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 6d6508e59e10ace419869c2f8d9768e3, type: 2}
     - target: {fileID: 3539389405901217204, guid: d8d5c474e57c8ff40ae4e45bd6d0e87a,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -20962,6 +21029,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 59.334
       objectReference: {fileID: 0}
+    - target: {fileID: 6982073498458233687, guid: 612984a110508324fb420ed7686e588f,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 6d6508e59e10ace419869c2f8d9768e3, type: 2}
     - target: {fileID: 8942318597835078301, guid: 612984a110508324fb420ed7686e588f,
         type: 3}
       propertyPath: m_Name
@@ -21298,6 +21370,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Island_0_Flatter (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 3522259413341704386, guid: 8408b28f176a9084d91f44e5a24f0750,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 6d6508e59e10ace419869c2f8d9768e3, type: 2}
     - target: {fileID: 6807364745986884106, guid: 8408b28f176a9084d91f44e5a24f0750,
         type: 3}
       propertyPath: m_LocalScale.z
@@ -21664,6 +21741,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 59.334
       objectReference: {fileID: 0}
+    - target: {fileID: 6982073498458233687, guid: 612984a110508324fb420ed7686e588f,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 6d6508e59e10ace419869c2f8d9768e3, type: 2}
     - target: {fileID: 8942318597835078301, guid: 612984a110508324fb420ed7686e588f,
         type: 3}
       propertyPath: m_Name
