@@ -6,6 +6,7 @@ public class ThirdPersonMovement : MonoBehaviour
 {
     public CharacterController controller;
     public Transform cam;
+    public PlayerHealthController playerHealthController;
 
     public float speed = 6f;
 

@@ -6,6 +6,7 @@ public class DeathPlane : MonoBehaviour
 {
     public ThirdPersonMovement player;
     public DeathChecker checker;
+    public PlayerHealthController healthController;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -13,6 +14,7 @@ public class DeathPlane : MonoBehaviour
         {
             checker.PlayerFell();
             player.moveBack = true;
+            player.playerHealthController.Damage(1);
         }
     }
 }

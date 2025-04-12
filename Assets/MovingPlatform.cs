@@ -96,7 +96,7 @@ public class MovingPlatform : MonoBehaviour
     {
         if(other.CompareTag("Player"))
         {
-            other.GetComponent<ThirdPersonMovement>().MoveWithPlatform(platformVelocity);
+            ImportantComponentsManager.Instance.thirdPersonMovement.MoveWithPlatform(platformVelocity);
         }
     }
 }

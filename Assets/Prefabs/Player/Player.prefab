@@ -1341,6 +1341,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controller: {fileID: 9183646508419550149}
   cam: {fileID: 5742303509928163671}
+  playerHealthController: {fileID: 1627377084225956340}
   speed: 10
   turnSmoothTime: 0.1
   lockedCameraPosition: {x: 0, y: 10, z: -10}
@@ -1372,8 +1373,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 756c345676d17964ebc1b6c77dde34eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentHealth: 0
-  maxHealth: 0
+  currentHealth: 3
+  maxHealth: 3
 --- !u!1 &6831359126917505496
 GameObject:
   m_ObjectHideFlags: 0
