@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BossFightStage : MonoBehaviour
+public abstract class BossFightStage : MonoBehaviour
 {
-
+    public abstract void StageStart();
 }
