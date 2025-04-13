@@ -36,6 +36,9 @@ public class ThirdPersonMovement : MonoBehaviour
     public CinemachineFreeLook cameraSettings;
     public float defaultXSpeed = 450f;
 
+    public bool hasDoubleJumpPowerUp = false;
+    private bool doubleJumpCharged = false;
+
     private void FixedUpdate()
     {
         if(isFroze)
@@ -119,12 +122,25 @@ public class ThirdPersonMovement : MonoBehaviour
         if (isGrounded && velocity.y < 0)
         {
             velocity.y = -2f;
+
+            if(hasDoubleJumpPowerUp)
+            {
+                doubleJumpCharged = true;
+            }
         }
 
         //This is what actually handles jumping
-        if(Input.GetButtonDown("Jump") && isGrounded)
+        if(Input.GetButtonDown("Jump"))
         {
-            velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+            if(isGrounded)
+            {
+                Jump();
+            }
+            else if(doubleJumpCharged)
+            {
+                Jump();
+                doubleJumpCharged = false;
+            }
         }
 
         velocity.y += gravity * Time.deltaTime;
@@ -151,5 +167,10 @@ public class ThirdPersonMovement : MonoBehaviour
     public void MoveWithPlatform(Vector3 platformVelocity)
     {
         controller.Move(platformVelocity * Time.deltaTime);
+    }
+
+    public void Jump()
+    {
+        velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
     }
 }
