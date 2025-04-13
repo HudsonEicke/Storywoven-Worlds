@@ -31,6 +31,22 @@ public class PlayerHealthController : MonoBehaviour
         UpdateUI();
     }
 
+    public void IncreaseMaxHealth(int amount)
+    {
+        maxHealth += amount;
+        currentHealth = maxHealth;
+    }
+
+    public void DecreaseMaxHealth(int amount)
+    {
+        maxHealth -= amount;
+
+        if(maxHealth <= 0)
+            maxHealth = 1;
+
+        currentHealth = maxHealth;
+    }
+
     public void UpdateUI()
     {
         //UPDATE UI
