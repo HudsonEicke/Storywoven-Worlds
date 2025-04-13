@@ -13,11 +13,14 @@ public class EnemyNavigation : MonoBehaviour
     private float timeChange = 1;
     public GameObject player;
     public CombatStartDetection startDetection;
+    public float normalSpeed = 3.5f;
+    public float chaseSpeed = 7.5f;
 
     // Start is called before the first frame update
     void Start()
     {
         stateTime = idleTime;
+        Agent.speed = normalSpeed;
     }
 
     private void Awake()
@@ -120,6 +123,8 @@ public class EnemyNavigation : MonoBehaviour
         }
 
         state = EnemyState.chasing;
+
+        Agent.speed = chaseSpeed;
     }
 
     //void OnTriggerEnter(Collider other)
@@ -136,6 +141,7 @@ public class EnemyNavigation : MonoBehaviour
         if(other.gameObject.tag == "Player")
         {
             state = EnemyState.wandering;
+            Agent.speed = normalSpeed;
             changeState();
         }
     }
