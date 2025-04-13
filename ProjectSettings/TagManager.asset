@@ -14,7 +14,7 @@ TagManager:
   - Player
   - Ground
   - MovingPlatform
-  - 
+  - Obstacle
   - Enemy
   - 
   - 

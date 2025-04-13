@@ -8,6 +8,7 @@ public class ImportantComponentsManager : MonoBehaviour
     public static ImportantComponentsManager Instance { get { return _instance; } }
 
     public ThirdPersonMovement thirdPersonMovement;
+    public InvetoryUIManager invetoryUIManager;
 
     // Start is called before the first frame update
     void Start()

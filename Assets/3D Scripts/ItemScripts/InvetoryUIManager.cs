@@ -11,7 +11,7 @@ public class InvetoryUIManager : MonoBehaviour
     public GameObject inventoryBackground;
     private int startViewRange;
     private int endViewRange;
-    private bool isInventoryOpen = false;
+    public bool isInventoryOpen = false;
 
     public bool pressedButton = false;
     public bool scrollDown = false;

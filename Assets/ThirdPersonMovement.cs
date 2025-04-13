@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 
 public class ThirdPersonMovement : MonoBehaviour
 {
@@ -31,6 +32,9 @@ public class ThirdPersonMovement : MonoBehaviour
 
     public bool QueuedMove = false;
     public Vector3 newPosition;
+
+    public CinemachineFreeLook cameraSettings;
+    public float defaultXSpeed = 450f;
 
     private void FixedUpdate()
     {
@@ -63,6 +67,12 @@ public class ThirdPersonMovement : MonoBehaviour
         GameManager3D.unFreezeWorld += unFreeze;
     }
 
+    private void Start()
+    {
+        //Cursor.visible = false;
+        //Cursor.lockState = CursorLockMode.Locked;
+    }
+
     void Freeze()
     {
         isFroze = true;
@@ -80,6 +90,19 @@ public class ThirdPersonMovement : MonoBehaviour
         if (isFroze)
         {
             return;
+        }
+
+        if(ImportantComponentsManager.Instance.invetoryUIManager.isInventoryOpen)
+        {
+            cameraSettings.m_XAxis.m_MaxSpeed = 0f;
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
+        else
+        {
+            cameraSettings.m_XAxis.m_MaxSpeed = defaultXSpeed;
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
         }
 
         //Added jumping logic stuff
@@ -116,7 +139,7 @@ public class ThirdPersonMovement : MonoBehaviour
 
         if(direction.magnitude >= 0.1f)
         {
-            float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + 45f;
+            float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + cam.eulerAngles.y;
             float angle = Mathf.SmoothDampAngle(GFX.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
             GFX.rotation = Quaternion.Euler(0f, angle, 0f);
 

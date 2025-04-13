@@ -79,6 +79,9 @@ public class GameManager3D : MonoBehaviour
         //GameManager2D.enemyCount = enemyCount; 
         int players = 3;
         freezeWorld?.Invoke();
+        ImportantComponentsManager.Instance.invetoryUIManager.CloseInventory();
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
         camera2D.SetActive(true);
         event2D.enabled = true;
         //gameManager2D.UpdateBattleState(BattleState.START);

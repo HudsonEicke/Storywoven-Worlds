@@ -11,7 +11,7 @@ public class PlayerHealthController : MonoBehaviour
     {
         currentHealth -= damageAmount;
 
-        if(currentHealth < 0)
+        if(currentHealth <= 0)
         {
             GameManager3D.Instance.OnDeath();
         }
