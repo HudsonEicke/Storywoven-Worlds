@@ -130,4 +130,8 @@ public class Unit : MonoBehaviour
     public int getEnergy() {
         return currentEnergy;
     }
+
+    public void useEnergy(int energy) {
+        currentEnergy -= energy;
+    }
 }
