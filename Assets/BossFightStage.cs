@@ -4,5 +4,8 @@ using UnityEngine;
 
 public abstract class BossFightStage : MonoBehaviour
 {
+    public List<AttackPoint> attackPoints = new List<AttackPoint>();
+    public Transform newSafeLocation;
+
     public abstract void StageStart();
 }

@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class BossStageProgressor : MonoBehaviour
 {
+    public BossFightManager fightManager;
+
     private void ProgessBossStage()
     {
-        //CALL BOSS FIGHT MANAGER
+        fightManager.NextStage();
     }
 }
