@@ -8,7 +8,7 @@ public class BossFightManager : MonoBehaviour
     public bool isAttacking = false;
 
     //Boss fight stage stuff
-    int currentStage = -1;
+    public int currentStage = -1;
     public List<BossFightStage> bossFightStages = new List<BossFightStage>();
 
     //Cool down stuff
@@ -41,6 +41,12 @@ public class BossFightManager : MonoBehaviour
     public Transform fireBallSpawnPoint;
     public GameObject fireballPrefab;
 
+    //Boss platform
+    public MovingPlatformActivationBased bossPlatform;
+
+    //Stage transition stuff
+    public bool isInStageTransition = false;
+
     private void Start()
     {
         totalPool = startingSwipePool + startingFireballPool + startingWipeFireballPool + startingAdjacentFireballPool;
@@ -50,17 +56,33 @@ public class BossFightManager : MonoBehaviour
         startingWipeFireballPool = currentWipeFireballPool;
     }
 
-
     private void Update()
     {
         if (!fightStarted)
             return;
+
+        if (isInStageTransition)
+        {
+            if(bossPlatform.atDest)
+            {
+                isInStageTransition = false;
+            }
+            else
+            {
+                return;
+            }
+        }
 
         currentCooldown -= Time.deltaTime;
 
         if (!isAttacking && currentCooldown < 0)
         {
             StartAttack();
+        }
+        else if (currentCooldown < 0)
+        {
+            isAttacking = false;
+            currentCooldown = Random.Range(minAttackCooldown, maxAttackCooldown);
         }
     }
 
@@ -121,6 +143,8 @@ public class BossFightManager : MonoBehaviour
                 currentSwipePool -= 3;
             }
             currentCooldown = fireballTime;
+
+            FireballAttack(currentPlayerLocation);
         }
         else if (currentFireballPool + currentSwipePool <= chosenAttack && chosenAttack < currentFireballPool + currentSwipePool + currentAdjacentFireballPool)
         {
@@ -148,6 +172,9 @@ public class BossFightManager : MonoBehaviour
                 currentSwipePool -= 3;
             }
             currentCooldown = fireballTime;
+
+            FireballAttack(currentPlayerLocation.leftAttackPoint);
+            FireballAttack(currentPlayerLocation.rightAttackPoint);
         }
         else
         {
@@ -175,20 +202,49 @@ public class BossFightManager : MonoBehaviour
                 currentSwipePool -= 3;
             }
             currentCooldown = fireballTime;
+
+            FireballAttack(currentPlayerLocation.leftAttackPoint);
+            FireballAttack(currentPlayerLocation);
+            FireballAttack(currentPlayerLocation.rightAttackPoint);
         }
     }
 
     public void StartFight()
     {
-
+        fightStarted = true;
+        NextStage();
     }
 
     public void NextStage()
     {
         currentStage++;
 
+        if(currentStage >= bossFightStages.Count)
+        {
+            Debug.Log("ENDFIGHT");
+            fightStarted = false;
+            return;
+        }
+
+        if (currentStage > 0)
+        {
+            foreach(AttackPoint attackPoint in attackPoints)
+            {
+                attackPoint.FlashZone();
+            }
+        }
+
         attackPoints = bossFightStages[currentStage].attackPoints;
         currentPlayerLocation = attackPoints[0];
+
+        bossPlatform.newPos(bossFightStages[currentStage].newBossPlatformLocation);
+
+        isInStageTransition = true;
+
+        currentCooldown = minAttackCooldown;
+        isAttacking = false;
+
+        ImportantComponentsManager.Instance.thirdPersonMovement.lastGroundPosition = bossFightStages[currentStage].newSafeLocation.position;
     }
 
     public void NewPlayerPos(AttackPoint attackPoint)
@@ -196,10 +252,16 @@ public class BossFightManager : MonoBehaviour
         currentPlayerLocation = attackPoint;
     }
 
-    public void Fireball(AttackPoint attackPoint)
+    public void FireballAttack(AttackPoint attackPoint)
     {
         attackPoint.FlashZone();
 
         GameObject newFireball = Instantiate(fireballPrefab, fireBallSpawnPoint.transform.position, Quaternion.identity);
+
+        Fireball fireball = newFireball.GetComponent<Fireball>();
+
+        fireball.firstPoint = attackPoint.fireballPathStart;
+        fireball.secondPoint = attackPoint.fireballPathEnd;
+        fireball.canStartMoving = true;
     }
 }

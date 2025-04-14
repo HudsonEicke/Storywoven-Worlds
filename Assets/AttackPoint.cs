@@ -15,7 +15,7 @@ public class AttackPoint : MonoBehaviour
     private int currentFlashesLeft = 0;
     public float timeBetweenFlash = 1f;
     private float timeToNextCycle = 0f;
-    private bool isFlashing;
+    private bool isFlashing = false;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -25,9 +25,14 @@ public class AttackPoint : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        warningVisual.SetActive(false);
+    }
+
     private void Update()
     {
-        if(timesToFlash > 0)
+        if(currentFlashesLeft > 0)
         {
             timeToNextCycle -= Time.deltaTime;
 
@@ -36,7 +41,7 @@ public class AttackPoint : MonoBehaviour
                 if (isFlashing)
                 {
                     warningVisual.SetActive(false);
-                    timesToFlash -= 1;
+                    currentFlashesLeft -= 1;
                 }
                 else
                 {

@@ -6,13 +6,17 @@ public class DeathPlane : MonoBehaviour
 {
     public ThirdPersonMovement player;
     public DeathChecker checker;
-    public PlayerHealthController healthController;
+
+    private void Start()
+    {
+        player = ImportantComponentsManager.Instance.thirdPersonMovement;
+    }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Player")
         {
-            checker.PlayerFell();
+            //checker.PlayerFell();
             player.moveBack = true;
             player.playerHealthController.Damage(1);
         }
