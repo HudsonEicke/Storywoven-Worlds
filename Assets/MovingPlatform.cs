@@ -34,7 +34,7 @@ public class MovingPlatform : MonoBehaviour
         previousPosition = transform.position;
 
 
-        if (transform.position == nextPos)
+        if (Vector3.Distance(transform.position, nextPos) < 0.01f)
         {
             if (cycle)
             {
