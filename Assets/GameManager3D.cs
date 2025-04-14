@@ -39,6 +39,7 @@ public class GameManager3D : MonoBehaviour
         GameManager2D.OnGameEnd += OnGameEnd;
         camera2D.SetActive(false);
         event2D.enabled = false;
+        event2D.gameObject.SetActive(false);
         // for character system
         characterSystem3D = FindObjectOfType<CharacterSystem3D>();
     }
@@ -72,6 +73,7 @@ public class GameManager3D : MonoBehaviour
         Debug.Log("Start Battle");
         camera1.SetActive(false);
         event1.enabled = false;
+        event1.gameObject.SetActive(false);
         playerCamera.SetActive(false);
 
         // made the variables static so they can be modified from the 3D scene
@@ -84,6 +86,7 @@ public class GameManager3D : MonoBehaviour
         Cursor.visible = true;
         camera2D.SetActive(true);
         event2D.enabled = true;
+        event2D.gameObject.SetActive(true);
         //gameManager2D.UpdateBattleState(BattleState.START);
         GameManager2D.instance.InitializeGame(enemyCount, players);
         // SceneManager.LoadScene("AngeloScene", LoadSceneMode.Additive);
@@ -112,9 +115,11 @@ public class GameManager3D : MonoBehaviour
         // SceneManager.UnloadSceneAsync("AngeloScene");
         camera2D.SetActive(false);
         event2D.enabled = false;
+        event2D.gameObject.SetActive(false);
         yield return new WaitForSeconds(0); // We need a very slight delay or else it will yell at us
         // camera1.SetActive(true); 
         event1.enabled = true;
+        event1.gameObject.SetActive(true);
         playerCamera.SetActive(true);
     }
 
