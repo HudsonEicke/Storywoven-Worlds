@@ -20,7 +20,7 @@ public class GameManager2D : MonoBehaviour
     public SkillListPlayer2 skillListPlayer2;
     public SkillListPlayer3 skillListPlayer3;
     public List<EnemySystem.EnemyHealthAndInfo> enemyList;
-    public int level;
+    public int levels = 0;
 
     [SerializeField] public static int enemyCount;
     [SerializeField] public static int characterCount;
@@ -31,10 +31,11 @@ public class GameManager2D : MonoBehaviour
     // for 3D manager stuff
     public static event Action<int> OnGameEnd; // Event to notify game result
 
-    public void InitializeGame(int enemies, int characters)
+    public void InitializeGame(int enemies, int characters, int currentLevel)
     {
         enemyCount = enemies;
         characterCount = characters;
+        levels = currentLevel;
         UpdateBattleState(BattleState.START);
     }
 

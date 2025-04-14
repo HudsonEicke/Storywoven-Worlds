@@ -118,7 +118,6 @@ public class BattleSystem : MonoBehaviour
         case BattleState.SETUP:
             characterList = GameManager2D.instance.characterList;
             enemyList = GameManager2D.instance.enemyList;
-            level = GameManager2D.instance.level;
             playerTurnSetup();
             playerSelectSetup();
             inventoryManager2D = InventoryManager.Instance;
@@ -131,6 +130,7 @@ public class BattleSystem : MonoBehaviour
             return;
         
         case BattleState.START:
+            level = GameManager2D.instance.levels;
             gamestart = true;
             if (first == 0)
             {
@@ -215,7 +215,7 @@ public class BattleSystem : MonoBehaviour
                         Debug.Log("Setting up enemy button: " + i);
                         enemySelectButtons[i].SetActive(false);
                     }
-                    while (characterList.characters[PlayerCountTurn].playerUnit.getDead()) {
+                    while (characterList.characters[PlayerCountTurn] == null || characterList.characters[PlayerCountTurn].playerUnit.getDead()) {
                         PlayerCountTurn++;
                         if (PlayerCountTurn >= currentPlayerCount)
                             GameManager2D.instance.UpdateBattleState(BattleState.ENEMYTURN);

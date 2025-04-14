@@ -133,7 +133,7 @@ public class ragnaROCKSkill : skill
     {
         yield return new WaitForSeconds(1);
         UnityEngine.Vector3 startPos = fist.transform.position;
-        UnityEngine.Vector3 endPos = new Vector3(startPos.x, startPos.y - 350, startPos.z);
+        UnityEngine.Vector3 endPos = new Vector3(startPos.x, startPos.y - 300, startPos.z);
         UnityEngine.Vector3 highPos1 = new Vector3(startPos.x, startPos.y + 200, startPos.z);
         UnityEngine.Vector3 highPos2 = new Vector3(startPos.x, startPos.y + 350, startPos.z);
         UnityEngine.Vector3 currentPos = fist.transform.position;
@@ -145,12 +145,13 @@ public class ragnaROCKSkill : skill
             elapsedTime += Time.deltaTime;
             currentPos = fist.transform.position;
             Debug.Log(count);
-            if (count != 0)
-                break;
             yield return null;
         }
+
+
+
         elapsedTime = 0f;
-        duration = 5.0f;
+        duration = 2.0f;
         while (elapsedTime < duration) {
             fist.transform.position = Vector3.Lerp(currentPos, highPos1, elapsedTime / duration);
             elapsedTime += Time.deltaTime;
@@ -158,17 +159,15 @@ public class ragnaROCKSkill : skill
             yield return null;
         }
         elapsedTime = 0f;
-        duration = 5.0f;
+        duration = 1.0f;
         while (elapsedTime < duration) {
             fist.transform.position = Vector3.Lerp(currentPos, endPos, elapsedTime / duration);
             elapsedTime += Time.deltaTime;
             currentPos = fist.transform.position;
-            if (count != 1)
-                break;
             yield return null;
         }
         elapsedTime = 0f;
-        duration = 5.0f;
+        duration = 2.0f;
         while (elapsedTime < duration) {
             fist.transform.position = Vector3.Lerp(currentPos, highPos2, elapsedTime / duration);
             elapsedTime += Time.deltaTime;
@@ -176,12 +175,10 @@ public class ragnaROCKSkill : skill
             yield return null;
         }
         elapsedTime = 0f;
-        duration = 5.0f;
+        duration = 0.5f;
         while (elapsedTime < duration) {
             fist.transform.position = Vector3.Lerp(currentPos, endPos, elapsedTime / duration);
             elapsedTime += Time.deltaTime;
-            if (count != 2)
-                break;
             yield return null;
         }
         miniGameStart = false; // Reset this to false after the minigame ends

@@ -88,7 +88,7 @@ public class GameManager3D : MonoBehaviour
         event2D.enabled = true;
         event2D.gameObject.SetActive(true);
         //gameManager2D.UpdateBattleState(BattleState.START);
-        GameManager2D.instance.InitializeGame(enemyCount, players);
+        GameManager2D.instance.InitializeGame(enemyCount, players, 10);
         // SceneManager.LoadScene("AngeloScene", LoadSceneMode.Additive);
     }
 
