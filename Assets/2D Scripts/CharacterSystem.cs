@@ -22,6 +22,7 @@ public class Character {
     public Text playerHud;
     public Text playerHudAttack;
     public Text playerHudSkill;
+    public Text playerHudItem;
     public Transform healthBarPanel;
     public Transform manaBarPanel;
     public GameObject playerMana;
@@ -39,6 +40,7 @@ public class CharacterSystem : MonoBehaviour {
     [SerializeField] List<Text> playerHuds;
     [SerializeField] List<Text> playerHudsAttack;
     [SerializeField] List<Text> playerHudsSkill;
+    [SerializeField] List<Text> playerHudsItem;
     [SerializeField] GameObject manaBarsAllies;
     [SerializeField] List<Transform> manaBarPanels;
     public TextAsset jsonFile;
@@ -76,6 +78,10 @@ public class CharacterSystem : MonoBehaviour {
             characterList.characters[i].playerHudSkill.text = "Skill: ";
             characterList.characters[i].playerHudSkill.gameObject.SetActive(false);
             characterList.characters[i].playerUnit.gameObject.SetActive(false);
+            characterList.characters[i].playerHudItem = playerHudsItem[i];
+            characterList.characters[i].playerHudItem.text = "Item";
+            characterList.characters[i].playerHudItem.gameObject.SetActive(false);
+
 
             GameObject healthBar = Instantiate(healthBarsAllies, healthBarPanels[i]);
             characterList.characters[i].healthBarPanel = healthBarPanels[i];

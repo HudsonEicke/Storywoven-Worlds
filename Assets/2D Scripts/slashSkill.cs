@@ -112,6 +112,11 @@ public class slashSkill : skill
         }
     }
 
+    public override int getSkillCost()
+    {
+        return base.getSkillCost();
+    }
+
     public void setup() 
     {
         if (minigamebackground != null) minigamebackground.SetActive(false);

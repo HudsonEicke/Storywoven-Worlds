@@ -18,6 +18,7 @@ public class BattleSystem : MonoBehaviour
     [SerializeField] public List<GameObject> buttonPrefabAllies;
     [SerializeField] public List<GameObject> buttonPrefabsAttack;
     [SerializeField] public List<GameObject> buttonPrefabsSkill;
+    [SerializeField] public List<GameObject> buttonPrefabsItem;
 
     // Class to hold player-specific button groups
     public class ButtonsForPlayers
@@ -38,6 +39,10 @@ public class BattleSystem : MonoBehaviour
     [SerializeField] public List<GameObject> player3SkillButtons;
     [SerializeField] public List<Text> backButtonsText;
     [SerializeField] public List<GameObject> backButtons;
+    [SerializeField] public List<Text> itemButtonsText;
+    [SerializeField] private List<Text> itemListText;
+    [SerializeField] List<GameObject> healthPotionButtons;
+    List<GameObject> healthPotionButtonsSelect = new List<GameObject>();
 
     List<GameObject> player1SkillButtonsSelect = new List<GameObject>();
     List<GameObject> player2SkillButtonsSelect = new List<GameObject>();
@@ -70,6 +75,9 @@ public class BattleSystem : MonoBehaviour
     int level;
 
     [SerializeField] Text statusText;
+
+    private List<Item> inventory;
+    private InventoryManager inventoryManager2D;
 
     void Awake()
     {
@@ -113,6 +121,7 @@ public class BattleSystem : MonoBehaviour
             level = GameManager2D.instance.level;
             playerTurnSetup();
             playerSelectSetup();
+            inventoryManager2D = InventoryManager.Instance;
             break;
         
         case BattleState.PREPARE:
@@ -137,6 +146,15 @@ public class BattleSystem : MonoBehaviour
                     int index = i;
                     backButtonSelect[i].GetComponent<Button>().onClick.AddListener(() => BackButtonClicked(index));
                     backButtonSelect[i].SetActive(false);
+                }
+
+                for (int i = 0; i < itemListText.Count; i++)
+                {
+                    itemListText[i].gameObject.SetActive(false);
+                    healthPotionButtonsSelect.Add(Instantiate(healthPotionButtons[i], buttonPanel));
+                    healthPotionButtonsSelect[i].SetActive(false);
+                    int index = i;
+                    healthPotionButtonsSelect[i].GetComponent<Button>().onClick.AddListener(() => commenceHealthPotion(index));
                 }
             }
             first = 1;
@@ -375,6 +393,9 @@ private IEnumerator EnemyAttackSequence()
 
             buttonGroup.buttonsForPlayer.Add(Instantiate(buttonPrefabsSkill[i], buttonPanel));
             buttonGroup.buttonsForPlayer[1].GetComponent<Button>().onClick.AddListener(() => SkillButtonClicked(index));
+
+            buttonGroup.buttonsForPlayer.Add(Instantiate(buttonPrefabsItem[i], buttonPanel));
+            buttonGroup.buttonsForPlayer[2].GetComponent<Button>().onClick.AddListener(() => ItemButtonClicked(index));
 
             buttonsForPlayer.Add(buttonGroup);
 
@@ -624,6 +645,8 @@ private IEnumerator EnemyAttackSequence()
 
         characterList.characters[index].playerHudAttack.gameObject.SetActive(true);
         characterList.characters[index].playerHudSkill.gameObject.SetActive(true);
+        characterList.characters[index].playerHudItem.gameObject.SetActive(true);
+        
 
         currentPlayerForMouse = index;
         lastSelected = buttonsForPlayer[index].buttonsForPlayer[0];
@@ -634,11 +657,13 @@ private IEnumerator EnemyAttackSequence()
     {   
         characterList.characters[index].playerHudAttack.gameObject.SetActive(false);
         characterList.characters[index].playerHudSkill.gameObject.SetActive(false);
+        characterList.characters[index].playerHudItem.gameObject.SetActive(false);
         int buttonToStart = 0;
         Debug.Log("Attack button clicked for player: " + index);
         currentPlayerSelected = index;
         buttonsForPlayer[currentPlayerSelected].buttonsForPlayer[0].SetActive(false);
         buttonsForPlayer[currentPlayerSelected].buttonsForPlayer[1].SetActive(false);
+        buttonsForPlayer[currentPlayerSelected].buttonsForPlayer[2].SetActive(false);
         for (int i = 0; i < enemySelectButtons.Count; i++) {
             if (enemyList[i].enemyUnit.getDead()) continue;
             enemySelectButtons[i].SetActive(true);
@@ -729,6 +754,7 @@ private IEnumerator EnemyAttackSequence()
         }
         characterList.characters[index].playerHudAttack.gameObject.SetActive(false);
         characterList.characters[index].playerHudSkill.gameObject.SetActive(false);
+        characterList.characters[index].playerHudItem.gameObject.SetActive(false);
         for (int i = 0; i < 2; i++)
         {
             buttonsForPlayer[index].buttonsForPlayer[i].SetActive(false);
@@ -804,11 +830,68 @@ private IEnumerator EnemyAttackSequence()
         }
     }
 
+    public void ItemButtonClicked(int index) {
+        Debug.Log("Item button clicked for player: " + index);
+        // characterList.characters[index].playerHud.gameObject.SetActive(false);
+        // characterList.characters[index].playerHudAttack.gameObject.SetActive(false);
+        // characterList.characters[index].playerHudSkill.gameObject.SetActive(false);
+        for (int i = 0; i < 3; i++) {
+            buttonsForPlayer[index].buttonsForPlayer[i].SetActive(false);
+        }
+
+        int healthPotions = inventoryManager2D.GetItemQuantity(0);
+
+        backButtonsText[index].gameObject.SetActive(false);
+        backButtonSelect[index].gameObject.SetActive(false);
+        characterList.characters[index].playerHudAttack.gameObject.SetActive(false);
+        characterList.characters[index].playerHudSkill.gameObject.SetActive(false);
+        characterList.characters[index].playerHudItem.gameObject.SetActive(false);
+
+        // Debug.Log("Health Potions: " + healthPotions);
+        itemListText[index].text = "Health Potions: " + healthPotions.ToString();
+        itemListText[index].gameObject.SetActive(true);
+        healthPotionButtonsSelect[index].SetActive(true);
+        backButtonsText[index].gameObject.SetActive(true);
+        backButtonSelect[index].gameObject.SetActive(true);
+
+        UnityEngine.EventSystems.EventSystem.current.SetSelectedGameObject(healthPotionButtonsSelect[index]);
+        lastSelected = healthPotionButtonsSelect[index];
+    }
+
+    public void commenceHealthPotion(int index) {
+        healthPotionButtonsSelect[index].SetActive(false);
+        itemListText[index].gameObject.SetActive(false);
+        backButtonsText[index].gameObject.SetActive(false);
+        backButtonSelect[index].gameObject.SetActive(false);
+
+        Debug.Log("Health Potion used");
+        if (inventoryManager2D.GetItemQuantity(0) > 0) {
+            inventoryManager2D.UseIndex(0);
+            for (int i  = 0; i < characterList.characters.Count; i++) {
+                characterList.characters[i].playerHealth.GetComponent<Slider>().value = characterList.characters[i].playerUnit.getCurrentHP();
+            }
+            characterList.characters[index].playerHud.gameObject.SetActive(true);
+            healthPotionButtonsSelect[index].SetActive(false);
+            checkplayerTurn();
+        }
+        else {
+            Debug.Log("No health potions left!");
+            characterList.characters[index].playerHud.gameObject.SetActive(true);
+            healthPotionButtonsSelect[index].SetActive(false);
+            
+            BackButtonClicked(index);
+            return;
+        }
+    }
+
     void BackButtonClicked(int goBack) {
         Debug.Log("Back button clicked for player: " + goBack);
         // characterList.characters[index].playerHud.gameObject.SetActive(true);
         // characterList.characters[index].playerHudAttack.gameObject.SetActive(true);
         // characterList.characters[index].playerHudSkill.gameObject.SetActive(true);
+        healthPotionButtonsSelect[goBack].SetActive(false);
+        itemListText[goBack].gameObject.SetActive(false);
+        healthPotionButtonsSelect[goBack].SetActive(false);
         for (int i = 0; i < 4; i++) {
             player1SkillButtonsSelect[i].SetActive(false);
             player2SkillButtonsSelect[i].SetActive(false);
@@ -824,6 +907,13 @@ private IEnumerator EnemyAttackSequence()
     }
 
     void SlashButtonClicked(int index) {
+        if (characterList.characters[index].playerUnit.getEnergy() < playerOneSkills[0].getSkillCost()) {
+            Debug.Log("Not enough energy to use skill!");
+            BackButtonClicked(index);
+            return;
+        }
+        characterList.characters[index].playerUnit.useEnergy(playerOneSkills[0].getSkillCost());
+        characterList.characters[index].playerMana.GetComponent<Slider>().value = characterList.characters[index].playerUnit.getEnergy();
         Debug.Log("Slash button clicked");
         for (int i = 0; i < player1SkillButtons.Count; i++) {
             player1SkillOptions[i].gameObject.SetActive(false);
@@ -853,8 +943,14 @@ private IEnumerator EnemyAttackSequence()
     }
 
     void FireballButtonClicked(int index) {
+        if (characterList.characters[index].playerUnit.getEnergy() < playerOneSkills[1].getSkillCost()) {
+            Debug.Log("Not enough energy to use skill!");
+            BackButtonClicked(index);
+            return;
+        }
+        characterList.characters[index].playerUnit.useEnergy(playerOneSkills[1].getSkillCost());
+        characterList.characters[index].playerMana.GetComponent<Slider>().value = characterList.characters[index].playerUnit.getEnergy();
         Debug.Log("Fireball button clicked");
-
         for (int i = 0; i < player1SkillButtons.Count; i++) {
             player1SkillOptions[i].gameObject.SetActive(false);
             player1SkillButtonsSelect[i].SetActive(false);
@@ -883,6 +979,13 @@ private IEnumerator EnemyAttackSequence()
     }
 
     void PierceButtonClicked(int index) {
+        if (characterList.characters[index].playerUnit.getEnergy() < playerOneSkills[2].getSkillCost()) {
+            Debug.Log("Not enough energy to use skill!");
+            BackButtonClicked(index);
+            return;
+        }
+        characterList.characters[index].playerUnit.useEnergy(playerOneSkills[2].getSkillCost());
+        characterList.characters[index].playerMana.GetComponent<Slider>().value = characterList.characters[index].playerUnit.getEnergy();
         Debug.Log("Pierce button clicked");
 
         for (int i = 0; i < player1SkillButtons.Count; i++) {
@@ -1056,6 +1159,13 @@ private IEnumerator EnemyAttackSequence()
     }
 
     void healButtonClicked(int index) {
+        if (characterList.characters[index].playerUnit.getEnergy() < playerOneSkills[0].getSkillCost()) {
+            Debug.Log("Not enough energy to use skill!");
+            BackButtonClicked(index);
+            return;
+        }
+        characterList.characters[index].playerUnit.useEnergy(playerOneSkills[0].getSkillCost());
+        characterList.characters[index].playerMana.GetComponent<Slider>().value = characterList.characters[index].playerUnit.getEnergy();
         healSwitch = 0;
         Debug.Log("Heal button clicked");
         for (int i = 0; i < player2SkillOptions.Count; i++) {
@@ -1077,6 +1187,13 @@ private IEnumerator EnemyAttackSequence()
     }
 
     void lightArrowButtonClicked(int index) {
+        if (characterList.characters[index].playerUnit.getEnergy() < playerOneSkills[1].getSkillCost()) {
+            Debug.Log("Not enough energy to use skill!");
+            BackButtonClicked(index);
+            return;
+        }
+        characterList.characters[index].playerUnit.useEnergy(playerOneSkills[1].getSkillCost());
+        characterList.characters[index].playerMana.GetComponent<Slider>().value = characterList.characters[index].playerUnit.getEnergy();
         Debug.Log("Light Arrow Button Clicked!");
 
         for (int i = 0; i < player2SkillButtons.Count; i++) {
@@ -1152,6 +1269,13 @@ private IEnumerator EnemyAttackSequence()
     }
 
     void soothingArraysButtonsClicked(int index) {
+        if (characterList.characters[index].playerUnit.getEnergy() < playerOneSkills[2].getSkillCost()) {
+            Debug.Log("Not enough energy to use skill!");
+            BackButtonClicked(index);
+            return;
+        }
+        characterList.characters[index].playerUnit.useEnergy(playerOneSkills[2].getSkillCost());
+        characterList.characters[index].playerMana.GetComponent<Slider>().value = characterList.characters[index].playerUnit.getEnergy();
         healSwitch = 1;
         Debug.Log("Heal button clicked");
         for (int i = 0; i < player2SkillOptions.Count; i++) {
@@ -1173,6 +1297,13 @@ private IEnumerator EnemyAttackSequence()
     }
 
     void heavensDelightButtonClicked(int index) {
+        if (characterList.characters[index].playerUnit.getEnergy() < playerOneSkills[3].getSkillCost()) {
+            Debug.Log("Not enough energy to use skill!");
+            BackButtonClicked(index);
+            return;
+        }
+        characterList.characters[index].playerUnit.useEnergy(playerOneSkills[3].getSkillCost());
+        characterList.characters[index].playerMana.GetComponent<Slider>().value = characterList.characters[index].playerUnit.getEnergy();
         Debug.Log("Heavens Delight button clicked");
         for (int i = 0; i < player2SkillOptions.Count; i++) {
             player2SkillOptions[i].gameObject.SetActive(false);
@@ -1206,6 +1337,13 @@ private IEnumerator EnemyAttackSequence()
     }
 
     void commenceRagnaROCKBUTTON(int index, int enemyIndex) {
+        if (characterList.characters[index].playerUnit.getEnergy() < playerOneSkills[3].getSkillCost()) {
+            Debug.Log("Not enough energy to use skill!");
+            BackButtonClicked(index);
+            return;
+        }
+        characterList.characters[index].playerUnit.useEnergy(playerOneSkills[3].getSkillCost());
+        characterList.characters[index].playerMana.GetComponent<Slider>().value = characterList.characters[index].playerUnit.getEnergy();
         playerThreeSkills[3].PlayMinigame((result) => {
             if (result == 1)    {
                 Debug.Log("Player succeeded in minigame!");
@@ -1239,6 +1377,13 @@ private IEnumerator EnemyAttackSequence()
     }
 
     void rockyWallButtonClicked(int index) {
+        if (characterList.characters[index].playerUnit.getEnergy() < playerOneSkills[1].getSkillCost()) {
+            Debug.Log("Not enough energy to use skill!");
+            BackButtonClicked(index);
+            return;
+        }
+        characterList.characters[index].playerUnit.useEnergy(playerOneSkills[1].getSkillCost());
+        characterList.characters[index].playerMana.GetComponent<Slider>().value = characterList.characters[index].playerUnit.getEnergy();
         Debug.Log("Rocky Wall button clicked");
         for (int i = 0; i < player3SkillButtons.Count; i++) {
             player3SkillOptions[i].gameObject.SetActive(false);
@@ -1262,6 +1407,13 @@ private IEnumerator EnemyAttackSequence()
     }
 
     void rumbleAndTumbleButtonClicked(int index) {
+        if (characterList.characters[index].playerUnit.getEnergy() < playerOneSkills[2].getSkillCost()) {
+            Debug.Log("Not enough energy to use skill!");
+            BackButtonClicked(index);
+            return;
+        }
+        characterList.characters[index].playerUnit.useEnergy(playerOneSkills[2].getSkillCost());
+        characterList.characters[index].playerMana.GetComponent<Slider>().value = characterList.characters[index].playerUnit.getEnergy();
         Debug.Log("Rocky Taunt button clicked");
         for (int i = 0; i < player3SkillButtons.Count; i++) {
             player3SkillOptions[i].gameObject.SetActive(false);
@@ -1337,6 +1489,13 @@ private IEnumerator EnemyAttackSequence()
     }
 
     void rockyTauntButtonClicked(int index) {
+        if (characterList.characters[index].playerUnit.getEnergy() < playerOneSkills[0].getSkillCost()) {
+            Debug.Log("Not enough energy to use skill!");
+            BackButtonClicked(index);
+            return;
+        }
+        characterList.characters[index].playerUnit.useEnergy(playerOneSkills[0].getSkillCost());
+        characterList.characters[index].playerMana.GetComponent<Slider>().value = characterList.characters[index].playerUnit.getEnergy();
         Debug.Log("Rocky Taunt button clicked");
         for (int i = 0; i < player3SkillButtons.Count; i++) {
             player3SkillOptions[i].gameObject.SetActive(false);
@@ -1348,6 +1507,13 @@ private IEnumerator EnemyAttackSequence()
     }
 
     void flameShowerButtonClicked(int index) {
+        if (characterList.characters[index].playerUnit.getEnergy() < playerOneSkills[3].getSkillCost()) {
+            Debug.Log("Not enough energy to use skill!");
+            BackButtonClicked(index);
+            return;
+        }
+        characterList.characters[index].playerUnit.useEnergy(playerOneSkills[3].getSkillCost());
+        characterList.characters[index].playerMana.GetComponent<Slider>().value = characterList.characters[index].playerUnit.getEnergy();
         Debug.Log("Flame Shower Button Clicked");
         for (int i = 0; i < player1SkillButtons.Count; i++) {
             player1SkillOptions[i].gameObject.SetActive(false);

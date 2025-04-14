@@ -32,6 +32,11 @@ public class skill : MonoBehaviour
         // will add more advanced calculations later
     }
 
+    public virtual int getSkillCost() {
+        return skillCost;
+        // will add more advanced calculations later
+    }
+
     public virtual void PlayMinigame(Action<int> onComplete)
     {
         // Default implementation (if any)

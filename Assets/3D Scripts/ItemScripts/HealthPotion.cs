@@ -11,7 +11,7 @@ public class HealthPotion : Item
     {
         for(int i = 0; i < GameManager3D.Instance.characterList3D.characters.Count; i++)
         {
-            GameManager3D.Instance.characterList3D.characters[i].playerUnit.healthChange(healthToAdd);
+            // GameManager3D.Instance.characterList3D.characters[i].playerUnit.healthChange(healthToAdd);
             GameManager2D.instance.characterList.characters[i].playerUnit.healthChange(healthToAdd);
         }
     }
