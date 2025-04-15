@@ -143,7 +143,7 @@ public class BattleSystem : MonoBehaviour
             level = GameManager2D.instance.levels;
             invisText.gameObject.SetActive(false);
             gamestart = true;
-            if (first == 0)
+            if (true)
             {
                 player1SkillSetup();
                 player2SkillSetup();
