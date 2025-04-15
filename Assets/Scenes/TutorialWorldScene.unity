@@ -1774,7 +1774,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &163638845
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1895,6 +1895,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactButton: {fileID: 297695652}
+  dialogueStuff: {fileID: 163638844}
 --- !u!1 &194937286
 GameObject:
   m_ObjectHideFlags: 0
@@ -8596,8 +8597,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 824923649}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.11701428, y: -0.0000000305085, z: 0.0000000035946237, w: 0.99313027}
-  m_LocalPosition: {x: -0.5053053, y: 8.05, z: -17.652199}
+  m_LocalRotation: {x: 0.15272152, y: 0, z: 0, w: 0.98826927}
+  m_LocalPosition: {x: -0.5053053, y: 8.05, z: -13.652199}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -10775,12 +10776,12 @@ PrefabInstance:
     - target: {fileID: 1025840191826147137, guid: f3d8f659ad1478d488b08fe590f5289d,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.99508965
+      value: 0.9908772
       objectReference: {fileID: 0}
     - target: {fileID: 1025840191826147137, guid: f3d8f659ad1478d488b08fe590f5289d,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.09897817
+      value: 0.13476774
       objectReference: {fileID: 0}
     - target: {fileID: 2945269622085984975, guid: f3d8f659ad1478d488b08fe590f5289d,
         type: 3}
@@ -10835,12 +10836,12 @@ PrefabInstance:
     - target: {fileID: 3901957267515323732, guid: f3d8f659ad1478d488b08fe590f5289d,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.9908375
+      value: 0.98532784
       objectReference: {fileID: 0}
     - target: {fileID: 3901957267515323732, guid: f3d8f659ad1478d488b08fe590f5289d,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.13505943
+      value: 0.17067236
       objectReference: {fileID: 0}
     - target: {fileID: 4099697556166081870, guid: f3d8f659ad1478d488b08fe590f5289d,
         type: 3}
@@ -10849,8 +10850,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5894427078271325624, guid: f3d8f659ad1478d488b08fe590f5289d,
         type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.98826927
+      objectReference: {fileID: 0}
+    - target: {fileID: 5894427078271325624, guid: f3d8f659ad1478d488b08fe590f5289d,
+        type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.11701426
+      value: 0.1527215
       objectReference: {fileID: 0}
     - target: {fileID: 6002883251204408199, guid: f3d8f659ad1478d488b08fe590f5289d,
         type: 3}
@@ -16160,6 +16166,7 @@ MonoBehaviour:
   currentPlayerCount: 0
   totalEnemyCount: 0
   gamestart: 0
+  invisText: {fileID: 0}
   statusText: {fileID: 1205024619}
 --- !u!114 &1740785698
 MonoBehaviour:
