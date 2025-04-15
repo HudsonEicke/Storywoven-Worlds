@@ -84,6 +84,12 @@ public class ThirdPersonMovement : MonoBehaviour
         GameManager3D.unFreezeWorld += unFreeze;
     }
 
+    private void OnDestroy()
+    {
+        GameManager3D.freezeWorld -= Freeze;
+        GameManager3D.unFreezeWorld -= unFreeze;
+    }
+
     private void Start()
     {
         //Cursor.visible = false;
