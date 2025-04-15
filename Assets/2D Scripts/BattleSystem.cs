@@ -65,7 +65,7 @@ public class BattleSystem : MonoBehaviour
     public int currentEnemyCount;
     public int currentPlayerCount;
     public int totalEnemyCount;
-    public static int first = 0;
+    public int first = 0;
     public bool gamestart = false;
     int currentPlayerForMouse = 0;
     GameObject lastSelected = null;
@@ -143,7 +143,7 @@ public class BattleSystem : MonoBehaviour
             level = GameManager2D.instance.levels;
             invisText.gameObject.SetActive(false);
             gamestart = true;
-            if (true)
+            if (first == 0)
             {
                 player1SkillSetup();
                 player2SkillSetup();
