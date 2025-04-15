@@ -30,14 +30,9 @@ public class EnemySystem : MonoBehaviour {
         public Transform healthPanel;
     }
 
-     private void Awake() {
-        if (Instance != null && Instance != this) {
-            Destroy(this.gameObject); // Only one EnemySystem allowed
-            return;
-        }
-
+    private void Awake()
+    {
         Instance = this;
-        DontDestroyOnLoad(this.gameObject);
     }
 
     public List<EnemyHealthAndInfo> loadEnemies(int enemyCount) {

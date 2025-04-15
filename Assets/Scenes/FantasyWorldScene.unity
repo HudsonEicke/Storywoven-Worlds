@@ -1949,7 +1949,7 @@ MonoBehaviour:
   camera2D: {fileID: 475324464}
   event2D: {fileID: 2131646828}
   startBattle: 0
-  gameManager2D: {fileID: 0}
+  gameManager2D: {fileID: 249320809}
   characterList3D:
     characters: []
 --- !u!4 &120936877

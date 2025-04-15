@@ -45,14 +45,8 @@ public class GameManager2D : MonoBehaviour
 
     private void Awake()
     {
-        if (instance == null)
-        {
-            instance = this;
-        }
-        else
-        {
-            Destroy(gameObject); // destroy if instance already exists
-        }
+
+        instance = this;
         // audiosystem2D = gameObject.GetComponent<AudioSystem2D>();
         // get characters
         characterSystem = FindObjectOfType<CharacterSystem>();

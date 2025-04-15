@@ -72,6 +72,7 @@ public class BattleSystem : MonoBehaviour
     int taunt = 0;
     int invis = 0;
     [SerializeField] Text invisText;
+    public static BattleSystem Instance;
 
     int healSwitch = 0; // inefficient, I know...
 
@@ -86,6 +87,7 @@ public class BattleSystem : MonoBehaviour
     {
         Debug.Log("[BattleSystem] Subscribing to event");
         GameManager2D.OnBattleStateChanged += OnBattleStateChanged; 
+        Instance = this;
     }
     
     void Update()
@@ -365,7 +367,7 @@ private IEnumerator EnemyAttackSequence()
         if (invis > 0) {
             if (characterList.characters[1].playerUnit.isInvis() == 0) {
                 Debug.Log("Invis Wore Off");
-                invisText.gameObject.SetActive(false);
+                // invisText.gameObject.SetActive(false);
                 invis = 0;
                 int baseWeight = characterList.characters[1].playerUnit.getWeight() - characterList.characters[1].weight;
                 characterList.characters[1].playerUnit.addWeight(-1 * baseWeight);
@@ -1267,7 +1269,7 @@ private IEnumerator EnemyAttackSequence()
                     characterList.characters[index].playerUnit.setInvis(3);
                     characterList.characters[2].playerUnit.addWeight(-20);
                     invis = 1;
-                    invisText.gameObject.SetActive(true);
+                    // invisText.gameObject.SetActive(true);
                 }
                 else {
                     characterList.characters[index].playerUnit.setInvis(3);
