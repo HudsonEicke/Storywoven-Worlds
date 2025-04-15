@@ -12,9 +12,10 @@ public class PlayerData
     public bool hasDoubleJump;
     public bool hasSprint;
     public bool hasBoostedHealth;
+    public int playerMoney;
 
     //Normal save file generator
-    public PlayerData(CheckpointManager checkpointManager, InventoryManager inventoryManager)
+    public PlayerData(CheckpointManager checkpointManager, InventoryManager inventoryManager, int money)
     {
         sceneID = checkpointManager.sceneID;
         checkpointID = checkpointManager.currentPlayerCheckpoint;
@@ -24,10 +25,11 @@ public class PlayerData
         hasDoubleJump = false;
         hasSprint = false;
         hasBoostedHealth = false;
+        playerMoney = money;
     }
 
     //Fantasy save file generator
-    public PlayerData(CheckpointManager checkpointManager, InventoryManager inventoryManager, PowerupManager powerupManager)
+    public PlayerData(CheckpointManager checkpointManager, InventoryManager inventoryManager, PowerupManager powerupManager, int money)
     {
         sceneID = checkpointManager.sceneID;
         checkpointID = checkpointManager.currentPlayerCheckpoint;
@@ -37,6 +39,7 @@ public class PlayerData
         hasDoubleJump = powerupManager.hasDoubleJump;
         hasSprint = powerupManager.hasSprint;
         hasBoostedHealth = powerupManager.hasBoostedHealth;
+        playerMoney = money;
     }
 
     //New save case
@@ -49,10 +52,11 @@ public class PlayerData
         hasDoubleJump = false;
         hasSprint = false;
         hasBoostedHealth = false;
+        playerMoney = 0;
     }
 
     //Next level save file generator
-    public PlayerData(int sceneID, int checkpointID, InventoryManager inventoryManager)
+    public PlayerData(int sceneID, int checkpointID, InventoryManager inventoryManager, int money)
     {
         this.sceneID = sceneID;
         this.checkpointID = checkpointID;
@@ -62,5 +66,6 @@ public class PlayerData
         hasDoubleJump = false;
         hasSprint = false;
         hasBoostedHealth = false;
+        playerMoney = money;
     }
 }

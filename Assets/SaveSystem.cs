@@ -6,32 +6,32 @@ public static class SaveSystem
 {
     public static string path = Application.persistentDataPath + "/player.save";
 
-    public static void SavePlayer(CheckpointManager checkpointManager, InventoryManager inventoryManager)
+    public static void SavePlayer(CheckpointManager checkpointManager, InventoryManager inventoryManager, GameManager3D gameManager3D)
     {
         BinaryFormatter formatter = new BinaryFormatter();
         FileStream stream = new FileStream(path, FileMode.Create);
 
-        PlayerData data = new PlayerData(checkpointManager, inventoryManager);
+        PlayerData data = new PlayerData(checkpointManager, inventoryManager, gameManager3D.playerMoney);
         formatter.Serialize(stream, data);
         stream.Close();
     }
 
-    public static void SavePlayer(CheckpointManager checkpointManager, InventoryManager inventoryManager, PowerupManager powerupManager)
+    public static void SavePlayer(CheckpointManager checkpointManager, InventoryManager inventoryManager, PowerupManager powerupManager, GameManager3D gameManager3D)
     {
         BinaryFormatter formatter = new BinaryFormatter();
         FileStream stream = new FileStream(path, FileMode.Create);
 
-        PlayerData data = new PlayerData(checkpointManager, inventoryManager, powerupManager);
+        PlayerData data = new PlayerData(checkpointManager, inventoryManager, powerupManager, gameManager3D.playerMoney);
         formatter.Serialize(stream, data);
         stream.Close();
     }
 
-    public static void SavePlayer(bool NextLevel, CheckpointManager checkpointManager, InventoryManager inventoryManager)
+    public static void SavePlayer(bool NextLevel, CheckpointManager checkpointManager, InventoryManager inventoryManager, GameManager3D gameManager3D)
     {
         BinaryFormatter formatter = new BinaryFormatter();
         FileStream stream = new FileStream(path, FileMode.Create);
 
-        PlayerData data = new PlayerData(checkpointManager.sceneID + 1, 0, inventoryManager);
+        PlayerData data = new PlayerData(checkpointManager.sceneID + 1, 0, inventoryManager, gameManager3D.playerMoney);
         formatter.Serialize(stream, data);
         stream.Close();
     }

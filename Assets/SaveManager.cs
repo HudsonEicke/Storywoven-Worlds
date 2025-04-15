@@ -20,14 +20,14 @@ public class SaveManager : MonoBehaviour
     public void SavePlayer()
     {
         if(CheckpointManager.Instance.sceneID == 1)
-            SaveSystem.SavePlayer(CheckpointManager.Instance, InventoryManager.Instance);
+            SaveSystem.SavePlayer(CheckpointManager.Instance, InventoryManager.Instance, GameManager3D.Instance);
         else
-            SaveSystem.SavePlayer(CheckpointManager.Instance, InventoryManager.Instance, ImportantComponentsManager.Instance.powerupManager);
+            SaveSystem.SavePlayer(CheckpointManager.Instance, InventoryManager.Instance, ImportantComponentsManager.Instance.powerupManager, GameManager3D.Instance);
     }
 
     public void SavePlayer(bool nextLevel)
     {
-        SaveSystem.SavePlayer(true, CheckpointManager.Instance, InventoryManager.Instance);
+        SaveSystem.SavePlayer(true, CheckpointManager.Instance, InventoryManager.Instance, GameManager3D.Instance);
     }
 
     public void LoadPlayer()
@@ -38,6 +38,8 @@ public class SaveManager : MonoBehaviour
         CheckpointManager.Instance.MovePlayerToCheckpoint();
 
         ItemIdManager.Instance.LoadInventory(data.inventoryIDs, data.itemQuantity);
+
+        GameManager3D.Instance.playerMoney = data.playerMoney;
 
         if (data.sceneID == 2)
             ImportantComponentsManager.Instance.powerupManager.LoadPowerups(data.hasDoubleJump, data.hasSprint, data.hasBoostedHealth);
