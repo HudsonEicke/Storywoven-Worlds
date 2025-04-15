@@ -24,17 +24,16 @@ public class BossFightManager : MonoBehaviour
     //Attack point pool
     [Space]
     [Header("MUST BE A MULTIPLE OF 3")]
-    public int startingSwipePool;
+    public int startingEveryOtherFireballPool;
     public int startingFireballPool;
     public int startingAdjacentFireballPool;
     public int startingWipeFireballPool;
 
     private int totalPool;
-    private int currentSwipePool;
+    private int currentEveryOtherFireballPool;
     private int currentFireballPool;
     private int currentAdjacentFireballPool;
     private int currentWipeFireballPool;
-    public float swipeTime = 5f;
     public float fireballTime = 5f;
 
     //Fireball spawn point stuff
@@ -49,8 +48,8 @@ public class BossFightManager : MonoBehaviour
 
     private void Start()
     {
-        totalPool = startingSwipePool + startingFireballPool + startingWipeFireballPool + startingAdjacentFireballPool;
-        currentSwipePool = startingSwipePool;
+        totalPool = startingEveryOtherFireballPool + startingFireballPool + startingWipeFireballPool + startingAdjacentFireballPool;
+        currentEveryOtherFireballPool = startingEveryOtherFireballPool;
         currentFireballPool = startingFireballPool;
         currentAdjacentFireballPool = startingAdjacentFireballPool;
         startingWipeFireballPool = currentWipeFireballPool;
@@ -92,12 +91,15 @@ public class BossFightManager : MonoBehaviour
 
         int chosenAttack = Random.Range(0, totalPool);
 
-        if (chosenAttack < currentSwipePool)
+        if (chosenAttack < currentEveryOtherFireballPool)
         {
-            //SWIPE
-            if (currentSwipePool < 3)
+            //EVERY OTHER FIREBALL
+            chosenAttack = Random.Range(0, 2); //even or odd points
+
+
+            if (currentEveryOtherFireballPool < 3)
             {
-                switch(currentSwipePool % 3)
+                switch(currentEveryOtherFireballPool % 3)
                 {
                     case 2:
                         currentAdjacentFireballPool++;
@@ -107,18 +109,22 @@ public class BossFightManager : MonoBehaviour
                         currentFireballPool++;
                         break;
                 }
-                currentSwipePool = 0;
+                currentEveryOtherFireballPool = 0;
             }
             else
             {
                 currentAdjacentFireballPool++;
                 currentFireballPool++;
                 currentWipeFireballPool++;
-                currentSwipePool -= 3;
+                currentEveryOtherFireballPool -= 3;
             }
-            currentCooldown = swipeTime;
+            currentCooldown = fireballTime;
+            for (int i = chosenAttack; i < attackPoints.Count; i += 2)
+            {
+                FireballAttack(attackPoints[i]);
+            }
         }
-        else if (currentSwipePool <= chosenAttack && chosenAttack < currentFireballPool + currentSwipePool)
+        else if (currentEveryOtherFireballPool <= chosenAttack && chosenAttack < currentFireballPool + currentEveryOtherFireballPool)
         {
             //FIREBALL
             if (currentFireballPool < 3)
@@ -127,10 +133,10 @@ public class BossFightManager : MonoBehaviour
                 {
                     case 2:
                         currentAdjacentFireballPool++;
-                        currentSwipePool++;
+                        currentEveryOtherFireballPool++;
                         break;
                     case 1:
-                        currentSwipePool++;
+                        currentEveryOtherFireballPool++;
                         break;
                 }
                 currentFireballPool = 0;
@@ -138,15 +144,15 @@ public class BossFightManager : MonoBehaviour
             else
             {
                 currentAdjacentFireballPool++;
-                currentSwipePool++;
+                currentEveryOtherFireballPool++;
                 currentWipeFireballPool++;
-                currentSwipePool -= 3;
+                currentEveryOtherFireballPool -= 3;
             }
             currentCooldown = fireballTime;
 
             FireballAttack(currentPlayerLocation);
         }
-        else if (currentFireballPool + currentSwipePool <= chosenAttack && chosenAttack < currentFireballPool + currentSwipePool + currentAdjacentFireballPool)
+        else if (currentFireballPool + currentEveryOtherFireballPool <= chosenAttack && chosenAttack < currentFireballPool + currentEveryOtherFireballPool + currentAdjacentFireballPool)
         {
             //ADJACENT FIREBALL
 
@@ -156,10 +162,10 @@ public class BossFightManager : MonoBehaviour
                 {
                     case 2:
                         currentFireballPool++;
-                        currentSwipePool++;
+                        currentEveryOtherFireballPool++;
                         break;
                     case 1:
-                        currentSwipePool++;
+                        currentEveryOtherFireballPool++;
                         break;
                 }
                 currentAdjacentFireballPool = 0;
@@ -167,9 +173,9 @@ public class BossFightManager : MonoBehaviour
             else
             {
                 currentFireballPool++;
-                currentSwipePool++;
+                currentEveryOtherFireballPool++;
                 currentWipeFireballPool++;
-                currentSwipePool -= 3;
+                currentEveryOtherFireballPool -= 3;
             }
             currentCooldown = fireballTime;
 
@@ -186,10 +192,10 @@ public class BossFightManager : MonoBehaviour
                 {
                     case 2:
                         currentFireballPool++;
-                        currentSwipePool++;
+                        currentEveryOtherFireballPool++;
                         break;
                     case 1:
-                        currentSwipePool++;
+                        currentEveryOtherFireballPool++;
                         break;
                 }
                 currentAdjacentFireballPool = 0;
@@ -197,9 +203,9 @@ public class BossFightManager : MonoBehaviour
             else
             {
                 currentFireballPool++;
-                currentSwipePool++;
+                currentEveryOtherFireballPool++;
                 currentAdjacentFireballPool++;
-                currentSwipePool -= 3;
+                currentEveryOtherFireballPool -= 3;
             }
             currentCooldown = fireballTime;
 

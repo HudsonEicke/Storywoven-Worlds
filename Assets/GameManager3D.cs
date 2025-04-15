@@ -67,6 +67,16 @@ public class GameManager3D : MonoBehaviour
 
     }
 
+    public void FreezeWorld()
+    {
+        freezeWorld?.Invoke();
+    }
+
+    public void UnFreezeWorld()
+    {
+        unFreezeWorld?.Invoke();
+    }
+
     public void StartBattle(int enemyCount)
     {
         Debug.Log("Start Battle");
