@@ -115,6 +115,13 @@ public class ThirdPersonMovement : MonoBehaviour
             return;
         }
 
+        if(DialogueManager.isActive || DMSceneLoad.isActive)
+        {
+            animator.SetFloat("Speed", 0);
+            controller.Move(Vector3.zero);
+            return;
+        }
+
         if(ImportantComponentsManager.Instance.invetoryUIManager.isInventoryOpen)
         {
             cameraSettings.m_XAxis.m_MaxSpeed = 0f;
