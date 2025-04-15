@@ -1347,20 +1347,28 @@ private IEnumerator EnemyAttackSequence()
         playerThreeSkills[3].PlayMinigame((result) => {
             if (result == 1)    {
                 Debug.Log("Player succeeded in minigame!");
+                // attack all enemies
+                for (int i = 0; i < totalEnemyCount; i++) {
+                    if (!enemyList[i].enemyUnit.getDead()) {
+                        enemyList[i].enemyUnit.healthChange(-1 * playerThreeSkills[3].skillInflict());
+                        enemyList[i].enemyHealth.GetComponent<Slider>().value = enemyList[i].enemyUnit.getCurrentHP();
+                        enemyList[i].enemyUnit.setStunned();
+                        enemyList[i].enemyStun.gameObject.SetActive(true);
+                        if (enemyList[i].enemyUnit.getCurrentHP() <= 0) {
+                            removeEnemy(i);
+                            enemyList[i].enemyUnit.isStunned();
+                            enemyList[i].enemyStun.gameObject.SetActive(false);
+                        }
+                        // goin back to the enemy turn
+                        if (currentEnemyCount <= 0)
+                            GameManager2D.instance.UpdateBattleState(BattleState.WON);
+                    }
+                }
+                characterList.characters[index].healthBarPanel.gameObject.SetActive(true);
                 characterList.characters[index].playerHud.gameObject.SetActive(true);
                 characterList.characters[index].playerHealth.SetActive(true);
-                characterList.characters[index].healthBarPanel.gameObject.SetActive(true);
-                enemyList[enemyIndex].enemyUnit.healthChange(-1 * playerThreeSkills[3].skillInflict());
-                enemyList[enemyIndex].enemyHealth.GetComponent<Slider>().value = enemyList[enemyIndex].enemyUnit.getCurrentHP();
-                if (enemyList[enemyIndex].enemyUnit.getCurrentHP() <= 0) 
-                    removeEnemy(enemyIndex);
-                // goin back to the enemy turn
-                if (currentEnemyCount <= 0)
-                    GameManager2D.instance.UpdateBattleState(BattleState.WON);
-                else {
-                    checkplayerTurn();
+                checkplayerTurn();
                 }
-            }
             else    {
                 Debug.Log("Player failed in minigame!");
                 characterList.characters[index].healthBarPanel.gameObject.SetActive(true);

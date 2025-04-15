@@ -147,9 +147,6 @@ public class ragnaROCKSkill : skill
             Debug.Log(count);
             yield return null;
         }
-
-
-
         elapsedTime = 0f;
         duration = 2.0f;
         while (elapsedTime < duration) {

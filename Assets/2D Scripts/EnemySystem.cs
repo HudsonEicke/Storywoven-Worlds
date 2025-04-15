@@ -58,5 +58,9 @@ public class EnemySystem : MonoBehaviour {
         return enemyList;
     }
 
+    public List<Transform> getEnemyBattleStation() {
+        return enemyBattleStation;
+    }
+
 
 }
