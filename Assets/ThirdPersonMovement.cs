@@ -8,6 +8,7 @@ public class ThirdPersonMovement : MonoBehaviour
     public CharacterController controller;
     public Transform cam;
     public PlayerHealthController playerHealthController;
+    public Animator animator;
 
     public float speed = 6f;
 
@@ -121,6 +122,9 @@ public class ThirdPersonMovement : MonoBehaviour
         //gravity stuff
         if (isGrounded && velocity.y < 0)
         {
+            animator.SetBool("IsJumping", false);
+            animator.SetBool("IsFalling", false);
+
             velocity.y = -2f;
 
             if(hasDoubleJumpPowerUp)
@@ -129,15 +133,22 @@ public class ThirdPersonMovement : MonoBehaviour
             }
         }
 
+        if(!isGrounded)
+        {
+            animator.SetBool("IsFalling", true);
+        }
+
         //This is what actually handles jumping
         if(Input.GetButtonDown("Jump"))
         {
-            if(isGrounded)
+            if (isGrounded)
             {
+                animator.SetBool("IsJumping", true);
                 Jump();
             }
             else if(doubleJumpCharged)
             {
+                animator.SetBool("IsJumping", true);
                 Jump();
                 doubleJumpCharged = false;
             }
@@ -152,8 +163,9 @@ public class ThirdPersonMovement : MonoBehaviour
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
         Vector3 direction = new Vector3(horizontal, 0f, vertical).normalized;
+        animator.SetFloat("Speed", direction.magnitude);
 
-        if(direction.magnitude >= 0.1f)
+        if (direction.magnitude >= 0.1f)
         {
             float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + cam.eulerAngles.y;
             float angle = Mathf.SmoothDampAngle(GFX.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
