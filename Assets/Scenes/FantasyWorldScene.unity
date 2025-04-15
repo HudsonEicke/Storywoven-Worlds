@@ -4819,6 +4819,10 @@ MonoBehaviour:
   - {fileID: 8021268271617775633, guid: 071a18e258ae95043814cedc53d39ab2, type: 3}
   - {fileID: 8021268271617775633, guid: 60e1bc8e1a188e1438deca792fde757f, type: 3}
   - {fileID: 8021268271617775633, guid: c6b8f973292c4d4419415a426951553a, type: 3}
+  healthBarEnemyPanels:
+  - {fileID: 1504871663}
+  - {fileID: 1553304613}
+  - {fileID: 467266930}
   playerOneSkills: []
   playerTwoSkills: []
   playerThreeSkills: []

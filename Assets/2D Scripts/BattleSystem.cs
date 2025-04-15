@@ -47,6 +47,7 @@ public class BattleSystem : MonoBehaviour
     List<GameObject> player1SkillButtonsSelect = new List<GameObject>();
     List<GameObject> player2SkillButtonsSelect = new List<GameObject>();
     List<GameObject> player3SkillButtonsSelect = new List<GameObject>();
+    [SerializeField] private List<Transform> healthBarEnemyPanels; //fixing this
     List<GameObject> backButtonSelect = new List<GameObject>();
 
     public List<skill> playerOneSkills = new List<skill>();
@@ -133,7 +134,7 @@ public class BattleSystem : MonoBehaviour
         
         case BattleState.START:
             level = GameManager2D.instance.levels;
-            invisText.gameObject.SetActive(false);
+            // invisText.gameObject.SetActive(false);
             gamestart = true;
             if (first == 0)
             {
@@ -391,10 +392,11 @@ private IEnumerator EnemyAttackSequence()
         for (int i = 0; i < enemyList.Count; i++)
         {
             int index = i;
-            GameObject enemySelect = Instantiate(enemySelectPrefab, enemyList[i].healthPanel);
+            GameObject enemySelect = Instantiate(enemySelectPrefab, healthBarEnemyPanels[i]);
+            DontDestroyOnLoad(enemySelect);
             enemySelect.GetComponent<Button>().onClick.AddListener(() => ApplyDamage(index));
             enemySelectButtons.Add(enemySelect);
-            enemySelectButtons[i].SetActive(false);
+            // enemySelectButtons[i].SetActive(false);
         }
     }
 

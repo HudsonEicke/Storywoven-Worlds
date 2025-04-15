@@ -13,6 +13,7 @@ public class EnemySystem : MonoBehaviour {
     [SerializeField] private List<Text> enemyHud;
     [SerializeField] private List<Text> enemyStat;
     [SerializeField] private List<Text> enemyStun;
+    public static EnemySystem Instance;
 
     // class to store all of the stuff we need for one enemy
     public class EnemyHealthAndInfo {
@@ -29,11 +30,24 @@ public class EnemySystem : MonoBehaviour {
         public Transform healthPanel;
     }
 
+     private void Awake() {
+        if (Instance != null && Instance != this) {
+            Destroy(this.gameObject); // Only one EnemySystem allowed
+            return;
+        }
+
+        Instance = this;
+        DontDestroyOnLoad(this.gameObject);
+    }
+
     public List<EnemyHealthAndInfo> loadEnemies(int enemyCount) {
         List<EnemyHealthAndInfo> enemyList = new List<EnemyHealthAndInfo>(); // we will load this list up in here
         for (int i = 0; i < enemyCount; i ++) {
             EnemyHealthAndInfo newEnemy = new EnemyHealthAndInfo();
             GameObject enemy = Instantiate(enemyPrefab, enemyBattleStation[i]);
+            //GameObject enemy = Instantiate(enemyPrefab);
+            //enemy.transform.SetParent(this.transform); // or a dedicated "Enemies" GameObject under EnemySystem
+            //enemy.transform.position = enemyBattleStation[i].position;
             newEnemy.enemy = enemy;
             newEnemy.enemyUnit = enemy.GetComponent<Unit>();
             newEnemy.enemyUnit.SetStats(100, 20, 5, 100, "Warrior " + (i + 1), 1, 100, 10);
@@ -43,6 +57,9 @@ public class EnemySystem : MonoBehaviour {
             newEnemy.enemyStat.text = "Burn";
             newEnemy.enemyHud.text = newEnemy.enemyUnit.getName();
             newEnemy.enemyHealth = Instantiate(healthBarEnemy, healthBarEnemyPanels[i]);
+            //newEnemy.enemyHealth = Instantiate(healthBarEnemy);
+            //newEnemy.enemyHealth.transform.SetParent(this.transform); // OR make a persistent UI parent object
+            //newEnemy.enemyHealth.transform.position = healthBarEnemyPanels[i].position;
             newEnemy.healthPanel = healthBarEnemyPanels[i];
             newEnemy.enemyHealth.GetComponent<Slider>().maxValue = newEnemy.enemyUnit.getMaxHP();
             newEnemy.enemyHealth.GetComponent<Slider>().value = newEnemy.enemyUnit.getCurrentHP();
