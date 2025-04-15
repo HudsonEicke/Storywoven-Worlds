@@ -11,6 +11,12 @@ public class DeathChecker : MonoBehaviour
     public string fileName;
 
     // Update is called once per frame
+    private void Start()
+    {
+        File.AppendAllText(fileName, CheckpointManager.Instance.sceneID + "\n");
+
+    }
+
     void Update()
     {
         if (!player.isGrounded)

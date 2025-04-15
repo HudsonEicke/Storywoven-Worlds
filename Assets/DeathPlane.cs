@@ -11,7 +11,7 @@ public class DeathPlane : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            //checker.PlayerFell();
+            checker.PlayerFell();
             player.moveBack = true;
             player.playerHealthController.Damage(1);
         }
