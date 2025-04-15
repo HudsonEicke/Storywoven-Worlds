@@ -141,7 +141,7 @@ public class BattleSystem : MonoBehaviour
         
         case BattleState.START:
             level = GameManager2D.instance.levels;
-            // invisText.gameObject.SetActive(false);
+            invisText.gameObject.SetActive(false);
             gamestart = true;
             if (first == 0)
             {
@@ -373,7 +373,7 @@ private IEnumerator EnemyAttackSequence()
         if (invis > 0) {
             if (characterList.characters[1].playerUnit.isInvis() == 0) {
                 Debug.Log("Invis Wore Off");
-                // invisText.gameObject.SetActive(false);
+                invisText.gameObject.SetActive(false);
                 invis = 0;
                 int baseWeight = characterList.characters[1].playerUnit.getWeight() - characterList.characters[1].weight;
                 characterList.characters[1].playerUnit.addWeight(-1 * baseWeight);
@@ -1275,7 +1275,7 @@ private IEnumerator EnemyAttackSequence()
                     characterList.characters[index].playerUnit.setInvis(3);
                     characterList.characters[2].playerUnit.addWeight(-20);
                     invis = 1;
-                    // invisText.gameObject.SetActive(true);
+                    invisText.gameObject.SetActive(true);
                 }
                 else {
                     characterList.characters[index].playerUnit.setInvis(3);
