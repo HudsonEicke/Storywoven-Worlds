@@ -3,22 +3,13 @@ using System.Collections.Generic;
 using UnityEditor.VersionControl;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
-using UnityEngine.EventSystems;
 using TMPro;
 
 
-public class DialogueManager : MonoBehaviour
+public class DMSceneLoad : MonoBehaviour
 {   
     public GameObject dialogueStuff;
-    public GameObject characterBox;
-    public GameObject Panel;
-    public Button Button1;
-    public Button Button2;
-    public Image characterImage;
-
     public GameObject dialogueBox;
-    public TextMeshProUGUI characterName;
     public TextMeshProUGUI dialogueText;
     
     Dialogue1[] dialogueArr;
@@ -27,15 +18,6 @@ public class DialogueManager : MonoBehaviour
 
     public static bool isActive = false;
 
-    void Start()
-    {
-        if (Button1 != null && Button2 != null)
-        {
-            Button1.onClick.AddListener(OpenShop);
-            Button2.onClick.AddListener(EndDialogue);
-        }
-        Debug.LogWarning("Buttons not assigned");
-    }
     public void StartDialogue(Dialogue1[] dialogues, Actor1[] characters)
     {
         dialogueArr = dialogues;
@@ -43,10 +25,6 @@ public class DialogueManager : MonoBehaviour
         index = 0;
         Debug.Log("Dialogue Started with " + dialogueArr.Length + "lines");
         isActive = true;
-        if (Panel != null)
-        {
-            Panel.SetActive(false);
-        }
         DisplayDialogue();
     }
 
@@ -55,11 +33,8 @@ public class DialogueManager : MonoBehaviour
         Dialogue1 currentDialogue = dialogueArr[index];
         Actor1 currentActor = charArr[currentDialogue.characterID];
         dialogueText.text = currentDialogue.message;
-        characterImage.sprite = currentActor.characterSprite;
-        characterName.text = currentActor.name;
-        characterImage.enabled = true;
-        characterName.enabled = true;
         dialogueText.enabled = true;
+        dialogueBox.SetActive(true);
     }
 
     void NextMessage()
@@ -72,36 +47,15 @@ public class DialogueManager : MonoBehaviour
         }
         else
         {
-            if (Panel != null)
-            {
-                Panel.SetActive(true);
-                EventSystem.current.SetSelectedGameObject(Button1.gameObject);
-            }
-            else
-            {
-                EndDialogue();
-            }
+            EndDialogue();
         }
-    }
-
-    void OpenShop()
-    {
-        dialogueStuff.SetActive(false);
-        Panel.SetActive(false);
-        isActive = false;
-        SceneManager.LoadScene("MenuScene");
-        Debug.Log("Shop Opened");
     }
 
     public void EndDialogue()
     {
         dialogueStuff.SetActive(false);
-        if (Panel != null)
-        {
-            Panel.SetActive(false);
-        }
         isActive = false;
-        Debug.Log("Dialogue Ended");
+        Debug.Log("Dialogue Over");
     }
 
 

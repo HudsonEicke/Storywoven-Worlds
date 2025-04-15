@@ -7,7 +7,14 @@ public class PlayerDetectionInteract : MonoBehaviour
 {
     public GameObject interactButton;
     public GameObject dialogueStuff;
-    bool playerDetected = false;
+    public GameObject Choices;
+    private bool playerDetected = false;
+    private DTLoad dialogueTrigger;
+
+    public void Start()
+    {  
+        dialogueTrigger = GetComponent<DTLoad>();
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -43,6 +50,22 @@ public class PlayerDetectionInteract : MonoBehaviour
             {
                 Debug.LogWarning("Interact button not assigned");
             }
+            if (Choices != null)
+            {
+                Choices.SetActive(false);
+            }
+            else
+            {
+                Debug.LogWarning("Choices not assigned");
+            }
+            if (dialogueTrigger != null)
+            {
+                dialogueTrigger.EndDialogue();
+            }
+            else
+            {
+                Debug.LogWarning("DialogueTrigger not assigned");
+            }
             Debug.Log("Player left the area!");
         }
     }
@@ -54,19 +77,31 @@ public class PlayerDetectionInteract : MonoBehaviour
             if (interactButton != null)
             {
                 interactButton.SetActive(false);
-                if (dialogueStuff != null)
-                {
-                    dialogueStuff.SetActive(true);
-                }
-                else
-                {
-                    Debug.LogWarning("Dialogue stuff not assigned");
-                }
+
             }
             else
             {
                 Debug.LogWarning("Interact button not assigned");
             }
+
+            if (dialogueStuff != null)
+                {
+                    dialogueStuff.SetActive(true);
+                }
+            else
+            {
+                Debug.LogWarning("Dialogue stuff not assigned");
+            }
+
+            if(dialogueTrigger != null)
+            {
+                dialogueTrigger.TriggerDialogue();
+            }
+            else
+            {
+                Debug.LogWarning("DialogueTrigger not assigned");
+            }
+
             // Call the method to trigger the dialogue or any other action
             Debug.Log("Inteacted with F");
 

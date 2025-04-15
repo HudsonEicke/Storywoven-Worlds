@@ -5,14 +5,14 @@ using UnityEngine.UI;
 using TMPro;
 
 
-public class DTLoad : MonoBehaviour
+public class DTLoadStart : MonoBehaviour
 {
     public Dialogue1[] dialogues;
     public Actor1[] characters;
     
     public void TriggerDialogue()
     {
-        DialogueManager dialogueManager = FindObjectOfType<DialogueManager>();
+        DMSceneLoad dialogueManager = FindObjectOfType<DMSceneLoad>();
         if (dialogueManager != null)
         {
             dialogueManager.StartDialogue(dialogues, characters);
@@ -21,12 +21,6 @@ public class DTLoad : MonoBehaviour
         {
             Debug.LogWarning("DialogueManager no found");
         }
-    }
-
-    public void EndDialogue()
-    {
-        DialogueManager dialogueManager = FindObjectOfType<DialogueManager>();
-        dialogueManager.EndDialogue();
     }
 
     //Test
@@ -38,14 +32,14 @@ public class DTLoad : MonoBehaviour
 }
 
 [System.Serializable]
-public class Dialogue1 //holds the message
+public class Dialogue2 //holds the message
 {
     public int characterID;
     public string message;
 }
 
 [System.Serializable]
-public class Actor1 //holds character info
+public class Actor2 //holds character info
 {
     public string name;
     public Sprite characterSprite;
