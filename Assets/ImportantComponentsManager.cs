@@ -14,7 +14,7 @@ public class ImportantComponentsManager : MonoBehaviour
 
 
     // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
         _instance = this;
     }
