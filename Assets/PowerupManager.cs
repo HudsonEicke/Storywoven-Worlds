@@ -67,6 +67,8 @@ public class PowerupManager : MonoBehaviour
 
         ImportantComponentsManager.Instance.dialogueBox.DisplayText(message, timeToDisplayText);
 
+        ImportantComponentsManager.Instance.thirdPersonMovement.newPosition = gemWarp.transform.position;
+        ImportantComponentsManager.Instance.thirdPersonMovement.QueuedMove = true;
     }
 
     public void LoadPowerups(bool hasDoubleJump, bool hasSprint, bool hasBoostedHealth)

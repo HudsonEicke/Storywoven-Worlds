@@ -13738,7 +13738,7 @@ MonoBehaviour:
   pinkGem: {fileID: 7016640603388993715}
   orangeGemWall: {fileID: 32985723}
   orangeGem: {fileID: 1441118679}
-  gemWarp: {fileID: 0}
+  gemWarp: {fileID: 223109377}
   timeToDisplayText: 5
 --- !u!4 &966290156
 Transform:
