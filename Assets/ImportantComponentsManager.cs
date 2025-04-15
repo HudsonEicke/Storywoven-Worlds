@@ -10,6 +10,7 @@ public class ImportantComponentsManager : MonoBehaviour
     public ThirdPersonMovement thirdPersonMovement;
     public InvetoryUIManager invetoryUIManager;
 
+
     // Start is called before the first frame update
     void Start()
     {

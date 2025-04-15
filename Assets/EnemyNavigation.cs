@@ -15,6 +15,7 @@ public class EnemyNavigation : MonoBehaviour
     public CombatStartDetection startDetection;
     public float normalSpeed = 3.5f;
     public float chaseSpeed = 7.5f;
+    public DetectionVisual detectionVisual;
 
     // Start is called before the first frame update
     void Start()
@@ -67,7 +68,7 @@ public class EnemyNavigation : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(state == EnemyState.frozen)
+        if (state == EnemyState.frozen)
         {
             return;
         }
@@ -122,9 +123,17 @@ public class EnemyNavigation : MonoBehaviour
             return;
         }
 
+        if (state == EnemyState.chasing)
+        {
+            return;
+        }
+
+        detectionVisual.DisplayVisual();
+
         state = EnemyState.chasing;
 
         Agent.speed = chaseSpeed;
+
     }
 
     //void OnTriggerEnter(Collider other)
