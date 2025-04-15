@@ -89,7 +89,12 @@ public class BattleSystem : MonoBehaviour
         GameManager2D.OnBattleStateChanged += OnBattleStateChanged; 
         Instance = this;
     }
-    
+
+    private void OnDestroy()
+    {
+        GameManager2D.OnBattleStateChanged -= OnBattleStateChanged;
+    }
+
     void Update()
     {
         if (gamestart)
