@@ -1943,9 +1943,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87886d3ab51314541b8d55435a66471a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  camera1: {fileID: 583489412}
+  camera1: {fileID: 0}
   event1: {fileID: 1296877621}
-  playerCamera: {fileID: 583489412}
+  playerCamera: {fileID: 313944361}
   camera2D: {fileID: 475324464}
   event2D: {fileID: 2131646828}
   startBattle: 0
@@ -4866,6 +4866,7 @@ MonoBehaviour:
   currentEnemyCount: 0
   currentPlayerCount: 0
   totalEnemyCount: 0
+  first: 0
   gamestart: 0
   invisText: {fileID: 1094715819}
   statusText: {fileID: 438432094}
@@ -9326,6 +9327,26 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1025840191826147137, guid: f3d8f659ad1478d488b08fe590f5289d,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.9908773
+      objectReference: {fileID: 0}
+    - target: {fileID: 1025840191826147137, guid: f3d8f659ad1478d488b08fe590f5289d,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.13476773
+      objectReference: {fileID: 0}
+    - target: {fileID: 1025840191826147137, guid: f3d8f659ad1478d488b08fe590f5289d,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1025840191826147137, guid: f3d8f659ad1478d488b08fe590f5289d,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1627377084225956340, guid: f3d8f659ad1478d488b08fe590f5289d,
         type: 3}
       propertyPath: healthUI
@@ -9391,6 +9412,31 @@ PrefabInstance:
       propertyPath: m_LocalRotation.x
       value: 0.17067233
       objectReference: {fileID: 0}
+    - target: {fileID: 3901957267515323732, guid: f3d8f659ad1478d488b08fe590f5289d,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3901957267515323732, guid: f3d8f659ad1478d488b08fe590f5289d,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5894427078271325624, guid: f3d8f659ad1478d488b08fe590f5289d,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.1527215
+      objectReference: {fileID: 0}
+    - target: {fileID: 5894427078271325624, guid: f3d8f659ad1478d488b08fe590f5289d,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5894427078271325624, guid: f3d8f659ad1478d488b08fe590f5289d,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6002883251204408199, guid: f3d8f659ad1478d488b08fe590f5289d,
         type: 3}
       propertyPath: m_Name
@@ -9418,12 +9464,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf496c62c859b4804bf01195ac312a42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &583489412 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3867391223065582448, guid: f3d8f659ad1478d488b08fe590f5289d,
-    type: 3}
-  m_PrefabInstance: {fileID: 583489410}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &588171047
 PrefabInstance:
   m_ObjectHideFlags: 0
