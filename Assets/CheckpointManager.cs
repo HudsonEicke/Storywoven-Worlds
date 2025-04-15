@@ -21,6 +21,7 @@ public class CheckpointManager : MonoBehaviour
 
     public void PlayerHitCheckpoint(int checkpointID)
     {
+        ImportantComponentsManager.Instance.dialogueBox.DisplayText("Check point reached all health restored", 5f);
         currentPlayerCheckpoint = checkpointID;
         ImportantComponentsManager.Instance.thirdPersonMovement.playerHealthController.Heal(10);
         characterList = GameManager2D.instance.characterList;
