@@ -12,6 +12,7 @@ public class Unit : MonoBehaviour
     private int maxHP;
     private int currentHP;
     private int currentEnergy;
+    private int maxEnergy;
     private int defense;
     private bool isDead;
     private int isWeight;
@@ -101,6 +102,7 @@ public class Unit : MonoBehaviour
         maxHP = health;
         currentHP = current;
         currentEnergy = energy;
+        maxEnergy = energy;
         defense = def;
         isDead = false;
         isWeight = weight;
@@ -146,6 +148,7 @@ public class Unit : MonoBehaviour
         burn = 0;
         stun = false;
         currentHP = maxHP;
+        currentEnergy = maxEnergy;
     }
 
     public int getWeight() {

@@ -9,6 +9,7 @@ public class CheckpointManager : MonoBehaviour
     public int currentPlayerCheckpoint;
     public List<Checkpoint> checkpoints;
     public ThirdPersonMovement player;
+    public CharacterList characterList;
     [Space]
     [Header("Tutorial: 1, Fantasy: 2, Sci-fi: 3")]
     public int sceneID = 1;
@@ -22,6 +23,11 @@ public class CheckpointManager : MonoBehaviour
     {
         currentPlayerCheckpoint = checkpointID;
         ImportantComponentsManager.Instance.thirdPersonMovement.playerHealthController.Heal(10);
+        characterList = GameManager2D.instance.characterList;
+        for (int i = 0; i < 3; i++) {
+            Debug.Log("Reviving character...");
+            characterList.characters[i].playerUnit.revive();
+        }
         SaveManager.Instance.SavePlayer();
     }
 
