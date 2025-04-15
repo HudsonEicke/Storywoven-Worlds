@@ -24,6 +24,7 @@ public class GameManager3D : MonoBehaviour
     // getting character information from character system
     private CharacterSystem3D characterSystem3D;
     public CharacterList3D characterList3D;
+    public int playerMoney = 0;
 
     private void Awake()
     {
@@ -126,5 +127,29 @@ public class GameManager3D : MonoBehaviour
     public void OnDeath()
     {
         SceneManager.LoadScene("DeathScene");
+    }
+
+    public void AddMoney(int amount)
+    {
+        playerMoney += amount;
+        Debug.Log($"[GameManager3D] Money Added: {amount} | Total: {playerMoney}");
+    }
+
+    public bool SpendMoney(int amount)
+    {
+        if (playerMoney >= amount)
+        {
+            playerMoney -= amount;
+            Debug.Log($"[GameManager3D] Money Spent: {amount} | Remaining: {playerMoney}");
+            return true;
+        }
+
+        Debug.LogWarning("[GameManager3D] Not enough money!");
+        return false;
+    }
+
+    public int GetMoney()
+    {
+        return playerMoney;
     }
 }
