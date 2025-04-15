@@ -13,6 +13,7 @@ public class PowerupManager : MonoBehaviour
     public GameObject pinkGem;
     public GameObject orangeGemWall;
     public GameObject orangeGem;
+    public GameObject gemWarp;
     public float timeToDisplayText = 5f;
 
     public void GivePowerup(int powerupID)
@@ -65,6 +66,7 @@ public class PowerupManager : MonoBehaviour
         }
 
         ImportantComponentsManager.Instance.dialogueBox.DisplayText(message, timeToDisplayText);
+
     }
 
     public void LoadPowerups(bool hasDoubleJump, bool hasSprint, bool hasBoostedHealth)

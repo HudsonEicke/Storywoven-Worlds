@@ -56,6 +56,11 @@ public class GameManager3D : MonoBehaviour
         }
     }
 
+    private void OnDestroy()
+    {
+        GameManager2D.OnGameEnd -= OnGameEnd;
+    }
+
     private void OnEnable()
     {
 
