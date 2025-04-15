@@ -22,6 +22,7 @@ public class EnemyNavigation : MonoBehaviour
     {
         stateTime = idleTime;
         Agent.speed = normalSpeed;
+        player = ImportantComponentsManager.Instance.thirdPersonMovement.gameObject;
     }
 
     private void Awake()
