@@ -17,6 +17,13 @@ public class InvetoryUIManager : MonoBehaviour
     public bool scrollDown = false;
     public bool scrollUp = false;
 
+    private bool frozen = false;
+
+    private void OnDestroy()
+    {
+        GameManager3D.freezeWorld -= Freeze;
+        GameManager3D.unFreezeWorld -= unFreeze;
+    }
 
     void Start()
     {
@@ -25,9 +32,28 @@ public class InvetoryUIManager : MonoBehaviour
         CloseInventory();
     }
 
+    private void Awake()
+    {
+        GameManager3D.freezeWorld += Freeze;
+        GameManager3D.unFreezeWorld += unFreeze;
+    }
+
+    void Freeze()
+    {
+        frozen = true;
+    }
+
+    void unFreeze()
+    {
+        frozen = false;
+    }
+
     // Update is called once per frame
     void Update()
     {
+        if (frozen)
+            return;
+
         if(Input.GetKeyDown(KeyCode.I))
         {
             if (isInventoryOpen)
