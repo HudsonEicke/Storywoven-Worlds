@@ -1943,7 +1943,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87886d3ab51314541b8d55435a66471a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  camera1: {fileID: 0}
+  camera1: {fileID: 313944361}
   event1: {fileID: 1296877621}
   playerCamera: {fileID: 313944361}
   camera2D: {fileID: 475324464}
