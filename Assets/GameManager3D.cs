@@ -27,14 +27,7 @@ public class GameManager3D : MonoBehaviour
 
     private void Awake()
     {
-        if (_instance != null && _instance != this)
-        {
-            Destroy(this.gameObject);
-        }
-        else
-        {
-            _instance = this;
-        }
+        _instance = this;
         Debug.Log("[GameManager3D] subscribing to OnGameEnd");
         GameManager2D.OnGameEnd += OnGameEnd;
         camera2D.SetActive(false);

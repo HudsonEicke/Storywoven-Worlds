@@ -16,13 +16,6 @@ public class ImportantComponentsManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (_instance != null && _instance != this)
-        {
-            Destroy(this.gameObject);
-        }
-        else
-        {
-            _instance = this;
-        }
+        _instance = this;
     }
 }
