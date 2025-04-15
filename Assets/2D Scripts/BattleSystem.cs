@@ -181,6 +181,7 @@ public class BattleSystem : MonoBehaviour
             for (int i = 0; i < currentPlayerCount; i++) {
                 //characterList.characters[i].playerUnit.revive();
                 characterList.characters[i].playerHealth.GetComponent<Slider>().value = characterList.characters[i].playerUnit.getCurrentHP();
+                characterList.characters[i].playerMana.GetComponent<Slider>().value = characterList.characters[i].playerUnit.getEnergy();
                 characterList.characters[i].playerUnit.setPassiveHeal(0);
             }
 
