@@ -69,6 +69,8 @@ public class BattleSystem : MonoBehaviour
     int currentPlayerForMouse = 0;
     GameObject lastSelected = null;
     int taunt = 0;
+    int invis = 0;
+    [SerializeField] Text invisText;
 
     int healSwitch = 0; // inefficient, I know...
 
@@ -131,6 +133,7 @@ public class BattleSystem : MonoBehaviour
         
         case BattleState.START:
             level = GameManager2D.instance.levels;
+            invisText.gameObject.SetActive(false);
             gamestart = true;
             if (first == 0)
             {
@@ -162,11 +165,15 @@ public class BattleSystem : MonoBehaviour
             totalEnemyCount = currentEnemyCount;
             currentPlayerCount = GameManager2D.characterCount;
             PlayerCountTurn = 0;
+            invis = 0;
+            int baseWeight = characterList.characters[1].playerUnit.getWeight() - characterList.characters[1].weight;
+            characterList.characters[1].playerUnit.addWeight(-1 * baseWeight);
             statusText.text = "Start of Battle";
             Debug.Log("[BattleSystem] Setting up battle system!");
             for (int i = 0; i < currentPlayerCount; i++) {
                 //characterList.characters[i].playerUnit.revive();
                 characterList.characters[i].playerHealth.GetComponent<Slider>().value = characterList.characters[i].playerUnit.getCurrentHP();
+                characterList.characters[i].playerUnit.setPassiveHeal(0);
             }
 
             for (int i = 0; i < currentPlayerCount; i++)
@@ -351,6 +358,16 @@ private IEnumerator EnemyAttackSequence()
                 Debug.Log("Taunt Wore Off");
                 int baseWeight = characterList.characters[2].playerUnit.getWeight() - characterList.characters[2].weight;
                 characterList.characters[2].playerUnit.addWeight(-1 * baseWeight);
+            }
+        }
+
+        if (invis > 0) {
+            if (characterList.characters[1].playerUnit.isInvis() == 0) {
+                Debug.Log("Invis Wore Off");
+                invisText.gameObject.SetActive(false);
+                invis = 0;
+                int baseWeight = characterList.characters[1].playerUnit.getWeight() - characterList.characters[1].weight;
+                characterList.characters[1].playerUnit.addWeight(-1 * baseWeight);
             }
         }
 
@@ -629,6 +646,10 @@ private IEnumerator EnemyAttackSequence()
         Debug.Log("Button: " + index);
         ToggleTextFirst(index);
         ToggleTextSecond(index);
+        if (characterList.characters[index].playerUnit.isPassiveHeal() != 0) {
+            characterList.characters[index].playerUnit.healthChange((int)Math.Ceiling(characterList.characters[index].playerUnit.getMaxHP() * 0.10f));
+            characterList.characters[index].playerHealth.GetComponent<Slider>().value = characterList.characters[index].playerUnit.getCurrentHP();
+        }
     }
 
     void ToggleTextFirst(int index)
@@ -1239,6 +1260,16 @@ private IEnumerator EnemyAttackSequence()
         playerTwoSkills[1].PlayMinigame((result) => {
             if (result == 1)    {
                 Debug.Log("Player succeeded in minigame!");
+                if (invis == 0) {
+                    Debug.Log("Player is invisible!");
+                    characterList.characters[index].playerUnit.setInvis(3);
+                    characterList.characters[2].playerUnit.addWeight(-20);
+                    invis = 1;
+                    invisText.gameObject.SetActive(true);
+                }
+                else {
+                    characterList.characters[index].playerUnit.setInvis(3);
+                }
                 characterList.characters[index].playerHud.gameObject.SetActive(true);
                 characterList.characters[index].playerHealth.SetActive(true);
                 characterList.characters[index].healthBarPanel.gameObject.SetActive(true);
@@ -1621,6 +1652,7 @@ private IEnumerator EnemyAttackSequence()
         else {
             characterList.characters[index].playerUnit.healthChange(playerTwoSkills[2].skillHeal());
             characterList.characters[index].playerHealth.GetComponent<Slider>().value = characterList.characters[index].playerUnit.getCurrentHP();
+            characterList.characters[index].playerUnit.setPassiveHeal(3);
         }
         
         if (currentEnemyCount <= 0)

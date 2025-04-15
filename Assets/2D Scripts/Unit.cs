@@ -17,6 +17,8 @@ public class Unit : MonoBehaviour
     private int isWeight;
     private int burn;
     private bool stun;
+    private int invis;
+    private int passiveHeal;
 
     public string getName() {
         return unitName;
@@ -46,6 +48,14 @@ public class Unit : MonoBehaviour
         return false;
     }
 
+    public int isInvis() {
+        if (invis > 0) {
+            invis--;
+            return invis;
+        }
+        return 0;
+    }    
+
     public bool getBurn(){
         return burn > 0;
     }
@@ -68,6 +78,22 @@ public class Unit : MonoBehaviour
         stun = true;
     }
 
+    public void setInvis(int invis) {
+        this.invis = invis;
+    }
+
+    public void setPassiveHeal(int heal) {
+        passiveHeal = heal;
+    }
+
+    public int isPassiveHeal() {
+        if (passiveHeal > 0) {
+            passiveHeal--;
+            return 1;
+        }
+        return 0;
+    }
+
     public void SetStats(int health, int dmg, int def, int current, string name, int lvl, int energy, int weight) {
         unitName = name;
         unitLevel = lvl;
@@ -80,6 +106,8 @@ public class Unit : MonoBehaviour
         isWeight = weight;
         burn = 0;
         stun = false;
+        invis = 0;
+        passiveHeal = 0;
     }
 
     public bool healthChange(int change)
