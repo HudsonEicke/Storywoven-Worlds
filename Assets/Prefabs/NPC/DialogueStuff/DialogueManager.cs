@@ -112,7 +112,6 @@ public class DialogueManager : MonoBehaviour
         if (ShopSceneName == "ShopTutorial")
         {
 
-            GameManager3D.Instance.AddMoney(100);
             Debug.Log("Added 100 coints to player for tutorial");
         }
         SceneManager.LoadScene(ShopSceneName);
