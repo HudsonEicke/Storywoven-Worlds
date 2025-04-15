@@ -9,6 +9,8 @@ public class ImportantComponentsManager : MonoBehaviour
 
     public ThirdPersonMovement thirdPersonMovement;
     public InvetoryUIManager invetoryUIManager;
+    public PowerupManager powerupManager;
+    public DialogueBox dialogueBox;
 
 
     // Start is called before the first frame update

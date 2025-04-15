@@ -9,6 +9,9 @@ public class PlayerData
     public int checkpointID;
     public int[] inventoryIDs;
     public int[] itemQuantity;
+    public bool hasDoubleJump;
+    public bool hasSprint;
+    public bool hasBoostedHealth;
 
     //Normal save file generator
     public PlayerData(CheckpointManager checkpointManager, InventoryManager inventoryManager)
@@ -18,6 +21,22 @@ public class PlayerData
         (int[] id, int[] itemQuantity) tempInventoryData = inventoryManager.GenerateInventorySaveFile();
         inventoryIDs = tempInventoryData.id;
         itemQuantity = tempInventoryData.itemQuantity;
+        hasDoubleJump = false;
+        hasSprint = false;
+        hasBoostedHealth = false;
+    }
+
+    //Fantasy save file generator
+    public PlayerData(CheckpointManager checkpointManager, InventoryManager inventoryManager, PowerupManager powerupManager)
+    {
+        sceneID = checkpointManager.sceneID;
+        checkpointID = checkpointManager.currentPlayerCheckpoint;
+        (int[] id, int[] itemQuantity) tempInventoryData = inventoryManager.GenerateInventorySaveFile();
+        inventoryIDs = tempInventoryData.id;
+        itemQuantity = tempInventoryData.itemQuantity;
+        hasDoubleJump = powerupManager.hasDoubleJump;
+        hasSprint = powerupManager.hasSprint;
+        hasBoostedHealth = powerupManager.hasBoostedHealth;
     }
 
     //New save case
@@ -27,6 +46,9 @@ public class PlayerData
         checkpointID = 0;
         inventoryIDs = new int[0];
         itemQuantity = new int[0];
+        hasDoubleJump = false;
+        hasSprint = false;
+        hasBoostedHealth = false;
     }
 
     //Next level save file generator
@@ -37,5 +59,8 @@ public class PlayerData
         (int[] id, int[] itemQuantity) tempInventoryData = inventoryManager.GenerateInventorySaveFile();
         inventoryIDs = tempInventoryData.id;
         itemQuantity = tempInventoryData.itemQuantity;
+        hasDoubleJump = false;
+        hasSprint = false;
+        hasBoostedHealth = false;
     }
 }

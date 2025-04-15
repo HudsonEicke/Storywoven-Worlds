@@ -6,6 +6,7 @@ public class PlayerHealthController : MonoBehaviour
 {
     public int currentHealth;
     public int maxHealth;
+    public HealthUI healthUI;
 
     public void Damage(int damageAmount)
     {
@@ -35,6 +36,7 @@ public class PlayerHealthController : MonoBehaviour
     {
         maxHealth += amount;
         currentHealth = maxHealth;
+        UpdateUI();
     }
 
     public void DecreaseMaxHealth(int amount)
@@ -45,10 +47,12 @@ public class PlayerHealthController : MonoBehaviour
             maxHealth = 1;
 
         currentHealth = maxHealth;
+        UpdateUI();
     }
 
     public void UpdateUI()
     {
-        //UPDATE UI
+        Debug.Log("Player Health is " + currentHealth);
+        healthUI.UpdateHealth(currentHealth);
     }
 }

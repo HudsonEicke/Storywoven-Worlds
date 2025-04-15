@@ -28,7 +28,7 @@ public class CheckpointManager : MonoBehaviour
     public void PlayerHitCheckpoint(int checkpointID)
     {
         currentPlayerCheckpoint = checkpointID;
-
+        ImportantComponentsManager.Instance.thirdPersonMovement.playerHealthController.Heal(10);
         SaveManager.Instance.SavePlayer();
     }
 

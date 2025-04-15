@@ -11,6 +11,7 @@ public class ThirdPersonMovement : MonoBehaviour
     public Animator animator;
 
     public float speed = 6f;
+    private float currentSpeed;
 
     public float turnSmoothTime = 0.1f;
     float turnSmoothVelocity;
@@ -40,6 +41,17 @@ public class ThirdPersonMovement : MonoBehaviour
     public bool hasDoubleJumpPowerUp = false;
     private bool doubleJumpCharged = false;
 
+    //SPRINT STUFF
+    public bool hasSprintPowerUp = false;
+    public float sprintMultiplier = 1.33f;
+    public float sprintTime = 3f;
+    private float sprintTimeRemaining = 0f;
+    public float sprintCooldown = 5f;
+    private float cooldownTimeRemaining = 0f;
+    public bool canSprint = true;
+    private bool isSprinting = false;
+
+
     private void FixedUpdate()
     {
         if(isFroze)
@@ -67,6 +79,7 @@ public class ThirdPersonMovement : MonoBehaviour
 
     private void Awake()
     {
+        currentSpeed = speed;
         GameManager3D.freezeWorld += Freeze;
         GameManager3D.unFreezeWorld += unFreeze;
     }
@@ -107,6 +120,41 @@ public class ThirdPersonMovement : MonoBehaviour
             cameraSettings.m_XAxis.m_MaxSpeed = defaultXSpeed;
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
+        }
+
+        if(hasSprintPowerUp)
+        {
+            if(!canSprint)
+            {
+                if(isSprinting)
+                {
+                    sprintTimeRemaining -= Time.deltaTime;
+
+                    if(sprintTimeRemaining <= 0)
+                    {
+                        isSprinting = false;
+                        cooldownTimeRemaining = sprintCooldown;
+                        currentSpeed = speed;
+                    }
+                }
+                else
+                {
+                    cooldownTimeRemaining -= Time.deltaTime;
+
+                    if (cooldownTimeRemaining <= 0)
+                    {
+                        canSprint = true;
+                    }
+                }
+            }
+
+            if(canSprint && Input.GetKeyDown(KeyCode.LeftShift))
+            {
+                canSprint = false;
+                currentSpeed = speed * sprintMultiplier;
+                sprintTimeRemaining = sprintTime;
+                isSprinting = true;
+            }
         }
 
         //Added jumping logic stuff
@@ -172,7 +220,7 @@ public class ThirdPersonMovement : MonoBehaviour
             GFX.rotation = Quaternion.Euler(0f, angle, 0f);
 
             Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
-            controller.Move(moveDir.normalized * speed * Time.deltaTime);
+            controller.Move(moveDir.normalized * currentSpeed * Time.deltaTime);
         }
     }
 

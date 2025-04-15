@@ -16,12 +16,22 @@ public static class SaveSystem
         stream.Close();
     }
 
+    public static void SavePlayer(CheckpointManager checkpointManager, InventoryManager inventoryManager, PowerupManager powerupManager)
+    {
+        BinaryFormatter formatter = new BinaryFormatter();
+        FileStream stream = new FileStream(path, FileMode.Create);
+
+        PlayerData data = new PlayerData(checkpointManager, inventoryManager, powerupManager);
+        formatter.Serialize(stream, data);
+        stream.Close();
+    }
+
     public static void SavePlayer(bool NextLevel, CheckpointManager checkpointManager, InventoryManager inventoryManager)
     {
         BinaryFormatter formatter = new BinaryFormatter();
         FileStream stream = new FileStream(path, FileMode.Create);
 
-        PlayerData data = new PlayerData(checkpointManager.sceneID, 0, inventoryManager);
+        PlayerData data = new PlayerData(checkpointManager.sceneID + 1, 0, inventoryManager);
         formatter.Serialize(stream, data);
         stream.Close();
     }

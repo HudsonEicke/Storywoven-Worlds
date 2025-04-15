@@ -26,7 +26,15 @@ public class SaveManager : MonoBehaviour
 
     public void SavePlayer()
     {
-        SaveSystem.SavePlayer(CheckpointManager.Instance, InventoryManager.Instance);
+        if(CheckpointManager.Instance.sceneID == 1)
+            SaveSystem.SavePlayer(CheckpointManager.Instance, InventoryManager.Instance);
+        else
+            SaveSystem.SavePlayer(CheckpointManager.Instance, InventoryManager.Instance, ImportantComponentsManager.Instance.powerupManager);
+    }
+
+    public void SavePlayer(bool nextLevel)
+    {
+        SaveSystem.SavePlayer(true, CheckpointManager.Instance, InventoryManager.Instance);
     }
 
     public void LoadPlayer()
@@ -37,5 +45,8 @@ public class SaveManager : MonoBehaviour
         CheckpointManager.Instance.MovePlayerToCheckpoint();
 
         ItemIdManager.Instance.LoadInventory(data.inventoryIDs, data.itemQuantity);
+
+        if (data.sceneID == 2)
+            ImportantComponentsManager.Instance.powerupManager.LoadPowerups(data.hasDoubleJump, data.hasSprint, data.hasBoostedHealth);
     }
 }

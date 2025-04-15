@@ -16,7 +16,7 @@ public class GameManager3D : MonoBehaviour
     static GameManager3D _instance;
     public static GameManager3D Instance { get { return _instance; } }
     public bool startBattle = false;
-    private GameManager2D gameManager2D;
+    public GameManager2D gameManager2D;
 
     public static event Action freezeWorld;
     public static event Action unFreezeWorld;
@@ -82,6 +82,7 @@ public class GameManager3D : MonoBehaviour
         int players = 3;
         freezeWorld?.Invoke();
         ImportantComponentsManager.Instance.invetoryUIManager.CloseInventory();
+        ImportantComponentsManager.Instance.thirdPersonMovement.playerHealthController.healthUI.UpdateHealth(0);
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
         camera2D.SetActive(true);
@@ -109,6 +110,7 @@ public class GameManager3D : MonoBehaviour
         else 
         {
             Debug.Log("[GameManager3D] Game LOST");
+            ImportantComponentsManager.Instance.thirdPersonMovement.playerHealthController.UpdateUI();
             OnDeath();
             // do whatever here for game lost
         }
