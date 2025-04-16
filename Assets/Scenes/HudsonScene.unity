@@ -58778,10 +58778,10 @@ MonoBehaviour:
   maxAttackCooldown: 4
   attackPoints: []
   currentPlayerLocation: {fileID: 0}
-  startingEveryOtherFireballPool: 3
+  startingEveryOtherFireballPool: 10
   startingFireballPool: 15
-  startingAdjacentFireballPool: 12
-  startingWipeFireballPool: 9
+  startingAdjacentFireballPool: 13
+  startingWipeFireballPool: 12
   fireballTime: 3
   fireBallSpawnPoint: {fileID: 1662015137}
   fireballPrefab: {fileID: 7109609665122148497, guid: 684899bb17daf3f44ae3886def00a22f,
@@ -58789,7 +58789,7 @@ MonoBehaviour:
   bossPlatform: {fileID: 154265094}
   timeBeforePlatformMove: 5
   timeBeforeFinalPlatformMove: 5
-  finalPlatformPos: {fileID: 0}
+  finalPlatformPos: {fileID: 282137796}
   isInStageTransition: 0
 --- !u!4 &1717887308
 Transform:
