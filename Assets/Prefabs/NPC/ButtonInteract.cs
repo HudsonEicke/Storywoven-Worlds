@@ -25,8 +25,9 @@ public class ButtonInteract : MonoBehaviour
     public Item item2;
     public Item item3;
     public string ShopSceneName;
+    public GameObject dialogueBox;
+    public TextMeshProUGUI Response;
 
-    List<Item> itemList = new List<Item>();
     // public GameObject DialogueBubble;
     // public TextMeshProUGUI DialogueText;
 
@@ -39,7 +40,6 @@ public class ButtonInteract : MonoBehaviour
         Button1Text.text = Button1Price.ToString() + "g";
         Button2Text.text = Button2Price.ToString() + "g";
         Button3Text.text = Button3Price.ToString() + "g";
-        itemList = InventoryManager.Instance.GetInventoryRange(0, 5);
     }
     public void Update()
     {
