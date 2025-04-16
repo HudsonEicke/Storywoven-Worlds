@@ -42,6 +42,9 @@ public class BossFightManager : MonoBehaviour
 
     //Boss platform
     public MovingPlatformActivationBased bossPlatform;
+    public float timeBeforePlatformMove = 5f;
+    public float timeBeforeFinalPlatformMove = 5f;
+    public Transform finalPlatformPos;
 
     //Stage transition stuff
     public bool isInStageTransition = false;
@@ -52,7 +55,7 @@ public class BossFightManager : MonoBehaviour
         currentEveryOtherFireballPool = startingEveryOtherFireballPool;
         currentFireballPool = startingFireballPool;
         currentAdjacentFireballPool = startingAdjacentFireballPool;
-        startingWipeFireballPool = currentWipeFireballPool;
+        currentWipeFireballPool = startingWipeFireballPool;
     }
 
     private void Update()
@@ -119,6 +122,7 @@ public class BossFightManager : MonoBehaviour
                 currentEveryOtherFireballPool -= 3;
             }
             currentCooldown = fireballTime;
+
             for (int i = chosenAttack; i < attackPoints.Count; i += 2)
             {
                 FireballAttack(attackPoints[i]);
@@ -225,13 +229,6 @@ public class BossFightManager : MonoBehaviour
     {
         currentStage++;
 
-        if(currentStage >= bossFightStages.Count)
-        {
-            Debug.Log("ENDFIGHT");
-            fightStarted = false;
-            return;
-        }
-
         if (currentStage > 0)
         {
             foreach(AttackPoint attackPoint in attackPoints)
@@ -240,10 +237,18 @@ public class BossFightManager : MonoBehaviour
             }
         }
 
+        if (currentStage >= bossFightStages.Count)
+        {
+            Debug.Log("ENDFIGHT");
+            fightStarted = false;
+            bossPlatform.newPos(finalPlatformPos, timeBeforePlatformMove);
+            return;
+        }
+
         attackPoints = bossFightStages[currentStage].attackPoints;
         currentPlayerLocation = attackPoints[0];
 
-        bossPlatform.newPos(bossFightStages[currentStage].newBossPlatformLocation);
+        bossPlatform.newPos(bossFightStages[currentStage].newBossPlatformLocation, timeBeforePlatformMove);
 
         isInStageTransition = true;
 

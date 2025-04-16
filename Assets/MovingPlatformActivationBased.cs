@@ -20,6 +20,8 @@ public class MovingPlatformActivationBased : MonoBehaviour
 
     public bool atDest = true;
 
+    private float timeRemaining = 0;
+
     private void Start()
     {
         nextPos = transform.position;
@@ -28,17 +30,24 @@ public class MovingPlatformActivationBased : MonoBehaviour
 
     private void Update()
     {
-        if (!atDest)
+        if (timeRemaining > 0)
         {
-            transform.position = Vector3.MoveTowards(transform.position, nextPos, moveSpeed * Time.deltaTime);
-
-            platformVelocity = (transform.position - previousPosition) / Time.deltaTime;
-            previousPosition = transform.position;
+            timeRemaining -= Time.deltaTime;
         }
-
-        if (transform.position == nextPos)
+        else
         {
-            atDest = true;
+            if (!atDest)
+            {
+                transform.position = Vector3.MoveTowards(transform.position, nextPos, moveSpeed * Time.deltaTime);
+
+                platformVelocity = (transform.position - previousPosition) / Time.deltaTime;
+                previousPosition = transform.position;
+            }
+
+            if (transform.position == nextPos)
+            {
+                atDest = true;
+            }
         }
     }
 
@@ -49,10 +58,11 @@ public class MovingPlatformActivationBased : MonoBehaviour
         atDest = false;
     }
 
-    public void newPos(Transform newDest)
+    public void newPos(Transform newDest, float timeBeforeMove)
     {
         nextPos = newDest.position;
         atDest = false;
+        timeRemaining = timeBeforeMove;
     }
 
     private void OnDrawGizmos()
