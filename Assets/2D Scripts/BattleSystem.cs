@@ -241,7 +241,7 @@ public class BattleSystem : MonoBehaviour
                 break;
         
         case BattleState.ENEMYTURN:
-                statusText.text = "Enemie's Turn";
+                statusText.text = "Enemy's Turn";
                 foreach (var btn in buttons) btn.SetActive(false);
                 for (int i = 0; i < characterList.characters.Count; i++) {
                     if (characterList.characters[i].playerUnit.getDead()) 
