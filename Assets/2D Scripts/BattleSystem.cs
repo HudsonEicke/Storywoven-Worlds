@@ -401,10 +401,10 @@ private IEnumerator EnemyAttackSequence()
         {
             int index = i;
             GameObject enemySelect = Instantiate(enemySelectPrefab, healthBarEnemyPanels[i]);
-            DontDestroyOnLoad(enemySelect);
+            // DontDestroyOnLoad(enemySelect);
             enemySelect.GetComponent<Button>().onClick.AddListener(() => ApplyDamage(index));
             enemySelectButtons.Add(enemySelect);
-            // enemySelectButtons[i].SetActive(false);
+            enemySelectButtons[i].SetActive(false);
         }
     }
 
