@@ -9,6 +9,7 @@ public class BossStageProgressor : MonoBehaviour
     public bool progressingStage = false;
     public bool doneProgressing = false;
     public bool isStarter = false;
+    public bool fired = false;
     public GameObject cannonBall;
     public Transform startPoint;
     public Transform firstPoint;
@@ -46,6 +47,11 @@ public class BossStageProgressor : MonoBehaviour
 
     private void FireCannon()
     {
+        if(fired)
+            return;
+
+        fired = true;
+
         GameObject newobj = GameObject.Instantiate(cannonBall, startPoint.position, Quaternion.identity);
 
         CannonBall ball = newobj.GetComponent<CannonBall>();
