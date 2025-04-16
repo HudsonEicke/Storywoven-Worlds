@@ -9,6 +9,7 @@ public class DMSceneLoad : MonoBehaviour
 {   
     public GameObject dialogueStuff;
     public GameObject dialogueBox;
+    public GameObject ItemPanel;
     public TextMeshProUGUI dialogueText;
     
     Dialogue1[] dialogueArr;
@@ -75,6 +76,7 @@ public class DMSceneLoad : MonoBehaviour
     {
         dialogueStuff.SetActive(false);
         isActive = false;
+        if (ItemPanel !)
         Debug.Log("Dialogue Over");
     }
 

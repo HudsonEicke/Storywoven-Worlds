@@ -26,6 +26,7 @@ public class DialogueManager : MonoBehaviour
     public static bool isActive = false;
     private bool isTyping = false;
     private bool endTyping = false;
+    private bool visitedShop = false;
     int index = 0;
 
     Dialogue1[] dialogues;
@@ -111,10 +112,15 @@ public class DialogueManager : MonoBehaviour
         isActive = false;
         if (ShopSceneName == "ShopTutorial")
         {
-
+            if (!visitedShop)
+            {
+            visitedShop = true;
+            GameManager3D.Instance.AddMoney(100);
             Debug.Log("Added 100 coints to player for tutorial");
+            }
         }
-        SceneManager.LoadScene(ShopSceneName);
+        GameManager3D.Instance.FreezeWorld(); 
+        SceneManager.LoadScene(ShopSceneName, LoadSceneMode.Additive);
         Debug.Log("Shop Opened");
     }
 

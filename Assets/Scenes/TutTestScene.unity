@@ -2157,7 +2157,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87886d3ab51314541b8d55435a66471a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  camera1: {fileID: 1614533961}
+  camera1: {fileID: 0}
   event1: {fileID: 698056311}
   playerCamera: {fileID: 834938369}
   camera2D: {fileID: 591832748}
@@ -7424,6 +7424,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogueStuff: {fileID: 962810489}
   dialogueBox: {fileID: 1430644926}
+  ItemPanel: {fileID: 0}
   dialogueText: {fileID: 1144367968}
   typingSpeed: 0.04
 --- !u!114 &758730854
@@ -7440,11 +7441,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogues:
   - characterID: 0
-    message: Welcome Huzz
+    message: Welcome to the game traveler!
   - characterID: 0
-    message: Lebron
+    message: Use WASD or Arrow Keys to move
   - characterID: 0
-    message: James
+    message: Use your mouse to look around the world
+  - characterID: 0
+    message: Enjoy the game
   characters:
   - name: Garbuckle
     characterSprite: {fileID: 274655382, guid: dfece14b1eef91e4daf5fe17733b5740, type: 3}
@@ -9909,6 +9912,7 @@ MonoBehaviour:
   currentEnemyCount: 0
   currentPlayerCount: 0
   totalEnemyCount: 0
+  first: 0
   gamestart: 0
   invisText: {fileID: 0}
   statusText: {fileID: 1707351063}
@@ -15721,12 +15725,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 84bf6afd402d5fc42b495e0133ae629c, type: 3}
---- !u!1 &1614533961 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3867391223065582448, guid: f3d8f659ad1478d488b08fe590f5289d,
-    type: 3}
-  m_PrefabInstance: {fileID: 1692448856}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1618086660
 GameObject:
   m_ObjectHideFlags: 0
@@ -16121,6 +16119,16 @@ PrefabInstance:
       propertyPath: m_LocalRotation.x
       value: 0.13476774
       objectReference: {fileID: 0}
+    - target: {fileID: 1025840191826147137, guid: f3d8f659ad1478d488b08fe590f5289d,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1025840191826147137, guid: f3d8f659ad1478d488b08fe590f5289d,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2945269622085984975, guid: f3d8f659ad1478d488b08fe590f5289d,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -16181,6 +16189,16 @@ PrefabInstance:
       propertyPath: m_LocalRotation.x
       value: 0.17067236
       objectReference: {fileID: 0}
+    - target: {fileID: 3901957267515323732, guid: f3d8f659ad1478d488b08fe590f5289d,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3901957267515323732, guid: f3d8f659ad1478d488b08fe590f5289d,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4099697556166081870, guid: f3d8f659ad1478d488b08fe590f5289d,
         type: 3}
       propertyPath: m_Name
@@ -16195,6 +16213,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalRotation.x
       value: 0.1527215
+      objectReference: {fileID: 0}
+    - target: {fileID: 5894427078271325624, guid: f3d8f659ad1478d488b08fe590f5289d,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5894427078271325624, guid: f3d8f659ad1478d488b08fe590f5289d,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6002883251204408199, guid: f3d8f659ad1478d488b08fe590f5289d,
         type: 3}
