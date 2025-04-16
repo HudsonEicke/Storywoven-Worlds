@@ -15,7 +15,7 @@ public class BossFightManager : MonoBehaviour
     public float minAttackCooldown = 5f;
     public float maxAttackCooldown = 7.5f;
 
-    private float currentCooldown = 7.5f;
+    public float currentCooldown = 7.5f;
 
     //Attack point stuff
     public List<AttackPoint> attackPoints;
@@ -49,6 +49,11 @@ public class BossFightManager : MonoBehaviour
     //Stage transition stuff
     public bool isInStageTransition = false;
 
+    public Animator animator;
+    public float delayBeforeAttack = 1f;
+    public float timeToAttack = 0f;
+    private bool firstRun = true;
+
     private void Start()
     {
         totalPool = startingEveryOtherFireballPool + startingFireballPool + startingWipeFireballPool + startingAdjacentFireballPool;
@@ -77,13 +82,26 @@ public class BossFightManager : MonoBehaviour
 
         currentCooldown -= Time.deltaTime;
 
-        if (!isAttacking && currentCooldown < 0)
+        if (!isAttacking && currentCooldown < 0 && timeToAttack < 0)
         {
             StartAttack();
         }
-        else if (currentCooldown < 0)
+        else if(!isAttacking && currentCooldown < 0)
+        {
+            if(firstRun)
+            {
+                Debug.Log("PLAYING ANIM");
+                animator.Play("Fly Breathe Fire", 0, 0);
+                firstRun = false;
+            }
+
+            timeToAttack -= Time.deltaTime;
+        }
+        else if (currentCooldown < 0) //if they stopped attacking
         {
             isAttacking = false;
+            firstRun = true;
+            timeToAttack = delayBeforeAttack;
             currentCooldown = Random.Range(minAttackCooldown, maxAttackCooldown);
         }
     }

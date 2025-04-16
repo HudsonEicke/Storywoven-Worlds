@@ -9,12 +9,15 @@ public class BossStageProgressor : MonoBehaviour
     public bool progressingStage = false;
     public bool doneProgressing = false;
     public bool isStarter = false;
+    public GameObject cannonBall;
+    public Transform startPoint;
+    public Transform firstPoint;
+    public Transform boss;
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            Debug.Log(isStarter && !doneProgressing);
             if (isStarter && !doneProgressing)
             {
                 fightManager.StartFight();
@@ -22,6 +25,7 @@ public class BossStageProgressor : MonoBehaviour
                 return;
             }
             progressingStage = true;
+            FireCannon();
         }
     }
 
@@ -32,13 +36,23 @@ public class BossStageProgressor : MonoBehaviour
 
         if (!progressingStage)
             return;
+    }
 
-        timeBeforeProgression -= Time.deltaTime;
+    public void DoneProgressing()
+    {
+        fightManager.NextStage();
+        doneProgressing = true;
+    }
 
-        if (timeBeforeProgression <= 0)
-        {
-            fightManager.NextStage();
-            doneProgressing = true;
-        }
+    private void FireCannon()
+    {
+        GameObject newobj = GameObject.Instantiate(cannonBall, startPoint.position, Quaternion.identity);
+
+        CannonBall ball = newobj.GetComponent<CannonBall>();
+
+        ball.firstPoint = firstPoint;
+        ball.secondPoint = boss;
+        ball.progressor = this;
+        ball.canStartMoving = true;
     }
 }

@@ -241,7 +241,11 @@ MonoBehaviour:
   progressingStage: 0
   doneProgressing: 0
   isStarter: 0
-  buttonVisual: {fileID: 5005216053029471693}
+  cannonBall: {fileID: 194496696278809851, guid: 894a724912aa8594787be2c7cef561f2,
+    type: 3}
+  startPoint: {fileID: 6548467628608287492}
+  firstPoint: {fileID: 701975076388278971}
+  boss: {fileID: 0}
 --- !u!65 &1469228551882840377
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -263,6 +267,37 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.603836, y: 4.8969097, z: 2.6484182}
   m_Center: {x: -0.13996825, y: 1.9484549, z: -0.009691715}
+--- !u!1 &6490799656280644453
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6548467628608287492}
+  m_Layer: 8
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6548467628608287492
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6490799656280644453}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 4.623, y: 2.59, z: 0.143}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6167433097669836642}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1466795817436837750
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -363,7 +398,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 4741169728695896084, guid: c076fcf6dbae86248933d712dd6f504d,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6548467628608287492}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 1717553516467413744, guid: c076fcf6dbae86248933d712dd6f504d,
         type: 3}
