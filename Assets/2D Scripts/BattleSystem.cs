@@ -49,6 +49,7 @@ public class BattleSystem : MonoBehaviour
     List<GameObject> player3SkillButtonsSelect = new List<GameObject>();
     [SerializeField] private List<Transform> healthBarEnemyPanels; //fixing this
     List<GameObject> backButtonSelect = new List<GameObject>();
+    [SerializeField] List<GameObject> enemyArrows = new List<GameObject>();
 
     public List<skill> playerOneSkills = new List<skill>();
     public List<skill> playerTwoSkills = new List<skill>();
@@ -82,6 +83,7 @@ public class BattleSystem : MonoBehaviour
 
     private List<Item> inventory;
     private InventoryManager inventoryManager2D;
+    public Text displayText;
 
     void Awake()
     {
@@ -211,6 +213,7 @@ public class BattleSystem : MonoBehaviour
             break;
         
         case BattleState.PLAYERTURN:
+            displayText.gameObject.SetActive(false);
             if (PlayerCountTurn >= currentPlayerCount) {
                     PlayerCountTurn = 0;
                     GameManager2D.instance.UpdateBattleState(BattleState.ENEMYTURN);
@@ -334,6 +337,8 @@ private IEnumerator EnemyAttackSequence()
         }
 
         Debug.Log("Enemy: " + i + " attacking player: " + randomint);
+        displayText.gameObject.SetActive(true);
+        displayText.text = enemyList[i].enemyUnit.getName() + " attacked " + characterList.characters[randomint].playerUnit.getName() + " for " + enemyList[i].enemyUnit.unitAttack() + " damage!";
         characterList.characters[randomint].playerUnit.healthChange(-1 * enemyList[i].enemyUnit.unitAttack());
         characterList.characters[randomint].playerHealth.GetComponent<Slider>().value = characterList.characters[randomint].playerUnit.getCurrentHP();
 
@@ -404,6 +409,7 @@ private IEnumerator EnemyAttackSequence()
             // DontDestroyOnLoad(enemySelect);
             enemySelect.GetComponent<Button>().onClick.AddListener(() => ApplyDamage(index));
             enemySelectButtons.Add(enemySelect);
+            enemySelectButtons[i].GetComponent<ButtonEnemy>().hoverButton = enemyArrows[i];
             enemySelectButtons[i].SetActive(false);
         }
     }
@@ -452,6 +458,9 @@ private IEnumerator EnemyAttackSequence()
         player1SkillOptions[0].gameObject.SetActive(false);
         player1SkillButtonsSelect.Add(Instantiate(player1SkillButtons[0], buttonPanel));
         player1SkillButtonsSelect[0].GetComponent<Button>().onClick.AddListener(() => SlashButtonClicked(0));
+        player1SkillButtonsSelect[0].GetComponent<buttonText>().display = displayText;
+        player1SkillButtonsSelect[0].GetComponent<buttonText>().skillIndex = 0;
+        player1SkillButtonsSelect[0].GetComponent<buttonText>().characterIndex = 0;
         player1SkillButtonsSelect[0].SetActive(false);
 
         skillObject = new GameObject("fireballSkill");
@@ -472,6 +481,9 @@ private IEnumerator EnemyAttackSequence()
         player1SkillOptions[1].gameObject.SetActive(false);
         player1SkillButtonsSelect.Add(Instantiate(player1SkillButtons[1], buttonPanel));
         player1SkillButtonsSelect[1].GetComponent<Button>().onClick.AddListener(() => FireballButtonClicked(0));
+        player1SkillButtonsSelect[1].GetComponent<buttonText>().display = displayText;
+        player1SkillButtonsSelect[1].GetComponent<buttonText>().skillIndex = 1;
+        player1SkillButtonsSelect[1].GetComponent<buttonText>().characterIndex = 0;
         player1SkillButtonsSelect[1].SetActive(false);
 
         skillObject = new GameObject("PierceSkill");
@@ -490,6 +502,9 @@ private IEnumerator EnemyAttackSequence()
         player1SkillOptions[2].gameObject.SetActive(false);
         player1SkillButtonsSelect.Add(Instantiate(player1SkillButtons[2], buttonPanel));
         player1SkillButtonsSelect[2].GetComponent<Button>().onClick.AddListener(() => PierceButtonClicked(0));
+        player1SkillButtonsSelect[2].GetComponent<buttonText>().display = displayText;
+        player1SkillButtonsSelect[2].GetComponent<buttonText>().skillIndex = 2;
+        player1SkillButtonsSelect[2].GetComponent<buttonText>().characterIndex = 0;
         player1SkillButtonsSelect[2].SetActive(false);
 
         skillObject = new GameObject("flameShowerSkill");
@@ -507,6 +522,9 @@ private IEnumerator EnemyAttackSequence()
         player1SkillOptions[3].gameObject.SetActive(false);
         player1SkillButtonsSelect.Add(Instantiate(player1SkillButtons[3], buttonPanel));
         player1SkillButtonsSelect[3].GetComponent<Button>().onClick.AddListener(() => flameShowerButtonClicked(0));
+        player1SkillButtonsSelect[3].GetComponent<buttonText>().display = displayText;
+        player1SkillButtonsSelect[3].GetComponent<buttonText>().skillIndex = 3;
+        player1SkillButtonsSelect[3].GetComponent<buttonText>().characterIndex = 0;
         player1SkillButtonsSelect[3].SetActive(false);
 
     }
@@ -523,6 +541,9 @@ private IEnumerator EnemyAttackSequence()
         player2SkillOptions[0].gameObject.SetActive(false);
         player2SkillButtonsSelect.Add(Instantiate(player2SkillButtons[0], buttonPanel));
         player2SkillButtonsSelect[0].GetComponent<Button>().onClick.AddListener(() => healButtonClicked(1));
+        player2SkillButtonsSelect[0].GetComponent<buttonText>().display = displayText;
+        player2SkillButtonsSelect[0].GetComponent<buttonText>().skillIndex = 0;
+        player2SkillButtonsSelect[0].GetComponent<buttonText>().characterIndex = 1;
         player2SkillButtonsSelect[0].SetActive(false);
 
         GameObject healObject2 = new GameObject("lightArrowSkill");
@@ -541,6 +562,9 @@ private IEnumerator EnemyAttackSequence()
         player2SkillOptions[1].gameObject.SetActive(false);
         player2SkillButtonsSelect.Add(Instantiate(player2SkillButtons[1], buttonPanel));
         player2SkillButtonsSelect[1].GetComponent<Button>().onClick.AddListener(() => lightArrowButtonClicked(1));
+        player2SkillButtonsSelect[1].GetComponent<buttonText>().display = displayText;
+        player2SkillButtonsSelect[1].GetComponent<buttonText>().skillIndex = 1;
+        player2SkillButtonsSelect[1].GetComponent<buttonText>().characterIndex = 1;
         player2SkillButtonsSelect[1].SetActive(false);
 
         GameObject healObject3 = new GameObject("soothingArraysSkill");
@@ -554,6 +578,9 @@ private IEnumerator EnemyAttackSequence()
         player2SkillOptions[2].gameObject.SetActive(false);
         player2SkillButtonsSelect.Add(Instantiate(player2SkillButtons[2], buttonPanel));
         player2SkillButtonsSelect[2].GetComponent<Button>().onClick.AddListener(() => soothingArraysButtonsClicked(1));
+        player2SkillButtonsSelect[2].GetComponent<buttonText>().display = displayText;
+        player2SkillButtonsSelect[2].GetComponent<buttonText>().skillIndex = 2;
+        player2SkillButtonsSelect[2].GetComponent<buttonText>().characterIndex = 1;
         player2SkillButtonsSelect[2].SetActive(false);
 
         GameObject healObject4 = new GameObject("heavensDelightSkill");
@@ -567,6 +594,9 @@ private IEnumerator EnemyAttackSequence()
         player2SkillOptions[3].gameObject.SetActive(false);
         player2SkillButtonsSelect.Add(Instantiate(player2SkillButtons[3], buttonPanel));
         player2SkillButtonsSelect[3].GetComponent<Button>().onClick.AddListener(() => heavensDelightButtonClicked(1));
+        player2SkillButtonsSelect[3].GetComponent<buttonText>().display = displayText;
+        player2SkillButtonsSelect[3].GetComponent<buttonText>().skillIndex = 3;
+        player2SkillButtonsSelect[3].GetComponent<buttonText>().characterIndex = 1;
         player2SkillButtonsSelect[3].SetActive(false);
         
     }
@@ -596,6 +626,9 @@ private IEnumerator EnemyAttackSequence()
         player3SkillOptions[0].gameObject.SetActive(false);
         player3SkillButtonsSelect.Add(Instantiate(player3SkillButtons[0], buttonPanel));
         player3SkillButtonsSelect[0].GetComponent<Button>().onClick.AddListener(() => rockyTauntButtonClicked(2));
+        player3SkillButtonsSelect[0].GetComponent<buttonText>().display = displayText;
+        player3SkillButtonsSelect[0].GetComponent<buttonText>().skillIndex = 0;
+        player3SkillButtonsSelect[0].GetComponent<buttonText>().characterIndex = 2;
         player3SkillButtonsSelect[0].SetActive(false);
 
         GameObject skillObject2 = new GameObject("rumbleAndTumbleSkill");
@@ -613,7 +646,10 @@ private IEnumerator EnemyAttackSequence()
         player3SkillOptions[1].text = secondSkill.name;
         player3SkillOptions[1].gameObject.SetActive(false);
         player3SkillButtonsSelect.Add(Instantiate(player3SkillButtons[1], buttonPanel));
-        player3SkillButtonsSelect[1].GetComponent<Button>().onClick.AddListener(() => rumbleAndTumbleButtonClicked(2)); 
+        player3SkillButtonsSelect[1].GetComponent<Button>().onClick.AddListener(() => rumbleAndTumbleButtonClicked(2));
+        player3SkillButtonsSelect[1].GetComponent<buttonText>().display = displayText;
+        player3SkillButtonsSelect[1].GetComponent<buttonText>().skillIndex = 1;
+        player3SkillButtonsSelect[1].GetComponent<buttonText>().characterIndex = 2; 
         player3SkillButtonsSelect[1].SetActive(false);
 
         GameObject skillObject3 = new GameObject("rockyWallSkill");
@@ -629,6 +665,9 @@ private IEnumerator EnemyAttackSequence()
         player3SkillOptions[2].gameObject.SetActive(false);
         player3SkillButtonsSelect.Add(Instantiate(player3SkillButtons[2], buttonPanel));
         player3SkillButtonsSelect[2].GetComponent<Button>().onClick.AddListener(() => rockyWallButtonClicked(2));
+        player3SkillButtonsSelect[2].GetComponent<buttonText>().display = displayText;
+        player3SkillButtonsSelect[2].GetComponent<buttonText>().skillIndex = 2;
+        player3SkillButtonsSelect[2].GetComponent<buttonText>().characterIndex = 2;
         player3SkillButtonsSelect[2].SetActive(false);
 
         GameObject skillObject4 = new GameObject("ragnaROCKSkill");
@@ -648,11 +687,16 @@ private IEnumerator EnemyAttackSequence()
         player3SkillOptions[3].gameObject.SetActive(false);
         player3SkillButtonsSelect.Add(Instantiate(player3SkillButtons[3], buttonPanel));
         player3SkillButtonsSelect[3].GetComponent<Button>().onClick.AddListener(() => ragnaROCKButtonClicked(2));
+        player3SkillButtonsSelect[3].GetComponent<buttonText>().display = displayText;
+        player3SkillButtonsSelect[3].GetComponent<buttonText>().skillIndex = 3;
+        player3SkillButtonsSelect[3].GetComponent<buttonText>().characterIndex = 2;
         player3SkillButtonsSelect[3].SetActive(false);
     }
 
     void OnButtonClicked(int index)
     {
+        displayText.text = "What will " + characterList.characters[PlayerCountTurn].playerUnit.getName() + " do?";
+        displayText.gameObject.SetActive(true);
         Debug.Log("Button: " + index);
         ToggleTextFirst(index);
         ToggleTextSecond(index);
@@ -1689,6 +1733,7 @@ private IEnumerator EnemyAttackSequence()
     void removeEnemy(int index)
     {
         Debug.Log("Removing enemy at index: " + index);
+        enemyArrows[index].gameObject.SetActive(false);
         enemyList[index].enemy.SetActive(false);
         enemySelectButtons[index].SetActive(false);
         enemyList[index].enemy.gameObject.SetActive(false);
@@ -1704,6 +1749,9 @@ private IEnumerator EnemyAttackSequence()
     }
 
     void checkplayerTurn() {
+        for (int i = 0; i < enemyArrows.Count; i++) {
+            enemyArrows[i].gameObject.SetActive(false);
+        }
         if (PlayerCountTurn < characterList.characters.Count - 1 && currentEnemyCount > 0) {
                 PlayerCountTurn++;
                 GameManager2D.instance.UpdateBattleState(BattleState.PLAYERTURN);

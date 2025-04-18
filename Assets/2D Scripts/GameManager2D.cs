@@ -27,6 +27,7 @@ public class GameManager2D : MonoBehaviour
     [SerializeField] GameObject backGround;
     [SerializeField] GameObject allyBattleStations;
     [SerializeField] GameObject enemyBattleStations;
+    [SerializeField] GameObject banner;
 
     // for 3D manager stuff
     public static event Action<int> OnGameEnd; // Event to notify game result
@@ -88,8 +89,10 @@ public class GameManager2D : MonoBehaviour
             case BattleState.PREPARE:
                 Debug.Log("[GameManager2D] Preparing Game");
                 backGround.SetActive(false);
+                banner.SetActive(false);
                 break;
             case BattleState.START:
+                banner.SetActive(true);
                 backGround.SetActive(true);
                 Debug.Log("[GameManager2D] Game Started");
                 Debug.Log("COUNT: " + characterCount);
