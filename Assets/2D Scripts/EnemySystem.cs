@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class EnemySystem : MonoBehaviour {
     // some variables we need to set for Unity
-    [SerializeField] private GameObject enemyPrefab;
+    [SerializeField] private List<GameObject> enemyPrefab;
     [SerializeField] private List<Transform> enemyBattleStation;
     [SerializeField] private GameObject healthBarEnemy;
     [SerializeField] private List<Transform> healthBarEnemyPanels;
@@ -39,7 +39,7 @@ public class EnemySystem : MonoBehaviour {
         List<EnemyHealthAndInfo> enemyList = new List<EnemyHealthAndInfo>(); // we will load this list up in here
         // for (int i = 0; i < enemyCount; i ++) {
         EnemyHealthAndInfo newEnemy = new EnemyHealthAndInfo();
-        GameObject enemy = Instantiate(enemyPrefab, enemyBattleStation[0]);
+        GameObject enemy = Instantiate(enemyPrefab[0], enemyBattleStation[0]);
         newEnemy.enemy = enemy;
         newEnemy.enemyUnit = enemy.GetComponent<Unit>();
         newEnemy.enemyUnit.SetStats(100, 20, 5, 100, "Warrior", 1, 100, 10);
@@ -62,7 +62,7 @@ public class EnemySystem : MonoBehaviour {
         // }
 
         EnemyHealthAndInfo newEnemyD = new EnemyHealthAndInfo();
-        GameObject enemyD = Instantiate(enemyPrefab, enemyBattleStation[1]);
+        GameObject enemyD = Instantiate(enemyPrefab[1], enemyBattleStation[1]);
         newEnemyD.enemy = enemyD;
         newEnemyD.enemyUnit = enemyD.GetComponent<Unit>();
         newEnemyD.enemyUnit.SetStats(100, 20, 5, 100, "Defender", 1, 100, 10);
@@ -84,7 +84,7 @@ public class EnemySystem : MonoBehaviour {
         enemyList[1].enemyStun.gameObject.SetActive(false);
 
         EnemyHealthAndInfo newEnemyH = new EnemyHealthAndInfo();
-        GameObject enemyH = Instantiate(enemyPrefab, enemyBattleStation[2]);
+        GameObject enemyH = Instantiate(enemyPrefab[2], enemyBattleStation[2]);
         newEnemyH.enemy = enemyH;
         newEnemyH.enemyUnit = enemyH.GetComponent<Unit>();
         newEnemyH.enemyUnit.SetStats(100, 20, 5, 100, "Healer", 1, 100, 10);
