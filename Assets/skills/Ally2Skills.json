@@ -26,7 +26,7 @@
     },
     {
       "name": "Heaven's Delight",
-      "description": "Heal all allies and grant invulnerability for 1 turn",
+      "description": "Heal all allies for a large amount",
       "attack": 0,
       "cost": 35,
       "type": "Super",

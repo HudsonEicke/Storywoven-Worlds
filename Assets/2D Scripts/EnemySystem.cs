@@ -42,7 +42,7 @@ public class EnemySystem : MonoBehaviour {
         GameObject enemy = Instantiate(enemyPrefab[0], enemyBattleStation[0]);
         newEnemy.enemy = enemy;
         newEnemy.enemyUnit = enemy.GetComponent<Unit>();
-        newEnemy.enemyUnit.SetStats(100, 20, 5, 100, "Warrior", 1, 100, 10);
+        newEnemy.enemyUnit.SetStats(75, 35, 10, 75, "Warrior", 0, 0, 0);
         newEnemy.enemyHud = enemyHud[0];
         newEnemy.enemyStat = enemyStat[0];
         newEnemy.enemyStun = enemyStun[0];
@@ -65,7 +65,7 @@ public class EnemySystem : MonoBehaviour {
         GameObject enemyD = Instantiate(enemyPrefab[1], enemyBattleStation[1]);
         newEnemyD.enemy = enemyD;
         newEnemyD.enemyUnit = enemyD.GetComponent<Unit>();
-        newEnemyD.enemyUnit.SetStats(100, 20, 5, 100, "Defender", 1, 100, 10);
+        newEnemyD.enemyUnit.SetStats(100, 20, 20, 100, "Defender", 0, 0, 0);
         newEnemyD.enemyHud = enemyHud[1];
         newEnemyD.enemyStat = enemyStat[1];
         newEnemyD.enemyStun = enemyStun[1];
@@ -87,7 +87,7 @@ public class EnemySystem : MonoBehaviour {
         GameObject enemyH = Instantiate(enemyPrefab[2], enemyBattleStation[2]);
         newEnemyH.enemy = enemyH;
         newEnemyH.enemyUnit = enemyH.GetComponent<Unit>();
-        newEnemyH.enemyUnit.SetStats(100, 20, 5, 100, "Healer", 1, 100, 10);
+        newEnemyH.enemyUnit.SetStats(50, 15, 5, 50, "Healer", 0, 0, 0);
         newEnemyH.enemyHud = enemyHud[2];
         newEnemyH.enemyStat = enemyStat[2];
         newEnemyH.enemyStun = enemyStun[2];

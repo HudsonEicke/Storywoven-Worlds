@@ -22,11 +22,11 @@ public class buttonText : MonoBehaviour, ISelectHandler, IDeselectHandler
         skillListPlayer2 = skillSystemPlayer.Load2();
         skillListPlayer3 = skillSystemPlayer.Load3();
         if (characterIndex == 0)
-            display.text = skillListPlayer1.P1Skills[0].description;
+            display.text = skillListPlayer1.P1Skills[0].description + " (Cost: " + skillListPlayer1.P1Skills[0].cost + ")";
         else if (characterIndex == 1)
-            display.text = skillListPlayer2.P2Skills[0].description;
+            display.text = skillListPlayer2.P2Skills[0].description + " (Cost: " + skillListPlayer2.P2Skills[0].cost + ")";
         else if (characterIndex == 2)
-            display.text = skillListPlayer3.P3Skills[0].description;
+            display.text = skillListPlayer3.P3Skills[0].description + " (Cost: " + skillListPlayer3.P3Skills[0].cost + ")";
         display.gameObject.SetActive(true);
     }
 
@@ -36,11 +36,11 @@ public class buttonText : MonoBehaviour, ISelectHandler, IDeselectHandler
         // hoverSound.Play();
 
         if (characterIndex == 0)
-            display.text = skillListPlayer1.P1Skills[skillIndex].description;
+            display.text = skillListPlayer1.P1Skills[skillIndex].description + " (Cost: " + skillListPlayer1.P1Skills[skillIndex].cost + ")";
         else if (characterIndex == 1)
-            display.text = skillListPlayer2.P2Skills[skillIndex].description;
+            display.text = skillListPlayer2.P2Skills[skillIndex].description + " (Cost: " + skillListPlayer2.P2Skills[skillIndex].cost + ")";
         else if (characterIndex == 2)
-            display.text = skillListPlayer3.P3Skills[skillIndex].description;
+            display.text = skillListPlayer3.P3Skills[skillIndex].description + " (Cost: " + skillListPlayer3.P3Skills[skillIndex].cost + ")";
             
 
         display.gameObject.SetActive(true);

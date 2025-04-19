@@ -148,7 +148,7 @@ public class BattleSystem : MonoBehaviour
             invisText.gameObject.SetActive(false);
             Renderer render = characterList.characters[1].player.GetComponentInChildren<Renderer>();
             render.material.color = new Color(render.material.color.r, render.material.color.g, render.material.color.b, 1f);
-            
+
             gamestart = true;
             if (first == 0)
             {
@@ -318,6 +318,22 @@ private IEnumerator EnemyAttackSequence()
             enemyList[i].enemyStun.gameObject.SetActive(false);
             continue;
         }
+        bool heal = false;
+        if (i == 2) { // healer logic
+            for (int j = 1 ; j >=0 ; j--) {
+                if (enemyList[j].enemyUnit.getDead() || enemyList[j].enemyUnit.getCurrentHP() > (int)(enemyList[j].enemyUnit.getMaxHP() * 0.5) )
+                    continue;
+                enemyList[j].enemyUnit.healthChange(enemyList[i].enemyUnit.unitAttack());
+                enemyList[j].enemyHealth.GetComponent<Slider>().value = enemyList[j].enemyUnit.getCurrentHP();
+                displayText.text = enemyList[i].enemyUnit.getName() + " healed " + enemyList[j].enemyUnit.getName() + " for " + enemyList[i].enemyUnit.unitAttack() + " HP!";
+                heal = true;
+                yield return new WaitForSeconds(1.5f);
+                break;
+            }
+        }
+
+        if (heal)
+            continue;
 
 
         // Sum weights for each player and determine the target
@@ -343,8 +359,8 @@ private IEnumerator EnemyAttackSequence()
 
         Debug.Log("Enemy: " + i + " attacking player: " + randomint);
         displayText.gameObject.SetActive(true);
-        displayText.text = enemyList[i].enemyUnit.getName() + " attacked " + characterList.characters[randomint].playerUnit.getName() + " for " + enemyList[i].enemyUnit.unitAttack() + " damage!";
-        characterList.characters[randomint].playerUnit.healthChange(-1 * enemyList[i].enemyUnit.unitAttack());
+        displayText.text = enemyList[i].enemyUnit.getName() + " attacked " + characterList.characters[randomint].playerUnit.getName() + " for " + enemyList[i].enemyUnit.getDamagewithDefense(enemyList[i].enemyUnit.unitAttack()) + " damage!";
+        characterList.characters[randomint].playerUnit.healthChange(-1 * enemyList[i].enemyUnit.getDamagewithDefense(enemyList[i].enemyUnit.unitAttack()));
         characterList.characters[randomint].playerHealth.GetComponent<Slider>().value = characterList.characters[randomint].playerUnit.getCurrentHP();
 
         // Check if player died
@@ -363,7 +379,7 @@ private IEnumerator EnemyAttackSequence()
             yield break;
         }
 
-        yield return new WaitForSeconds(1.0f); // Delay between attacks
+        yield return new WaitForSeconds(1.5f); // Delay between attacks
     }
 
     // Check if players are still alive, then switch turn

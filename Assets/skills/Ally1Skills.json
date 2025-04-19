@@ -10,7 +10,7 @@
       },
       {
         "name": "Fireball",
-        "description": "Conjure a ball of fire to burn your opponent.",
+        "description": "Conjure a ball of fire to attack your opponent.",
         "attack": 50,
         "cost": 20,
         "type": "range",
@@ -20,14 +20,14 @@
         "name": "Piercing Flame",
         "description": "Pierce the opponent, leaving a burning effect that lasts for 3 turns.",
         "attack": 15,
-        "cost": 20,
+        "cost": 10,
         "type": "melee",
         "healAmt": 0
       },
       {
         "name": "Flame Shower",
         "description": "Rain down a shower of fire swords and damage all enemies",
-        "attack": 60,
+        "attack": 65,
         "cost": 30,
         "type": "Super",
         "healAmt": 0

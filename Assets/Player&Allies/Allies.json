@@ -3,7 +3,7 @@
         {
             "name": "Phoenix",
             "health": 80,
-            "attack": 30,
+            "attack": 20,
             "defense": 10,
             "energy": 45,
             "weight": 20
@@ -19,8 +19,8 @@
         {
             "name": "Astrid",
             "health": 150,
-            "attack": 20,
-            "defense": 30,
+            "attack": 10,
+            "defense": 25,
             "energy": 55,
             "weight": 35
         }

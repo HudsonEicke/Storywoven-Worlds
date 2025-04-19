@@ -112,9 +112,14 @@ public class Unit : MonoBehaviour
         passiveHeal = 0;
     }
 
+    public int getDamagewithDefense(int damage) {
+        return damage - (int)(damage * (defense / 100.0f)); // reduce damage by defense percentage
+    }
+
     public bool healthChange(int change)
     {
         Debug.Log("HealthChange");
+
         currentHP += change;
 
         if (currentHP <= 0)
