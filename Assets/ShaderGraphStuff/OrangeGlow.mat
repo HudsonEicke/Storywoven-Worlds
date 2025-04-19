@@ -117,7 +117,7 @@ Material:
     - _Height: 0
     - _Lava_Scroll_Speed: 0.75
     - _Metallic: 0
-    - _Noise_Scale: 0.4
+    - _Noise_Scale: 0.13
     - _OcclusionStrength: 1
     - _Parallax: 0.005
     - _QueueControl: 0

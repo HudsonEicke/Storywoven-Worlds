@@ -25,8 +25,11 @@ public class BossStageProgressor : MonoBehaviour
                 doneProgressing = true;
                 return;
             }
-            progressingStage = true;
-            FireCannon();
+            else if (!isStarter)
+            {
+                progressingStage = true;
+                FireCannon();
+            }
         }
     }
 
