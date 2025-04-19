@@ -45,6 +45,7 @@ public class BossFightManager : MonoBehaviour
     public float timeBeforePlatformMove = 5f;
     public float timeBeforeFinalPlatformMove = 5f;
     public Transform finalPlatformPos;
+    public Transform finalSafePos;
 
     //Stage transition stuff
     public bool isInStageTransition = false;
@@ -53,6 +54,9 @@ public class BossFightManager : MonoBehaviour
     public float delayBeforeAttack = 1f;
     public float timeToAttack = 0f;
     private bool firstRun = true;
+
+    public GameObject enableObjects;
+    public GameObject disableObjects;
 
     private void Start()
     {
@@ -240,6 +244,8 @@ public class BossFightManager : MonoBehaviour
     public void StartFight()
     {
         fightStarted = true;
+        disableObjects.SetActive(false);
+        enableObjects.SetActive(true);
         NextStage();
     }
 
@@ -260,6 +266,7 @@ public class BossFightManager : MonoBehaviour
             Debug.Log("ENDFIGHT");
             fightStarted = false;
             bossPlatform.newPos(finalPlatformPos, timeBeforePlatformMove);
+            ImportantComponentsManager.Instance.thirdPersonMovement.lastGroundPosition = finalSafePos.position;
             return;
         }
 

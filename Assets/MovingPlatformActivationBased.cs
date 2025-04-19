@@ -9,6 +9,7 @@ public class MovingPlatformActivationBased : MonoBehaviour
     [Space]
     [Header("Insert points in the order you want the platform to move")]
     public Transform nextDest = null;
+    public Transform newSafeLoc = null;
 
     private bool forward = true;
     private int nextPointIdx = 0;
@@ -17,6 +18,8 @@ public class MovingPlatformActivationBased : MonoBehaviour
     private Vector3 platformVelocity;
 
     public bool triggerBased = false;
+    public bool enableOnMove = false;
+    public GameObject enableObj = null;
 
     public bool atDest = true;
 
@@ -53,6 +56,12 @@ public class MovingPlatformActivationBased : MonoBehaviour
 
     private void GetNextPos()
     {
+        if(newSafeLoc != null)
+            ImportantComponentsManager.Instance.thirdPersonMovement.lastGroundPosition = newSafeLoc.position;
+        
+        if(enableOnMove)
+            enableObj.SetActive(true);
+
         nextPos = nextDest.position;
 
         atDest = false;

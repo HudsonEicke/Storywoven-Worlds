@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
 using TMPro;
 using Unity.VisualScripting;
-using UnityEditor.Search;
 using System.Data.Common;
 public class ButtonInteract : MonoBehaviour
 {

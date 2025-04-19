@@ -114,12 +114,12 @@ public class GameManager3D : MonoBehaviour
         if (isEnd == 1) 
         {
             Debug.Log("[GameManager3D] Game WON");
+            ImportantComponentsManager.Instance.thirdPersonMovement.playerHealthController.UpdateUI();
             // do whatever here for game win
         }
         else 
         {
             Debug.Log("[GameManager3D] Game LOST");
-            ImportantComponentsManager.Instance.thirdPersonMovement.playerHealthController.UpdateUI();
             OnDeath();
             // do whatever here for game lost
         }
