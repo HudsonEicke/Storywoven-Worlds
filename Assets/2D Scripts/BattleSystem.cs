@@ -143,7 +143,12 @@ public class BattleSystem : MonoBehaviour
         
         case BattleState.START:
             level = GameManager2D.instance.levels;
+
+            // reset if batle ended earlier than when logic could stop invis
             invisText.gameObject.SetActive(false);
+            Renderer render = characterList.characters[1].player.GetComponentInChildren<Renderer>();
+            render.material.color = new Color(render.material.color.r, render.material.color.g, render.material.color.b, 1f);
+            
             gamestart = true;
             if (first == 0)
             {
@@ -382,6 +387,8 @@ private IEnumerator EnemyAttackSequence()
                 invis = 0;
                 int baseWeight = characterList.characters[1].playerUnit.getWeight() - characterList.characters[1].weight;
                 characterList.characters[1].playerUnit.addWeight(-1 * baseWeight);
+                Renderer render = characterList.characters[1].player.GetComponentInChildren<Renderer>();
+                render.material.color = new Color(render.material.color.r, render.material.color.g, render.material.color.b, 1f);
             }
         }
 
@@ -1320,6 +1327,8 @@ private IEnumerator EnemyAttackSequence()
                     characterList.characters[2].playerUnit.addWeight(-20);
                     invis = 1;
                     invisText.gameObject.SetActive(true);
+                    Renderer render = characterList.characters[index].player.GetComponentInChildren<Renderer>();
+                    render.material.color = new Color(render.material.color.r, render.material.color.g, render.material.color.b, 0.5f);
                 }
                 else {
                     characterList.characters[index].playerUnit.setInvis(3);
