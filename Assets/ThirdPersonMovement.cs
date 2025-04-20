@@ -58,7 +58,7 @@ public class ThirdPersonMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(isFroze)
+        if (isFroze)
         {
             return;
         }
@@ -119,14 +119,14 @@ public class ThirdPersonMovement : MonoBehaviour
             return;
         }
 
-        if(DialogueManager.isActive || DMSceneLoad.isActive)
+        if (DialogueManager.isActive || DMSceneLoad.isActive)
         {
             animator.SetFloat("Speed", 0);
             controller.Move(Vector3.zero);
             return;
         }
 
-        if(ImportantComponentsManager.Instance.invetoryUIManager.isInventoryOpen)
+        if (ImportantComponentsManager.Instance.invetoryUIManager.isInventoryOpen)
         {
             cameraSettings.m_XAxis.m_MaxSpeed = 0f;
             Cursor.lockState = CursorLockMode.None;
@@ -139,15 +139,15 @@ public class ThirdPersonMovement : MonoBehaviour
             Cursor.visible = false;
         }
 
-        if(hasSprintPowerUp)
+        if (hasSprintPowerUp)
         {
-            if(!canSprint)
+            if (!canSprint)
             {
-                if(isSprinting)
+                if (isSprinting)
                 {
                     sprintTimeRemaining -= Time.deltaTime;
 
-                    if(sprintTimeRemaining <= 0)
+                    if (sprintTimeRemaining <= 0)
                     {
                         isSprinting = false;
                         cooldownTimeRemaining = sprintCooldown;
@@ -165,7 +165,7 @@ public class ThirdPersonMovement : MonoBehaviour
                 }
             }
 
-            if(canSprint && Input.GetKeyDown(KeyCode.LeftShift))
+            if (canSprint && Input.GetKeyDown(KeyCode.LeftShift))
             {
                 canSprint = false;
                 currentSpeed = speed * sprintMultiplier;
@@ -192,12 +192,12 @@ public class ThirdPersonMovement : MonoBehaviour
 
             velocity.y = -2f;
 
-            if(hasDoubleJumpPowerUp)
+            if (hasDoubleJumpPowerUp)
             {
                 doubleJumpCharged = true;
             }
 
-            if(queueCombat)
+            if (queueCombat)
             {
                 queueCombat = false;
                 GameManager3D.Instance.StartBattle(enemyCount);
@@ -205,20 +205,20 @@ public class ThirdPersonMovement : MonoBehaviour
             }
         }
 
-        if(!isGrounded)
+        if (!isGrounded)
         {
             animator.SetBool("IsFalling", true);
         }
 
         //This is what actually handles jumping
-        if(Input.GetButtonDown("Jump"))
+        if (Input.GetButtonDown("Jump"))
         {
             if (isGrounded)
             {
                 animator.SetBool("IsJumping", true);
                 Jump();
             }
-            else if(doubleJumpCharged)
+            else if (doubleJumpCharged)
             {
                 animator.SetBool("IsJumping", true);
                 Jump();
@@ -229,7 +229,7 @@ public class ThirdPersonMovement : MonoBehaviour
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
         //End of added logic
-        
+
         //cam.position = lockedCameraPosition;
         //cam.rotation = Quaternion.Euler(0f, 45f, 0f);
         float horizontal = Input.GetAxisRaw("Horizontal");
@@ -263,5 +263,16 @@ public class ThirdPersonMovement : MonoBehaviour
         objToDestroy = enemyObject;
         this.enemyCount = enemyCount;
         queueCombat = true;
+    }
+
+
+    //CAMERA FIX
+    public Transform cameraFollowTarget;
+    public float smoothSpeed = 10f;
+
+    private void LateUpdate()
+    {
+        Vector3 targetPos = transform.position;
+        cameraFollowTarget.position = Vector3.Lerp(cameraFollowTarget.position, targetPos, Time.deltaTime * smoothSpeed);
     }
 }
