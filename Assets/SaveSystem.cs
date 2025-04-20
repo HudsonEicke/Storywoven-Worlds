@@ -11,7 +11,7 @@ public static class SaveSystem
         BinaryFormatter formatter = new BinaryFormatter();
         FileStream stream = new FileStream(path, FileMode.Create);
 
-        PlayerData data = new PlayerData(checkpointManager, inventoryManager, gameManager3D.playerMoney);
+        PlayerData data = new PlayerData(checkpointManager, inventoryManager, gameManager3D.playerMoney, gameManager3D.level);
         formatter.Serialize(stream, data);
         stream.Close();
     }
@@ -21,7 +21,7 @@ public static class SaveSystem
         BinaryFormatter formatter = new BinaryFormatter();
         FileStream stream = new FileStream(path, FileMode.Create);
 
-        PlayerData data = new PlayerData(checkpointManager, inventoryManager, powerupManager, gameManager3D.playerMoney);
+        PlayerData data = new PlayerData(checkpointManager, inventoryManager, powerupManager, gameManager3D.playerMoney, gameManager3D.level);
         formatter.Serialize(stream, data);
         stream.Close();
     }
@@ -31,7 +31,7 @@ public static class SaveSystem
         BinaryFormatter formatter = new BinaryFormatter();
         FileStream stream = new FileStream(path, FileMode.Create);
 
-        PlayerData data = new PlayerData(checkpointManager.sceneID + 1, 0, inventoryManager, gameManager3D.playerMoney);
+        PlayerData data = new PlayerData(checkpointManager.sceneID + 1, 0, inventoryManager, gameManager3D.playerMoney, gameManager3D.level);
         formatter.Serialize(stream, data);
         stream.Close();
     }

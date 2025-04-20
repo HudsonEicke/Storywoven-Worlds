@@ -41,6 +41,8 @@ public class SaveManager : MonoBehaviour
 
         GameManager3D.Instance.playerMoney = data.playerMoney;
 
+        GameManager3D.Instance.level = data.playerLevel;
+
         if (data.sceneID == 2)
             ImportantComponentsManager.Instance.powerupManager.LoadPowerups(data.hasDoubleJump, data.hasSprint, data.hasBoostedHealth);
     }

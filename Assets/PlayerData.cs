@@ -13,9 +13,10 @@ public class PlayerData
     public bool hasSprint;
     public bool hasBoostedHealth;
     public int playerMoney;
+    public int playerLevel;
 
     //Normal save file generator
-    public PlayerData(CheckpointManager checkpointManager, InventoryManager inventoryManager, int money)
+    public PlayerData(CheckpointManager checkpointManager, InventoryManager inventoryManager, int money, int level)
     {
         sceneID = checkpointManager.sceneID;
         checkpointID = checkpointManager.currentPlayerCheckpoint;
@@ -26,10 +27,11 @@ public class PlayerData
         hasSprint = false;
         hasBoostedHealth = false;
         playerMoney = money;
+        playerLevel = level;
     }
 
     //Fantasy save file generator
-    public PlayerData(CheckpointManager checkpointManager, InventoryManager inventoryManager, PowerupManager powerupManager, int money)
+    public PlayerData(CheckpointManager checkpointManager, InventoryManager inventoryManager, PowerupManager powerupManager, int money, int level)
     {
         sceneID = checkpointManager.sceneID;
         checkpointID = checkpointManager.currentPlayerCheckpoint;
@@ -40,6 +42,7 @@ public class PlayerData
         hasSprint = powerupManager.hasSprint;
         hasBoostedHealth = powerupManager.hasBoostedHealth;
         playerMoney = money;
+        playerLevel = level;
     }
 
     //New save case
@@ -53,10 +56,11 @@ public class PlayerData
         hasSprint = false;
         hasBoostedHealth = false;
         playerMoney = 0;
+        playerLevel = 2;
     }
 
     //Next level save file generator
-    public PlayerData(int sceneID, int checkpointID, InventoryManager inventoryManager, int money)
+    public PlayerData(int sceneID, int checkpointID, InventoryManager inventoryManager, int money, int level)
     {
         this.sceneID = sceneID;
         this.checkpointID = checkpointID;
@@ -67,5 +71,6 @@ public class PlayerData
         hasSprint = false;
         hasBoostedHealth = false;
         playerMoney = money;
+        playerLevel = level;
     }
 }
