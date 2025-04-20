@@ -81,6 +81,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   checkpointId: 0
   respawnPoint: {fileID: 7011734769105534563}
+  fireParticle: {fileID: 6955961193940533159}
 --- !u!65 &8346951248981092659
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -301,6 +302,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3540838000556986256, guid: 76ca64fc780796c4ab6595370bcf8397,
+        type: 3}
+      propertyPath: prewarm
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7668847059277480795, guid: 76ca64fc780796c4ab6595370bcf8397,
         type: 3}
       propertyPath: m_Name
@@ -314,6 +320,12 @@ PrefabInstance:
 --- !u!4 &5719852342267263811 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2219117770322987892, guid: 76ca64fc780796c4ab6595370bcf8397,
+    type: 3}
+  m_PrefabInstance: {fileID: 5884828934995800119}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &6955961193940533159 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 3540838000556986256, guid: 76ca64fc780796c4ab6595370bcf8397,
     type: 3}
   m_PrefabInstance: {fileID: 5884828934995800119}
   m_PrefabAsset: {fileID: 0}

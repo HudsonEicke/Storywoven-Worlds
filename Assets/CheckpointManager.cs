@@ -22,10 +22,12 @@ public class CheckpointManager : MonoBehaviour
     public void PlayerHitCheckpoint(int checkpointID)
     {
         ImportantComponentsManager.Instance.dialogueBox.DisplayText("Check point reached all health restored", 5f);
+        checkpoints[currentPlayerCheckpoint].DeactivateCheckpoint();
         currentPlayerCheckpoint = checkpointID;
         ImportantComponentsManager.Instance.thirdPersonMovement.playerHealthController.Heal(10);
         characterList = GameManager2D.instance.characterList;
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 3; i++)
+        {
             Debug.Log("Reviving character...");
             characterList.characters[i].playerUnit.revive();
         }
@@ -35,6 +37,7 @@ public class CheckpointManager : MonoBehaviour
     public void MovePlayerToCheckpoint()
     {
         player.newPosition = checkpoints[currentPlayerCheckpoint].GetRespawnPostion();
+        checkpoints[currentPlayerCheckpoint].StartFire();
         player.QueuedMove = true;
     }
 }
