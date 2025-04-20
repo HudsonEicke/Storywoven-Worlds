@@ -26,6 +26,16 @@ public static class SaveSystem
         stream.Close();
     }
 
+    public static void DevSave()
+    {
+        BinaryFormatter formatter = new BinaryFormatter();
+        FileStream stream = new FileStream(path, FileMode.Create);
+
+        PlayerData data = new PlayerData(true);
+        formatter.Serialize(stream, data);
+        stream.Close();
+    }
+
     public static void SavePlayer(bool NextLevel, CheckpointManager checkpointManager, InventoryManager inventoryManager, GameManager3D gameManager3D)
     {
         BinaryFormatter formatter = new BinaryFormatter();

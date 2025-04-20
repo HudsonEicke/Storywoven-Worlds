@@ -6,6 +6,7 @@ public class SaveManager : MonoBehaviour
 {
     static SaveManager _instance;
     public static SaveManager Instance { get { return _instance; } }
+    public bool devTest = false;
 
     private void Awake()
     {
@@ -14,6 +15,11 @@ public class SaveManager : MonoBehaviour
 
     private void Start()
     {
+        if (devTest)
+        {
+            SaveSystem.DevSave();
+        }
+
         LoadPlayer();
     }
 

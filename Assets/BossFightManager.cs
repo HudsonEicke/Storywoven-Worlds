@@ -175,7 +175,7 @@ public class BossFightManager : MonoBehaviour
                 currentAdjacentFireballPool++;
                 currentEveryOtherFireballPool++;
                 currentWipeFireballPool++;
-                currentEveryOtherFireballPool -= 3;
+                currentFireballPool -= 3;
             }
             currentCooldown = fireballTime;
 
@@ -204,7 +204,7 @@ public class BossFightManager : MonoBehaviour
                 currentFireballPool++;
                 currentEveryOtherFireballPool++;
                 currentWipeFireballPool++;
-                currentEveryOtherFireballPool -= 3;
+                currentAdjacentFireballPool -= 3;
             }
             currentCooldown = fireballTime;
 
@@ -215,9 +215,9 @@ public class BossFightManager : MonoBehaviour
         {
             //WIPE FIREBALL
 
-            if (currentAdjacentFireballPool < 3)
+            if (currentWipeFireballPool < 3)
             {
-                switch (currentAdjacentFireballPool % 3)
+                switch (currentWipeFireballPool % 3)
                 {
                     case 2:
                         currentFireballPool++;
@@ -227,14 +227,14 @@ public class BossFightManager : MonoBehaviour
                         currentEveryOtherFireballPool++;
                         break;
                 }
-                currentAdjacentFireballPool = 0;
+                currentWipeFireballPool = 0;
             }
             else
             {
                 currentFireballPool++;
                 currentEveryOtherFireballPool++;
                 currentAdjacentFireballPool++;
-                currentEveryOtherFireballPool -= 3;
+                currentWipeFireballPool -= 3;
             }
             currentCooldown = fireballTime;
 
@@ -242,6 +242,9 @@ public class BossFightManager : MonoBehaviour
             FireballAttack(currentPlayerLocation);
             FireballAttack(currentPlayerLocation.rightAttackPoint);
         }
+
+        if (totalPool != currentAdjacentFireballPool + currentEveryOtherFireballPool + currentFireballPool + currentWipeFireballPool)
+            Debug.Log("POOL IMBALANCE");
     }
 
     public void StartFight()

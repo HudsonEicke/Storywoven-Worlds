@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static Cinemachine.DocumentationSortingAttribute;
 
 [System.Serializable]
 public class PlayerData
@@ -77,5 +78,20 @@ public class PlayerData
         playerMoney = money;
         playerLevel = level;
         currentStage = CurrentStage.overworld;
+    }
+
+    //dev test save
+    public PlayerData(bool test)
+    {
+        sceneID = 2;
+        checkpointID = 10;
+        inventoryIDs = new int[0];
+        itemQuantity = new int[0];
+        hasDoubleJump = true;
+        hasSprint = true;
+        hasBoostedHealth = true;
+        playerMoney = 99999;
+        playerLevel = 20;
+        currentStage = CurrentStage.castle;
     }
 }
