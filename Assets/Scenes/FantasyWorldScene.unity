@@ -52937,6 +52937,7 @@ MonoBehaviour:
   musicManager: {fileID: 1062694521}
   lavaLight: {fileID: 552797840975343545}
   castleDeathPlane: {fileID: 661879524}
+  castlePlatformDeathPlane: {fileID: 820670119}
 --- !u!4 &1804160017
 Transform:
   m_ObjectHideFlags: 0

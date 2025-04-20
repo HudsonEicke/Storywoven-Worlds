@@ -11,6 +11,7 @@ public class ProgressManager : MonoBehaviour
 
     public GameObject lavaLight;
     public GameObject castleDeathPlane;
+    public GameObject castlePlatformDeathPlane;
 
     private bool FirstLoad = true;
 
@@ -102,6 +103,10 @@ public class ProgressManager : MonoBehaviour
         musicManager.SwapMusicSmooth(1);
         lavaLight.SetActive(true);
         castleDeathPlane.SetActive(true);
+        if (castlePlatformDeathPlane.activeSelf == true)
+        {
+            castlePlatformDeathPlane.SetActive(false);
+        }
     }
 
     public void BossBattleStage()
@@ -124,6 +129,10 @@ public class ProgressManager : MonoBehaviour
         musicManager.SwapMusicInstant(1);
         lavaLight.SetActive(true);
         castleDeathPlane.SetActive(true);
+        if(castlePlatformDeathPlane.activeSelf == true)
+        {
+            castlePlatformDeathPlane.SetActive(false);
+        }
     }
 
     public void BossBattleStage(bool instant)
