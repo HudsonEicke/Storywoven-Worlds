@@ -25,7 +25,7 @@ public class MainMenu : MonoBehaviour
     public void NewGame()
     {
         SaveSystem.NewSave();
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        SceneManager.LoadScene("StoryExplinationScene");
     }
 
     public void PlayGame()
