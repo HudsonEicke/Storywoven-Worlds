@@ -51,6 +51,10 @@ public class ThirdPersonMovement : MonoBehaviour
     public bool canSprint = true;
     private bool isSprinting = false;
 
+    private bool queueCombat = false;
+    private GameObject objToDestroy;
+    private int enemyCount;
+
 
     private void FixedUpdate()
     {
@@ -192,6 +196,13 @@ public class ThirdPersonMovement : MonoBehaviour
             {
                 doubleJumpCharged = true;
             }
+
+            if(queueCombat)
+            {
+                queueCombat = false;
+                GameManager3D.Instance.StartBattle(enemyCount);
+                Destroy(objToDestroy);
+            }
         }
 
         if(!isGrounded)
@@ -245,5 +256,12 @@ public class ThirdPersonMovement : MonoBehaviour
     public void Jump()
     {
         velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+    }
+
+    public void QueueCombat(int enemyCount, GameObject enemyObject)
+    {
+        objToDestroy = enemyObject;
+        this.enemyCount = enemyCount;
+        queueCombat = true;
     }
 }

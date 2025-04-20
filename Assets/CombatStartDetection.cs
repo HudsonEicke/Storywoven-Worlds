@@ -6,13 +6,18 @@ public class CombatStartDetection : MonoBehaviour
 {
     public Collider detection;
     public int enemyCount = 2;
+    public bool setAmount = false;
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Player")
         {
-            GameManager3D.Instance.StartBattle(enemyCount);
-            Destroy(gameObject.transform.parent.gameObject);
+            if (!setAmount)
+            {
+                enemyCount = Random.Range(1, 4);
+            }
+
+            ImportantComponentsManager.Instance.thirdPersonMovement.QueueCombat(enemyCount, gameObject.transform.parent.gameObject);
         }
     }
 

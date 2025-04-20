@@ -19,6 +19,8 @@ public class MovingPlatform : MonoBehaviour
     private Vector3 nextPos;
     private Vector3 previousPosition;
     private Vector3 platformVelocity;
+    private bool frozen = false;
+
 
     private void Start()
     {
@@ -26,8 +28,23 @@ public class MovingPlatform : MonoBehaviour
         previousPosition = transform.position;
     }
 
+    private void Awake()
+    {
+        GameManager3D.freezeWorld += Freeze;
+        GameManager3D.unFreezeWorld += unFreeze;
+    }
+
+    private void OnDestroy()
+    {
+        GameManager3D.freezeWorld -= Freeze;
+        GameManager3D.unFreezeWorld -= unFreeze;
+    }
+
     private void Update()
     {
+        if (frozen)
+            return;
+
         transform.position = Vector3.MoveTowards(transform.position, nextPos, moveSpeed * Time.deltaTime);
 
         platformVelocity = (transform.position - previousPosition) / Time.deltaTime;
@@ -94,9 +111,22 @@ public class MovingPlatform : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
+        if(frozen)
+            return;
+
         if(other.CompareTag("Player"))
         {
             ImportantComponentsManager.Instance.thirdPersonMovement.MoveWithPlatform(platformVelocity);
         }
+    }
+
+    public void Freeze()
+    {
+        frozen = true;
+    }
+
+    public void unFreeze()
+    {
+        frozen = false;
     }
 }
