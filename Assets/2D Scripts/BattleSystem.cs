@@ -1752,6 +1752,7 @@ private IEnumerator EnemyAttackSequence()
         playerThreeSkills[0].PlayMinigame((result) => {
             if (result == 1)    {
                 Debug.Log("Player succeeded in minigame!");
+                AudioSystem2D.instance.PlaySuccess();
                 if (taunt == 0) {
                     taunt = 3;
                     Debug.Log("Taunt Activated!");
@@ -1778,6 +1779,7 @@ private IEnumerator EnemyAttackSequence()
             }
             else    {
                 Debug.Log("Player failed in minigame!");
+                AudioSystem2D.instance.PlayFailure();
                 characterList.characters[index].healthBarPanel.gameObject.SetActive(true);
                 characterList.characters[index].playerHud.gameObject.SetActive(true);
                 characterList.characters[index].playerHealth.SetActive(true);
