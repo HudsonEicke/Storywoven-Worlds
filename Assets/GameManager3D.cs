@@ -25,6 +25,7 @@ public class GameManager3D : MonoBehaviour
     private CharacterSystem3D characterSystem3D;
     public CharacterList3D characterList3D;
     public int playerMoney = 0;
+    public int level = 1;
 
     private void Awake()
     {
@@ -98,7 +99,7 @@ public class GameManager3D : MonoBehaviour
         event2D.enabled = true;
         event2D.gameObject.SetActive(true);
         //gameManager2D.UpdateBattleState(BattleState.START);
-        GameManager2D.instance.InitializeGame(enemyCount, players, 10);
+        GameManager2D.instance.InitializeGame(enemyCount, players, level);
         // SceneManager.LoadScene("AngeloScene", LoadSceneMode.Additive);
     }
 
