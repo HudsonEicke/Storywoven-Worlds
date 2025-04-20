@@ -16,12 +16,12 @@ public static class SaveSystem
         stream.Close();
     }
 
-    public static void SavePlayer(CheckpointManager checkpointManager, InventoryManager inventoryManager, PowerupManager powerupManager, GameManager3D gameManager3D)
+    public static void SavePlayer(CheckpointManager checkpointManager, InventoryManager inventoryManager, PowerupManager powerupManager, GameManager3D gameManager3D, ProgressManager progressManager)
     {
         BinaryFormatter formatter = new BinaryFormatter();
         FileStream stream = new FileStream(path, FileMode.Create);
 
-        PlayerData data = new PlayerData(checkpointManager, inventoryManager, powerupManager, gameManager3D.playerMoney, gameManager3D.level);
+        PlayerData data = new PlayerData(checkpointManager, inventoryManager, powerupManager, gameManager3D.playerMoney, gameManager3D.level, progressManager);
         formatter.Serialize(stream, data);
         stream.Close();
     }

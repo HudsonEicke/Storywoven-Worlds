@@ -14,6 +14,7 @@ public class PlayerData
     public bool hasBoostedHealth;
     public int playerMoney;
     public int playerLevel;
+    public CurrentStage currentStage;
 
     //Normal save file generator
     public PlayerData(CheckpointManager checkpointManager, InventoryManager inventoryManager, int money, int level)
@@ -28,10 +29,11 @@ public class PlayerData
         hasBoostedHealth = false;
         playerMoney = money;
         playerLevel = level;
+        currentStage = CurrentStage.overworld;
     }
 
     //Fantasy save file generator
-    public PlayerData(CheckpointManager checkpointManager, InventoryManager inventoryManager, PowerupManager powerupManager, int money, int level)
+    public PlayerData(CheckpointManager checkpointManager, InventoryManager inventoryManager, PowerupManager powerupManager, int money, int level, ProgressManager progressManager)
     {
         sceneID = checkpointManager.sceneID;
         checkpointID = checkpointManager.currentPlayerCheckpoint;
@@ -43,6 +45,7 @@ public class PlayerData
         hasBoostedHealth = powerupManager.hasBoostedHealth;
         playerMoney = money;
         playerLevel = level;
+        currentStage = progressManager.stage;
     }
 
     //New save case
@@ -57,6 +60,7 @@ public class PlayerData
         hasBoostedHealth = false;
         playerMoney = 0;
         playerLevel = 2;
+        currentStage = CurrentStage.overworld;
     }
 
     //Next level save file generator
@@ -72,5 +76,6 @@ public class PlayerData
         hasBoostedHealth = false;
         playerMoney = money;
         playerLevel = level;
+        currentStage = CurrentStage.overworld;
     }
 }

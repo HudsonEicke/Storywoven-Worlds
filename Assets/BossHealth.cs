@@ -7,11 +7,12 @@ public class BossHealth : MonoBehaviour
     public int health = 3;
     public Animator animator;
     public LockInPlace lockInPlace;
+    public AudioSource hurtAudio;
 
     public void Hit()
     {
         health--;
-
+        hurtAudio.Play();
         if (health <= 0)
         {
             animator.StopPlayback();

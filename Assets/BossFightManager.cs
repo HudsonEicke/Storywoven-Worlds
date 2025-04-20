@@ -58,6 +58,8 @@ public class BossFightManager : MonoBehaviour
     public GameObject enableObjects;
     public GameObject disableObjects;
 
+    public FireSoundPlayer fireballSound;
+
     private void Start()
     {
         totalPool = startingEveryOtherFireballPool + startingFireballPool + startingWipeFireballPool + startingAdjacentFireballPool;
@@ -247,6 +249,7 @@ public class BossFightManager : MonoBehaviour
         disableObjects.SetActive(false);
         enableObjects.SetActive(true);
         NextStage();
+        isInStageTransition = false;
     }
 
     public void NextStage()
@@ -267,6 +270,7 @@ public class BossFightManager : MonoBehaviour
             fightStarted = false;
             bossPlatform.newPos(finalPlatformPos, timeBeforePlatformMove);
             ImportantComponentsManager.Instance.thirdPersonMovement.lastGroundPosition = finalSafePos.position;
+            ProgressManager.Instance.NextStage();
             return;
         }
 
@@ -291,7 +295,7 @@ public class BossFightManager : MonoBehaviour
     public void FireballAttack(AttackPoint attackPoint)
     {
         attackPoint.FlashZone();
-
+        fireballSound.PlayFireSoundEffect();
         GameObject newFireball = Instantiate(fireballPrefab, fireBallSpawnPoint.transform.position, Quaternion.identity);
 
         Fireball fireball = newFireball.GetComponent<Fireball>();

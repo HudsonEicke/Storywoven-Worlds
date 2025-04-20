@@ -14,6 +14,7 @@ public class BossStageProgressor : MonoBehaviour
     public Transform startPoint;
     public Transform firstPoint;
     public Transform boss;
+    public AudioSource cannonFire;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -22,6 +23,7 @@ public class BossStageProgressor : MonoBehaviour
             if (isStarter && !doneProgressing)
             {
                 fightManager.StartFight();
+                ProgressManager.Instance.NextStage();
                 doneProgressing = true;
                 return;
             }
@@ -52,6 +54,8 @@ public class BossStageProgressor : MonoBehaviour
     {
         if(fired)
             return;
+
+        cannonFire.Play();
 
         fired = true;
 

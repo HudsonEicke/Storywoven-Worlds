@@ -13,7 +13,7 @@ public class AttackPoint : MonoBehaviour
 
     public int timesToFlash = 2;
     private int currentFlashesLeft = 0;
-    public float timeBetweenFlash = 1f;
+    public float timeBetweenFlash = 0.5f;
     private float timeToNextCycle = 0f;
     private bool isFlashing = false;
 

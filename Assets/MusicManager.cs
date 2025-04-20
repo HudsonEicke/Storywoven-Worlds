@@ -18,6 +18,11 @@ public class MusicManager : MonoBehaviour
     [Header("Boss Music")]
     public AudioClip bossMusicClip;
     public float bossMusicVolume;
+    [Space]
+    [Header("Boss Victory Music")]
+    public AudioClip bossVictoryMusicClip;
+    public float bossVictoryMusicVolume;
+
 
     public bool swapMusic;
 
@@ -37,10 +42,10 @@ public class MusicManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        musicPlayer.clip = defaultMusicClip;
-        musicPlayer.volume = defaultMusicVolume;
-        musicPlayer.Play();
-        currentAudioVolume = defaultMusicVolume;
+        //musicPlayer.clip = defaultMusicClip;
+        //musicPlayer.volume = defaultMusicVolume;
+        //musicPlayer.Play();
+        //currentAudioVolume = defaultMusicVolume;
     }
 
     // Update is called once per frame
@@ -73,7 +78,6 @@ public class MusicManager : MonoBehaviour
             }
             else if(increasing)
             {
-                Debug.Log("INCREASING");
                 timeRemaining -= Time.deltaTime;
 
                 if (timeRemaining <= 0f)
@@ -91,7 +95,7 @@ public class MusicManager : MonoBehaviour
         }
     }
 
-    void SwapMusicSmooth(int musicID)
+    public void SwapMusicSmooth(int musicID)
     {
         amountToDecreasePerInverval = currentAudioVolume / timeToDecrease;
         decreasing = true;
@@ -114,6 +118,36 @@ public class MusicManager : MonoBehaviour
                 amountToIncreasePerInverval = bossMusicVolume / timeToDecrease;
                 newAudioClip = bossMusicClip;
                 newAudioVolume = bossMusicVolume;
+                break;
+            case 3:
+                amountToIncreasePerInverval = bossVictoryMusicVolume / timeToDecrease;
+                newAudioClip = bossVictoryMusicClip;
+                newAudioVolume = bossVictoryMusicVolume;
+                break;
+        }
+    }
+
+    public void SwapMusicInstant(int musicID)
+    {
+        switch(musicID)
+        {
+            case 0:
+                musicPlayer.clip = defaultMusicClip;
+                musicPlayer.volume = defaultMusicVolume;
+                musicPlayer.Play();
+                currentAudioVolume = defaultMusicVolume;
+                break;
+            case 1:
+                musicPlayer.clip = castleMusicClip;
+                musicPlayer.volume = castleMusicVolume;
+                musicPlayer.Play();
+                currentAudioVolume = castleMusicVolume;
+                break;
+            case 2:
+                musicPlayer.clip = bossMusicClip;
+                musicPlayer.volume = bossMusicVolume;
+                musicPlayer.Play();
+                currentAudioVolume = bossMusicVolume;
                 break;
         }
     }

@@ -22,7 +22,7 @@ public class SaveManager : MonoBehaviour
         if(CheckpointManager.Instance.sceneID == 1)
             SaveSystem.SavePlayer(CheckpointManager.Instance, InventoryManager.Instance, GameManager3D.Instance);
         else
-            SaveSystem.SavePlayer(CheckpointManager.Instance, InventoryManager.Instance, ImportantComponentsManager.Instance.powerupManager, GameManager3D.Instance);
+            SaveSystem.SavePlayer(CheckpointManager.Instance, InventoryManager.Instance, ImportantComponentsManager.Instance.powerupManager, GameManager3D.Instance, ProgressManager.Instance);
     }
 
     public void SavePlayer(bool nextLevel)
@@ -44,6 +44,9 @@ public class SaveManager : MonoBehaviour
         GameManager3D.Instance.level = data.playerLevel;
 
         if (data.sceneID == 2)
+        {
             ImportantComponentsManager.Instance.powerupManager.LoadPowerups(data.hasDoubleJump, data.hasSprint, data.hasBoostedHealth);
+            ProgressManager.Instance.SetStage(data.currentStage, true);
+        }
     }
 }

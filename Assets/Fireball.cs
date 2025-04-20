@@ -42,6 +42,7 @@ public class Fireball : MonoBehaviour
     {
         if(other.gameObject.CompareTag("Player"))
         {
+            Debug.Log("HIT PLAYER");
             ImportantComponentsManager.Instance.thirdPersonMovement.moveBack = true;
             ImportantComponentsManager.Instance.thirdPersonMovement.playerHealthController.Damage(1);
         }
