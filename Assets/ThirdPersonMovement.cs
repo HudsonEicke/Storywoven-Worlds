@@ -264,4 +264,15 @@ public class ThirdPersonMovement : MonoBehaviour
         this.enemyCount = enemyCount;
         queueCombat = true;
     }
+
+
+    //CAMERA FIX
+    public Transform cameraFollowTarget;
+    public float smoothSpeed = 10f;
+
+    private void LateUpdate()
+    {
+        Vector3 targetPos = transform.position;
+        cameraFollowTarget.position = Vector3.Lerp(cameraFollowTarget.position, targetPos, Time.deltaTime * smoothSpeed);
+    }
 }
