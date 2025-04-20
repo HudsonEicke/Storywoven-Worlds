@@ -5430,6 +5430,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   detection: {fileID: 5209333444046896700}
   enemyCount: 2
+  setAmount: 0
 --- !u!136 &5209333444046896700
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -5450,9 +5451,9 @@ CapsuleCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 1.25
-  m_Height: 3.2905931
+  m_Height: 3.621943
   m_Direction: 1
-  m_Center: {x: 0.0075802803, y: 1.1452966, z: 0}
+  m_Center: {x: 0.0075802803, y: 1.3109715, z: 0}
 --- !u!1001 &8676126044249810225
 PrefabInstance:
   m_ObjectHideFlags: 0
