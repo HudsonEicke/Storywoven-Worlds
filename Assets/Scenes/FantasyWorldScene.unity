@@ -11437,6 +11437,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3665471371842687174, guid: f3d8f659ad1478d488b08fe590f5289d,
+        type: 3}
+      propertyPath: m_Follow
+      value: 
+      objectReference: {fileID: 1478329299}
     - target: {fileID: 3901957267515323732, guid: f3d8f659ad1478d488b08fe590f5289d,
         type: 3}
       propertyPath: m_LocalRotation.w
@@ -11482,6 +11487,16 @@ PrefabInstance:
       propertyPath: cam
       value: 
       objectReference: {fileID: 313944365}
+    - target: {fileID: 8108875306050317988, guid: f3d8f659ad1478d488b08fe590f5289d,
+        type: 3}
+      propertyPath: smoothSpeed
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8108875306050317988, guid: f3d8f659ad1478d488b08fe590f5289d,
+        type: 3}
+      propertyPath: cameraFollowTarget
+      value: 
+      objectReference: {fileID: 1478329299}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -17963,18 +17978,12 @@ MonoBehaviour:
   - {fileID: 1923438874}
   - {fileID: 393041947}
   - {fileID: 793424105}
-  itemManaListText:
-  - {fileID: 1793692603}
-  - {fileID: 1204812401}
-  - {fileID: 849214377}
+  itemManaListText: []
   healthPotionButtons:
   - {fileID: 8021268271617775633, guid: 071a18e258ae95043814cedc53d39ab2, type: 3}
   - {fileID: 8021268271617775633, guid: 60e1bc8e1a188e1438deca792fde757f, type: 3}
   - {fileID: 8021268271617775633, guid: c6b8f973292c4d4419415a426951553a, type: 3}
-  manaPotionButtons:
-  - {fileID: 8021268271617775633, guid: ca01f1402fdc13b4d8402ecf504b1c64, type: 3}
-  - {fileID: 8021268271617775633, guid: 0606a30180bdbd044868ce8e2aae7490, type: 3}
-  - {fileID: 8021268271617775633, guid: f990b7ecaccea4749ad662ff96ead65d, type: 3}
+  manaPotionButtons: []
   healthBarEnemyPanels:
   - {fileID: 406544413}
   - {fileID: 1853595094}
@@ -37759,6 +37768,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1476292698}
   m_CullTransparentMesh: 1
+--- !u!1 &1478329298
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1478329299}
+  m_Layer: 6
+  m_Name: Follow
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1478329299
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1478329298}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -8.6, y: 13.09, z: -4.7}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1481511704
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -59328,6 +59368,7 @@ SceneRoots:
   - {fileID: 74854324}
   - {fileID: 456967615}
   - {fileID: 120936877}
+  - {fileID: 1478329299}
   - {fileID: 583489410}
   - {fileID: 861568217}
   - {fileID: 1046080354}
