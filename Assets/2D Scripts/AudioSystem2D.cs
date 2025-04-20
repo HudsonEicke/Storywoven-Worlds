@@ -10,6 +10,10 @@ public class AudioSystem2D : MonoBehaviour
 
     // battle music
     public AudioClip battleMusic;
+
+    // battle sounds
+    public AudioClip Success;
+    public AudioClip Failure;
     private void Awake() {
         instance = this;
     }
@@ -33,5 +37,14 @@ public class AudioSystem2D : MonoBehaviour
     public void PlayAudio() {
         Debug.Log("Button Click Playing");
         buttonSelect.PlayOneShot(buttonClick);
+    }
+
+    public void PlaySuccess() {
+        Debug.Log("Success Sound Playing");
+        buttonSelect.PlayOneShot(Success);
+    }
+    public void PlayFailure() {
+        Debug.Log("Failure Sound Playing");
+        buttonSelect.PlayOneShot(Failure);
     }
 }

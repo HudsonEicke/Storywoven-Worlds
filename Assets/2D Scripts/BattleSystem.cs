@@ -1185,6 +1185,7 @@ private IEnumerator EnemyAttackSequence()
         playerOneSkills[0].PlayMinigame((result) => {
             if (result == 1)    {
                 Debug.Log("Player succeeded in minigame!");
+                AudioSystem2D.instance.PlaySuccess();
                 characterList.characters[index].playerHud.gameObject.SetActive(true);
                 characterList.characters[index].playerHealth.SetActive(true);
                 characterList.characters[index].healthBarPanel.gameObject.SetActive(true);
@@ -1201,6 +1202,7 @@ private IEnumerator EnemyAttackSequence()
             }
             else    {
                 Debug.Log("Player failed in minigame!");
+                AudioSystem2D.instance.PlayFailure();
                 characterList.characters[index].healthBarPanel.gameObject.SetActive(true);
                 characterList.characters[index].playerHud.gameObject.SetActive(true);
                 characterList.characters[index].playerHealth.SetActive(true);
@@ -1234,6 +1236,7 @@ private IEnumerator EnemyAttackSequence()
                 enemyList[enemyIndex].enemyUnit.setBurnt(3);
                 enemyList[enemyIndex].enemyStat.gameObject.SetActive(true);
                 Debug.Log("Player succeeded in minigame!");
+                AudioSystem2D.instance.PlaySuccess();
                 enemyList[enemyIndex].enemyUnit.setBurnt(3);
                 characterList.characters[index].playerHud.gameObject.SetActive(true);
                 characterList.characters[index].playerHealth.SetActive(true);
@@ -1251,6 +1254,7 @@ private IEnumerator EnemyAttackSequence()
             }
             else    {
                 Debug.Log("Player failed in minigame!");
+                AudioSystem2D.instance.PlayFailure();
                 characterList.characters[index].healthBarPanel.gameObject.SetActive(true);
                 characterList.characters[index].playerHud.gameObject.SetActive(true);
                 characterList.characters[index].playerHealth.SetActive(true);
@@ -1282,6 +1286,7 @@ private IEnumerator EnemyAttackSequence()
         playerOneSkills[1].PlayMinigame((result) => {
             if (result == 1)    {
                 Debug.Log("Player succeeded in minigame!");
+                AudioSystem2D.instance.PlaySuccess();
                 characterList.characters[index].playerHud.gameObject.SetActive(true);
                 characterList.characters[index].playerHealth.SetActive(true);
                 characterList.characters[index].healthBarPanel.gameObject.SetActive(true);
@@ -1298,6 +1303,7 @@ private IEnumerator EnemyAttackSequence()
             }
             else    {
                 Debug.Log("Player failed in minigame!");
+                AudioSystem2D.instance.PlayFailure();
                 characterList.characters[index].healthBarPanel.gameObject.SetActive(true);
                 characterList.characters[index].playerHud.gameObject.SetActive(true);
                 characterList.characters[index].playerHealth.SetActive(true);
@@ -1392,6 +1398,7 @@ private IEnumerator EnemyAttackSequence()
         playerTwoSkills[1].PlayMinigame((result) => {
             if (result == 1)    {
                 Debug.Log("Player succeeded in minigame!");
+                AudioSystem2D.instance.PlaySuccess();
                 if (invis == 0) {
                     Debug.Log("Player is invisible!");
                     characterList.characters[index].playerUnit.setInvis(3);
@@ -1420,6 +1427,7 @@ private IEnumerator EnemyAttackSequence()
             }
             else    {
                 Debug.Log("Player failed in minigame!");
+                AudioSystem2D.instance.PlayFailure();
                 characterList.characters[index].healthBarPanel.gameObject.SetActive(true);
                 characterList.characters[index].playerHud.gameObject.SetActive(true);
                 characterList.characters[index].playerHealth.SetActive(true);
@@ -1512,6 +1520,7 @@ private IEnumerator EnemyAttackSequence()
         playerThreeSkills[3].PlayMinigame((result) => {
             if (result == 1)    {
                 Debug.Log("Player succeeded in minigame!");
+                AudioSystem2D.instance.PlaySuccess();
                 // attack all enemies
                 for (int i = 0; i < totalEnemyCount; i++) {
                     if (!enemyList[i].enemyUnit.getDead()) {
@@ -1536,6 +1545,7 @@ private IEnumerator EnemyAttackSequence()
                 }
             else    {
                 Debug.Log("Player failed in minigame!");
+                AudioSystem2D.instance.PlayFailure();
                 characterList.characters[index].healthBarPanel.gameObject.SetActive(true);
                 characterList.characters[index].playerHud.gameObject.SetActive(true);
                 characterList.characters[index].playerHealth.SetActive(true);
@@ -1630,6 +1640,7 @@ private IEnumerator EnemyAttackSequence()
         playerThreeSkills[1].PlayMinigame((result) => {
             if (result == 1)    {
                 Debug.Log("Player succeeded in minigame!");
+                AudioSystem2D.instance.PlaySuccess();
                 enemyList[enemyIndex].enemyUnit.setStunned();
                 enemyList[enemyIndex].enemyStun.gameObject.SetActive(true);
                 characterList.characters[index].playerHud.gameObject.SetActive(true);
@@ -1648,6 +1659,7 @@ private IEnumerator EnemyAttackSequence()
             }
             else    {
                 Debug.Log("Player failed in minigame!");
+                AudioSystem2D.instance.PlayFailure();
                 characterList.characters[index].healthBarPanel.gameObject.SetActive(true);
                 characterList.characters[index].playerHud.gameObject.SetActive(true);
                 characterList.characters[index].playerHealth.SetActive(true);
@@ -1703,6 +1715,7 @@ private IEnumerator EnemyAttackSequence()
         playerOneSkills[3].PlayMinigame((result) => {
             if (result == 1)    {
                 // attack all enemies
+                AudioSystem2D.instance.PlaySuccess();
                 for (int i = 0; i < enemySelectButtons.Count; i++) {
                     if (!enemyList[i].enemyUnit.getDead()) {
                         enemyList[i].enemyUnit.healthChange(-1 * playerOneSkills[3].skillInflict());
@@ -1721,6 +1734,7 @@ private IEnumerator EnemyAttackSequence()
             }
             else    {
                 Debug.Log("Player failed in minigame!");
+                AudioSystem2D.instance.PlayFailure();
                 characterList.characters[index].healthBarPanel.gameObject.SetActive(true);
                 characterList.characters[index].playerHud.gameObject.SetActive(true);
                 characterList.characters[index].playerHealth.SetActive(true);

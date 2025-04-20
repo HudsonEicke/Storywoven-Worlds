@@ -15533,6 +15533,8 @@ MonoBehaviour:
   buttonClick: {fileID: 8300000, guid: e2fbf757d2213224aade3d2ffa99ba00, type: 3}
   buttonSelect: {fileID: 125250976}
   battleMusic: {fileID: 8300000, guid: 047452589b1df3041aaa8b1fcc868c86, type: 3}
+  Success: {fileID: 8300000, guid: 598fa7a35f9976e41b477f23b053cbbc, type: 3}
+  Failure: {fileID: 8300000, guid: 959ea4d589adc2f41b3b776e700c2a56, type: 3}
 --- !u!114 &782443263
 MonoBehaviour:
   m_ObjectHideFlags: 0

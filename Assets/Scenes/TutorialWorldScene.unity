@@ -6228,7 +6228,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.25
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -10757,12 +10757,12 @@ PrefabInstance:
     - target: {fileID: 3901957267515323732, guid: f3d8f659ad1478d488b08fe590f5289d,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.98532784
       objectReference: {fileID: 0}
     - target: {fileID: 3901957267515323732, guid: f3d8f659ad1478d488b08fe590f5289d,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: 0.17067236
       objectReference: {fileID: 0}
     - target: {fileID: 3901957267515323732, guid: f3d8f659ad1478d488b08fe590f5289d,
         type: 3}
@@ -15544,6 +15544,8 @@ MonoBehaviour:
   buttonClick: {fileID: 8300000, guid: e2fbf757d2213224aade3d2ffa99ba00, type: 3}
   buttonSelect: {fileID: 680279443}
   battleMusic: {fileID: 8300000, guid: 047452589b1df3041aaa8b1fcc868c86, type: 3}
+  Success: {fileID: 8300000, guid: 598fa7a35f9976e41b477f23b053cbbc, type: 3}
+  Failure: {fileID: 8300000, guid: 959ea4d589adc2f41b3b776e700c2a56, type: 3}
 --- !u!114 &1588138173
 MonoBehaviour:
   m_ObjectHideFlags: 0
