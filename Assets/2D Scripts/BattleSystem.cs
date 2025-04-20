@@ -979,7 +979,7 @@ private IEnumerator EnemyAttackSequence()
 
         Debug.Log("Health Potion used");
         if (inventoryManager2D.GetItemQuantity(0) > 0) {
-            inventoryManager2D.UseIndex(0);
+            inventoryManager2D.UseItem(0);
             for (int i  = 0; i < characterList.characters.Count; i++) {
                 characterList.characters[i].playerHealth.GetComponent<Slider>().value = characterList.characters[i].playerUnit.getCurrentHP();
             }
@@ -1011,7 +1011,7 @@ private IEnumerator EnemyAttackSequence()
         Debug.Log("Mana Potion used");
         if (inventoryManager2D.GetItemQuantity(2) > 0) {
             inventoryManager2D.SetIndex(index);
-            inventoryManager2D.UseIndex(2);
+            inventoryManager2D.UseItem(2);
             characterList.characters[index].playerMana.GetComponent<Slider>().value = characterList.characters[index].playerUnit.getEnergy();
             characterList.characters[index].playerHud.gameObject.SetActive(true);
             manaPotionButtonsSelect[index].SetActive(false);
