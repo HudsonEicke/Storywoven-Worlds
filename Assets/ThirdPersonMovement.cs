@@ -119,7 +119,7 @@ public class ThirdPersonMovement : MonoBehaviour
             return;
         }
 
-        if (DialogueManager.isActive || DMSceneLoad.isActive)
+        if (DialogueManager.isActive || DMSceneLoad.isActive || DMNoButton.isActive)
         {
             animator.SetFloat("Speed", 0);
             controller.Move(Vector3.zero);

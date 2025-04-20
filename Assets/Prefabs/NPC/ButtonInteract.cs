@@ -127,9 +127,9 @@ public class ButtonInteract : MonoBehaviour
         if (GameManager3D.Instance.SpendMoney(price))
         {
             ItemIdManager.Instance.AddItem(item.itemId, 1);
-            // DialogueBubble.SetActive(true);
-            // DialogueText.gameObject.SetActive(true);
-            // StartCoroutine(TypeDialogue($"Thanks for your purchase!"));
+            dialogueBox.SetActive(true);
+            Response.text = $"Thanks for buying {item.itemName} for {price} coins!";
+            StartCoroutine(HideDialogue(dialogueBox));
             Debug.Log($"Bought {item.itemName} for {price} coins");
         }
         else
@@ -148,12 +148,16 @@ public class ButtonInteract : MonoBehaviour
         GameManager3D.Instance.UnFreezeWorld(); 
         SceneManager.UnloadSceneAsync(ShopSceneName);
     }
-//     IEnumerator TypeDialogue(string Dialogue){
-//         DialogueText.text = string.Empty;
-//         foreach (char letter in Dialogue.ToCharArray())
-//         {
-//             DialogueText.text += letter;
-//             yield return new WaitForSeconds(0.04f);
-//         }
-//     }   
+    IEnumerator HideDialogue(GameObject dialogueBox){
+
+        if (dialogueBox != null)
+        {
+            yield return new WaitForSeconds(2f);
+            dialogueBox.SetActive(false);
+        }
+        else
+        {
+            Debug.Log("Dialogue Box not found");
+        }
+    }   
 }

@@ -89,14 +89,16 @@ public class DialogueManager : MonoBehaviour
         if (index < dialogues.Length)
         {
             DisplayDialogue();
-
         }
         else
         {
             if (Panel != null)
             {
                 Panel.SetActive(true);
-                EventSystem.current.SetSelectedGameObject(Button1.gameObject);
+                if (Button1 != null)
+                {
+                    EventSystem.current.SetSelectedGameObject(Button1.gameObject);
+                }
             }
             else
             {
