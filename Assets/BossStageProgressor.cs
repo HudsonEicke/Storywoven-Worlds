@@ -15,6 +15,8 @@ public class BossStageProgressor : MonoBehaviour
     public Transform firstPoint;
     public Transform boss;
     public AudioSource cannonFire;
+    private string startMessage = "I better get to those cannons quick before the dragon kills me";
+    private string nextStageMessage = "I need to get back to the main platform quick it looks like the lava is about to rise";
 
     private void OnTriggerEnter(Collider other)
     {
@@ -22,6 +24,7 @@ public class BossStageProgressor : MonoBehaviour
         {
             if (isStarter && !doneProgressing)
             {
+                ImportantComponentsManager.Instance.dialogueBox.DisplayText(startMessage, 5f);
                 fightManager.StartFight();
                 ProgressManager.Instance.NextStage();
                 doneProgressing = true;
@@ -58,6 +61,7 @@ public class BossStageProgressor : MonoBehaviour
         cannonFire.Play();
 
         fired = true;
+        ImportantComponentsManager.Instance.dialogueBox.DisplayText(nextStageMessage, 5f);
 
         GameObject newobj = GameObject.Instantiate(cannonBall, startPoint.position, Quaternion.identity);
 

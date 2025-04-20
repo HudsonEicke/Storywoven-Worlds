@@ -99,6 +99,7 @@ public class BossFightManager : MonoBehaviour
                 Debug.Log("PLAYING ANIM");
                 animator.Play("Fly Breathe Fire", 0, 0);
                 firstRun = false;
+                fireballSound.PlayFireSoundEffect();
             }
 
             timeToAttack -= Time.deltaTime;
@@ -295,7 +296,6 @@ public class BossFightManager : MonoBehaviour
     public void FireballAttack(AttackPoint attackPoint)
     {
         attackPoint.FlashZone();
-        fireballSound.PlayFireSoundEffect();
         GameObject newFireball = Instantiate(fireballPrefab, fireBallSpawnPoint.transform.position, Quaternion.identity);
 
         Fireball fireball = newFireball.GetComponent<Fireball>();
