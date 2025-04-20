@@ -14,6 +14,7 @@ public class AudioSysMenu : MonoBehaviour
     void Start()
     {
         audioSource.clip = clip;
+        audioSource.loop = false; // Set to false to control looping manually
         audioSource.Play(); // Play from the beginning
     }
 
@@ -27,6 +28,8 @@ public class AudioSysMenu : MonoBehaviour
         // This is better: check if audio.time has reached the clip length
         if (hasLoopStarted && audioSource.time >= audioSource.clip.length)
         {
+            audioSource.Stop(); // Stop the audio
+            Debug.Log("Looping audio from " + loopStartTime + " seconds.");
             audioSource.time = loopStartTime;
             audioSource.Play();
         }
