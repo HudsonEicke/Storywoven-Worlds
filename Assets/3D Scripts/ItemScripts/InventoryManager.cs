@@ -68,6 +68,19 @@ public class InventoryManager : MonoBehaviour
         return null;
     }
 
+    public void UseItem(int itemID)
+    {
+        for (int i = 0; i < inventory.Count; i++)
+        {
+            if (inventory[i].itemId == itemID)
+            {
+                UseIndex(i);
+                break;
+            }
+        }
+
+    }
+
     //takes the first index and gets the previous item if it exists
     public Item GetPrevious(int firstIndex)
     {
