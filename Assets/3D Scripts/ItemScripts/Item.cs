@@ -9,5 +9,5 @@ public abstract class Item : MonoBehaviour
     public int quantity = 1;
     public int itemId;
 
-    public abstract void Use();
+    public abstract void Use(int index);
 }

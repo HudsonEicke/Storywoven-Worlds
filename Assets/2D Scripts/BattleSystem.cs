@@ -41,8 +41,11 @@ public class BattleSystem : MonoBehaviour
     [SerializeField] public List<GameObject> backButtons;
     [SerializeField] public List<Text> itemButtonsText;
     [SerializeField] private List<Text> itemListText;
+    [SerializeField] private List<Text> itemManaListText;
     [SerializeField] List<GameObject> healthPotionButtons;
+    [SerializeField] List<GameObject> manaPotionButtons;
     List<GameObject> healthPotionButtonsSelect = new List<GameObject>();
+    List<GameObject> manaPotionButtonsSelect = new List<GameObject>();
 
     List<GameObject> player1SkillButtonsSelect = new List<GameObject>();
     List<GameObject> player2SkillButtonsSelect = new List<GameObject>();
@@ -84,6 +87,7 @@ public class BattleSystem : MonoBehaviour
     private List<Item> inventory;
     private InventoryManager inventoryManager2D;
     public Text displayText;
+    private static List<Item> inventoryList;
 
     void Awake()
     {
@@ -171,8 +175,12 @@ public class BattleSystem : MonoBehaviour
                     itemListText[i].gameObject.SetActive(false);
                     healthPotionButtonsSelect.Add(Instantiate(healthPotionButtons[i], buttonPanel));
                     healthPotionButtonsSelect[i].SetActive(false);
+                    itemManaListText[i].gameObject.SetActive(false);
+                    manaPotionButtonsSelect.Add(Instantiate(manaPotionButtons[i], buttonPanel));
+                    manaPotionButtonsSelect[i].SetActive(false);
                     int index = i;
                     healthPotionButtonsSelect[i].GetComponent<Button>().onClick.AddListener(() => commenceHealthPotion(index));
+                    manaPotionButtonsSelect[i].GetComponent<Button>().onClick.AddListener(() => commenceManaPotion(index));
                 }
             }
             first = 1;
@@ -938,6 +946,7 @@ private IEnumerator EnemyAttackSequence()
         }
 
         int healthPotions = inventoryManager2D.GetItemQuantity(0);
+        int manaPotions = inventoryManager2D.GetItemQuantity(2);
 
         backButtonsText[index].gameObject.SetActive(false);
         backButtonSelect[index].gameObject.SetActive(false);
@@ -949,8 +958,14 @@ private IEnumerator EnemyAttackSequence()
         itemListText[index].text = "Health Potions: " + healthPotions.ToString();
         itemListText[index].gameObject.SetActive(true);
         healthPotionButtonsSelect[index].SetActive(true);
+
+        itemManaListText[index].text = "Mana Potions: " + manaPotions.ToString();
+        itemManaListText[index].gameObject.SetActive(true);
+        manaPotionButtonsSelect[index].SetActive(true);
+
         backButtonsText[index].gameObject.SetActive(true);
         backButtonSelect[index].gameObject.SetActive(true);
+
 
         UnityEngine.EventSystems.EventSystem.current.SetSelectedGameObject(healthPotionButtonsSelect[index]);
         lastSelected = healthPotionButtonsSelect[index];
@@ -969,14 +984,49 @@ private IEnumerator EnemyAttackSequence()
                 characterList.characters[i].playerHealth.GetComponent<Slider>().value = characterList.characters[i].playerUnit.getCurrentHP();
             }
             characterList.characters[index].playerHud.gameObject.SetActive(true);
+            manaPotionButtonsSelect[index].SetActive(false);
+            itemManaListText[index].gameObject.SetActive(false);
             healthPotionButtonsSelect[index].SetActive(false);
+            itemListText[index].gameObject.SetActive(false);
             checkplayerTurn();
         }
         else {
             Debug.Log("No health potions left!");
             characterList.characters[index].playerHud.gameObject.SetActive(true);
+            manaPotionButtonsSelect[index].SetActive(false);
+            itemManaListText[index].gameObject.SetActive(false);
             healthPotionButtonsSelect[index].SetActive(false);
-            
+            itemListText[index].gameObject.SetActive(false);
+            BackButtonClicked(index);
+            return;
+        }
+    }
+
+    public void commenceManaPotion(int index) {
+        manaPotionButtonsSelect[index].SetActive(false);
+        itemManaListText[index].gameObject.SetActive(false);
+        backButtonsText[index].gameObject.SetActive(false);
+        backButtonSelect[index].gameObject.SetActive(false);
+
+        Debug.Log("Mana Potion used");
+        if (inventoryManager2D.GetItemQuantity(2) > 0) {
+            inventoryManager2D.SetIndex(index);
+            inventoryManager2D.UseIndex(2);
+            characterList.characters[index].playerMana.GetComponent<Slider>().value = characterList.characters[index].playerUnit.getEnergy();
+            characterList.characters[index].playerHud.gameObject.SetActive(true);
+            manaPotionButtonsSelect[index].SetActive(false);
+            itemManaListText[index].gameObject.SetActive(false);
+            healthPotionButtonsSelect[index].SetActive(false);
+            itemListText[index].gameObject.SetActive(false);
+            checkplayerTurn();
+        }
+        else {
+            Debug.Log("No mana potions left!");
+            characterList.characters[index].playerHud.gameObject.SetActive(true);
+            manaPotionButtonsSelect[index].SetActive(false);
+            itemManaListText[index].gameObject.SetActive(false);
+            healthPotionButtonsSelect[index].SetActive(false);
+            itemListText[index].gameObject.SetActive(false);
             BackButtonClicked(index);
             return;
         }
@@ -990,6 +1040,8 @@ private IEnumerator EnemyAttackSequence()
         healthPotionButtonsSelect[goBack].SetActive(false);
         itemListText[goBack].gameObject.SetActive(false);
         healthPotionButtonsSelect[goBack].SetActive(false);
+        itemManaListText[goBack].gameObject.SetActive(false);
+        manaPotionButtonsSelect[goBack].SetActive(false);
         for (int i = 0; i < 4; i++) {
             player1SkillButtonsSelect[i].SetActive(false);
             player2SkillButtonsSelect[i].SetActive(false);

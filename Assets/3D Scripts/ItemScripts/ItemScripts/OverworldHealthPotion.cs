@@ -7,7 +7,7 @@ public class OverworldHealthPotion : Item
     [SerializeField]
     private int healthToAdd;
 
-    public override void Use()
+    public override void Use(int index)
     {
         if (ImportantComponentsManager.Instance.thirdPersonMovement.playerHealthController.currentHealth == ImportantComponentsManager.Instance.thirdPersonMovement.playerHealthController.maxHealth)
         {

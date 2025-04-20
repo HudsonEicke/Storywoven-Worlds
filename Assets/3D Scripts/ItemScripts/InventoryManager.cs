@@ -8,6 +8,7 @@ public class InventoryManager : MonoBehaviour
     private static List<Item> inventory = new List<Item>();
     public static InventoryManager Instance { get { return _instance; } }
     public GameObject itemStorage;
+    private int playerIndex = 0;
 
     private void Awake()
     {
@@ -81,9 +82,10 @@ public class InventoryManager : MonoBehaviour
     //takes an index of an item to use and uses it
     public void UseIndex(int index)
     {
+        int useIndex = playerIndex;
         if (index >= 0 && index < inventory.Count)
         {
-            inventory[index].Use();
+            inventory[index].Use(useIndex);
             inventory[index].quantity -= 1;
 
             //checks if the player is now out of the item
@@ -105,6 +107,12 @@ public class InventoryManager : MonoBehaviour
                 Debug.Log(index + " is not a valid index the inventory only has a range from 0 to " + (inventory.Count - 1) + " currently");
             }
         }
+    }
+
+    // method to set the index
+    public void SetIndex(int index)
+    {
+        playerIndex = index;
     }
 
     //gets the quantity of the given id

@@ -5,7 +5,7 @@ using UnityEngine;
 public class EmptyItem : Item
 {
     //Empty class to represent empty slots in the inventory
-    public override void Use()
+    public override void Use(int index)
     {
         return;
     }

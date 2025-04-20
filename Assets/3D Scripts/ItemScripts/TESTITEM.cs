@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TESTITEM : Item
 {
-    public override void Use()
+    public override void Use(int index)
     {
         return;
     }

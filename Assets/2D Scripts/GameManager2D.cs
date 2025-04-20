@@ -34,7 +34,7 @@ public class GameManager2D : MonoBehaviour
 
     public void InitializeGame(int enemies, int characters, int currentLevel)
     {
-        enemyCount = 3;
+        enemyCount = enemies;
         characterCount = characters;
         levels = currentLevel;
         UpdateBattleState(BattleState.START);

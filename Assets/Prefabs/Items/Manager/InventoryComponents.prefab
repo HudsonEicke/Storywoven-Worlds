@@ -126,6 +126,7 @@ MonoBehaviour:
   idToItem:
   - {fileID: 4940742870161632368, guid: 67e948044e4f9ef4d96e78b79aeff188, type: 3}
   - {fileID: 4775823861723890322, guid: 2c0896a571246994a8d7d2365d533d9e, type: 3}
+  - {fileID: 6455688131849497554, guid: 0e11c473ade664543a2b210854553716, type: 3}
 --- !u!1 &8282560225080553259
 GameObject:
   m_ObjectHideFlags: 0

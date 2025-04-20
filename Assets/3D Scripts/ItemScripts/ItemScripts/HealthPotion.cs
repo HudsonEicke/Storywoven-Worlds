@@ -7,7 +7,7 @@ public class HealthPotion : Item
     [SerializeField]
     private int healthToAdd;
 
-    public override void Use()
+    public override void Use(int index)
     {
         for(int i = 0; i < GameManager3D.Instance.characterList3D.characters.Count; i++)
         {
