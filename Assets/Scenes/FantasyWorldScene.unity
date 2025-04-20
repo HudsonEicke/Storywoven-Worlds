@@ -25894,11 +25894,11 @@ MonoBehaviour:
   musicPlayer: {fileID: 1062694520}
   timeToDecrease: 2.5
   defaultMusicClip: {fileID: 8300000, guid: adb2cdc779192e741bfeb2d7553e58d4, type: 3}
-  defaultMusicVolume: 0.5
+  defaultMusicVolume: 0.3
   castleMusicClip: {fileID: 8300000, guid: cf893b101ddfa7a4baa8aae004e0d521, type: 3}
-  castleMusicVolume: 0.5
+  castleMusicVolume: 0.3
   bossMusicClip: {fileID: 8300000, guid: 57c00cde8cdcd654ea4cbcaad1a836ce, type: 3}
-  bossMusicVolume: 0.5
+  bossMusicVolume: 0.35
   swapMusic: 0
 --- !u!4 &1067553404 stripped
 Transform:
