@@ -49,7 +49,7 @@ public class MusicManager : MonoBehaviour
         if (swapMusic)
         {
             swapMusic = false;
-            SwapMusicSmooth(1);
+            SwapMusicSmooth(2);
         }
 
         if(inSmoothTransition)
