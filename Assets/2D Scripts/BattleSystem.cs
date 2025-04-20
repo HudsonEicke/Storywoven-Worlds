@@ -807,7 +807,7 @@ private IEnumerator EnemyAttackSequence()
                 player1SkillOptions[1].gameObject.SetActive(true);
                 player1SkillOptions[2].gameObject.SetActive(true);
             }
-            else if (level >= 1) {
+            else if (level >= 2) {
                 player1SkillOptions[0].gameObject.SetActive(true);
                 player1SkillOptions[1].gameObject.SetActive(true);
             }
@@ -823,12 +823,12 @@ private IEnumerator EnemyAttackSequence()
                 player2SkillOptions[2].gameObject.SetActive(true);
                 player2SkillOptions[3].gameObject.SetActive(true);
             }
-            else if (level >= 5) {
+            else if (level >= 6) {
                 player2SkillOptions[0].gameObject.SetActive(true);
                 player2SkillOptions[1].gameObject.SetActive(true);
                 player2SkillOptions[2].gameObject.SetActive(true);
             }
-            else if (level >= 1) {
+            else if (level >= 3) {
                 player2SkillOptions[0].gameObject.SetActive(true);
                 player2SkillOptions[1].gameObject.SetActive(true);
             }
@@ -838,18 +838,18 @@ private IEnumerator EnemyAttackSequence()
             backButtonsText[1].gameObject.SetActive(true);
         }
         else {
-            if (level >= 10) {
+            if (level >= 13) {
                 player3SkillOptions[0].gameObject.SetActive(true);
                 player3SkillOptions[1].gameObject.SetActive(true);
                 player3SkillOptions[2].gameObject.SetActive(true);
                 player3SkillOptions[3].gameObject.SetActive(true);
             }
-            else if (level >= 5) {
+            else if (level >= 10) {
                 player3SkillOptions[0].gameObject.SetActive(true);
                 player3SkillOptions[1].gameObject.SetActive(true);
                 player3SkillOptions[2].gameObject.SetActive(true);
             }
-            else if (level >= 1) {
+            else if (level >= 5) {
                 player3SkillOptions[0].gameObject.SetActive(true);
                 player3SkillOptions[1].gameObject.SetActive(true);
             }

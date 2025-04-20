@@ -25,7 +25,7 @@ public class GameManager3D : MonoBehaviour
     private CharacterSystem3D characterSystem3D;
     public CharacterList3D characterList3D;
     public int playerMoney = 0;
-    public int level = 1;
+    public int level = 2;
 
     private void Awake()
     {
@@ -99,7 +99,7 @@ public class GameManager3D : MonoBehaviour
         event2D.enabled = true;
         event2D.gameObject.SetActive(true);
         //gameManager2D.UpdateBattleState(BattleState.START);
-        GameManager2D.instance.InitializeGame(enemyCount, players, level);
+        GameManager2D.instance.InitializeGame(enemyCount, players, level / 2);
         // SceneManager.LoadScene("AngeloScene", LoadSceneMode.Additive);
     }
 
@@ -117,6 +117,7 @@ public class GameManager3D : MonoBehaviour
             Debug.Log("[GameManager3D] Game WON");
             ImportantComponentsManager.Instance.thirdPersonMovement.playerHealthController.UpdateUI();
             // do whatever here for game win
+            level++;
         }
         else 
         {
