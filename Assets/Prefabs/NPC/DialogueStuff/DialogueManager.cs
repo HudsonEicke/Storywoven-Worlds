@@ -117,7 +117,7 @@ public class DialogueManager : MonoBehaviour
             if (!visitedShop)
             {
             visitedShop = true;
-            GameManager3D.Instance.AddMoney(100);
+            GameManager3D.Instance.AddMoney(50);
             Debug.Log("Added 100 coints to player for tutorial");
             }
         }

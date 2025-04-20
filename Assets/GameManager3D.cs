@@ -27,6 +27,7 @@ public class GameManager3D : MonoBehaviour
     public int playerMoney = 0;
     public int level = 2;
     public bool inCombat = false;
+    int prevMoney = 0;
 
     private void Awake()
     {
@@ -56,6 +57,12 @@ public class GameManager3D : MonoBehaviour
         {
             startBattle = false;
             StartBattle(2);
+        }
+
+        if(playerMoney != prevMoney)
+        {
+            Debug.Log("MONEY ADDED: " + (playerMoney - prevMoney));
+            prevMoney = playerMoney;
         }
     }
 
@@ -129,11 +136,11 @@ public class GameManager3D : MonoBehaviour
             level++;
 
             ItemIdManager.Instance.AddItem(1, 1);
-
+            AddMoney(15);
             if (level % 2 == 0)
-                ImportantComponentsManager.Instance.dialogueBox.DisplayText("You have leveled up! You have obtained a Overworld Health Potion!", 5f);
+                ImportantComponentsManager.Instance.dialogueBox.DisplayText("You have leveled up! You have obtained a Overworld Health Potion and " + 30 + " coins!", 5f);
             else
-                ImportantComponentsManager.Instance.dialogueBox.DisplayText("You have obtained a Overworld Health Potion!", 5f);
+                ImportantComponentsManager.Instance.dialogueBox.DisplayText("You have obtained a Overworld Health Potion and " + 30 + " coins!", 5f);
         }
         else 
         {
