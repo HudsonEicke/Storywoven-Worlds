@@ -16696,6 +16696,10 @@ MonoBehaviour:
   - {fileID: 1833081056}
   - {fileID: 1177387009}
   - {fileID: 1182985002}
+  itemSHealthListText:
+  - {fileID: 495717912}
+  - {fileID: 1239160494}
+  - {fileID: 240632825}
   healthPotionButtons:
   - {fileID: 8021268271617775633, guid: 071a18e258ae95043814cedc53d39ab2, type: 3}
   - {fileID: 8021268271617775633, guid: 60e1bc8e1a188e1438deca792fde757f, type: 3}
@@ -16704,6 +16708,10 @@ MonoBehaviour:
   - {fileID: 8021268271617775633, guid: ca01f1402fdc13b4d8402ecf504b1c64, type: 3}
   - {fileID: 8021268271617775633, guid: 0606a30180bdbd044868ce8e2aae7490, type: 3}
   - {fileID: 8021268271617775633, guid: f990b7ecaccea4749ad662ff96ead65d, type: 3}
+  SingleHealthPotionButtons:
+  - {fileID: 8021268271617775633, guid: 6df5224d113b565448c9228cdb3e6d7d, type: 3}
+  - {fileID: 8021268271617775633, guid: 34686963b17cc4349ba785a010717094, type: 3}
+  - {fileID: 8021268271617775633, guid: 897d184cd9eee6a418e0e4f65691dc69, type: 3}
   healthBarEnemyPanels:
   - {fileID: 690160268}
   - {fileID: 409645403}
