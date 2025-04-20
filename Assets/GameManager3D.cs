@@ -26,6 +26,7 @@ public class GameManager3D : MonoBehaviour
     public CharacterList3D characterList3D;
     public int playerMoney = 0;
     public int level = 2;
+    public bool inCombat = false;
 
     private void Awake()
     {
@@ -85,6 +86,7 @@ public class GameManager3D : MonoBehaviour
         event1.enabled = false;
         event1.gameObject.SetActive(false);
         playerCamera.SetActive(false);
+        inCombat = true;
 
         // made the variables static so they can be modified from the 3D scene
         //GameManager2D.characterCount = 2; 
@@ -117,6 +119,7 @@ public class GameManager3D : MonoBehaviour
 
     private IEnumerator handleGameEnd(int isEnd)
     {
+        inCombat = false;
         Debug.Log("[GameManager3D] Game Ended");
         if (isEnd == 1) 
         {
