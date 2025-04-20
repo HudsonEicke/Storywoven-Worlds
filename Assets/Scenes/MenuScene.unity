@@ -1814,7 +1814,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioSource: {fileID: 1967264431}
   clip: {fileID: 8300000, guid: e8680ab77974a8a42ace6ee14f6200f1, type: 3}
-  loopStartTime: 2
+  loopStartTime: 1.9
 --- !u!82 &1967264431
 AudioSource:
   m_ObjectHideFlags: 0
