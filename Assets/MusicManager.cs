@@ -28,7 +28,6 @@ public class MusicManager : MonoBehaviour
 
     private bool inSmoothTransition = false;
     private bool decreasing = false;
-    private float defaultVolume;
     private float currentAudioVolume;
     private float amountToDecreasePerInverval;
 
@@ -42,9 +41,9 @@ public class MusicManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //musicPlayer.clip = defaultMusicClip;
-        //musicPlayer.volume = defaultMusicVolume;
-        //musicPlayer.Play();
+        musicPlayer.clip = newAudioClip;
+        musicPlayer.volume = newAudioVolume;
+        musicPlayer.Play();
         //currentAudioVolume = defaultMusicVolume;
     }
 
@@ -105,7 +104,7 @@ public class MusicManager : MonoBehaviour
         switch (musicID)
         {
             case 0:
-                amountToIncreasePerInverval = defaultVolume / timeToDecrease;
+                amountToIncreasePerInverval = defaultMusicVolume / timeToDecrease;
                 newAudioClip = defaultMusicClip;
                 newAudioVolume = defaultMusicVolume;
                 break;
@@ -132,12 +131,16 @@ public class MusicManager : MonoBehaviour
         switch(musicID)
         {
             case 0:
+                newAudioClip = defaultMusicClip;
+                newAudioVolume = defaultMusicVolume;
                 musicPlayer.clip = defaultMusicClip;
                 musicPlayer.volume = defaultMusicVolume;
                 musicPlayer.Play();
                 currentAudioVolume = defaultMusicVolume;
                 break;
             case 1:
+                newAudioClip = castleMusicClip;
+                newAudioVolume = castleMusicVolume;
                 musicPlayer.clip = castleMusicClip;
                 musicPlayer.volume = castleMusicVolume;
                 musicPlayer.Play();

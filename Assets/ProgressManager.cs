@@ -12,6 +12,8 @@ public class ProgressManager : MonoBehaviour
     public GameObject lavaLight;
     public GameObject castleDeathPlane;
 
+    private bool FirstLoad = true;
+
     private void Awake()
     {
         _instance = this;
@@ -64,7 +66,7 @@ public class ProgressManager : MonoBehaviour
 
     public void SetStage(CurrentStage stage, bool instant)
     {
-        if (stage == this.stage)
+        if (!FirstLoad && stage == this.stage)
         {
             return;
         }

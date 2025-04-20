@@ -124,6 +124,13 @@ public class GameManager3D : MonoBehaviour
             ImportantComponentsManager.Instance.thirdPersonMovement.playerHealthController.UpdateUI();
             // do whatever here for game win
             level++;
+
+            ItemIdManager.Instance.AddItem(1, 1);
+
+            if (level % 2 == 0)
+                ImportantComponentsManager.Instance.dialogueBox.DisplayText("You have leveled up! You have obtained a Overworld Health Potion!", 5f);
+            else
+                ImportantComponentsManager.Instance.dialogueBox.DisplayText("You have obtained a Overworld Health Potion!", 5f);
         }
         else 
         {

@@ -5,12 +5,31 @@ using UnityEngine.SceneManagement;
 
 public class SceneChanger : MonoBehaviour
 {
+    public bool isSaveVersion = true;
+    public bool idxBased = true;
+    public string sceneName;
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            SaveManager.Instance.SavePlayer(true);
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            if (isSaveVersion)
+            {
+                SaveManager.Instance.SavePlayer(true);
+
+                if (idxBased)
+                    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+                else
+                    SceneManager.LoadScene(sceneName);
+
+            }
+            else
+            {
+                if(sceneName == "Exit")
+                    Application.Quit();
+
+                SceneManager.LoadScene(sceneName);
+            }
         }
     }
 }
