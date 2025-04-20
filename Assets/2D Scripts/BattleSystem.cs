@@ -958,11 +958,11 @@ private IEnumerator EnemyAttackSequence()
         characterList.characters[index].playerHudItem.gameObject.SetActive(false);
 
         // Debug.Log("Health Potions: " + healthPotions);
-        itemListText[index].text = "Health Potions: " + healthPotions.ToString();
+        itemListText[index].text = "Party HP: " + healthPotions.ToString();
         itemListText[index].gameObject.SetActive(true);
         healthPotionButtonsSelect[index].SetActive(true);
 
-        itemManaListText[index].text = "Mana Potions: " + manaPotions.ToString();
+        itemManaListText[index].text = "Single MP: " + manaPotions.ToString();
         itemManaListText[index].gameObject.SetActive(true);
         manaPotionButtonsSelect[index].SetActive(true);
 
