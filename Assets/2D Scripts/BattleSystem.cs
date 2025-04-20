@@ -221,6 +221,7 @@ public class BattleSystem : MonoBehaviour
                 enemyList[i].enemyHealth.gameObject.SetActive(true);
                 enemyList[i].healthPanel.gameObject.SetActive(true);
                 enemyList[i].enemyHud.gameObject.SetActive(true);
+                enemyList[i].enemyStun.gameObject.SetActive(false);
             }
             GameManager2D.instance.UpdateBattleState(BattleState.PLAYERTURN);
             break;
@@ -877,7 +878,7 @@ private IEnumerator EnemyAttackSequence()
                 player1SkillButtonsSelect[1].SetActive(true);
                 player1SkillButtonsSelect[2].SetActive(true);
             }
-            else if (level >= 1) {
+            else if (level >= 2) {
                 player1SkillButtonsSelect[0].SetActive(true);
                 player1SkillButtonsSelect[1].SetActive(true);
             }
@@ -895,12 +896,12 @@ private IEnumerator EnemyAttackSequence()
                 player2SkillButtonsSelect[2].SetActive(true);
                 player2SkillButtonsSelect[3].SetActive(true);
             }
-            else if (level >= 5) {
+            else if (level >= 6) {
                 player2SkillButtonsSelect[0].SetActive(true);
                 player2SkillButtonsSelect[1].SetActive(true);
                 player2SkillButtonsSelect[2].SetActive(true);
             }
-            else if (level >= 1) {
+            else if (level >= 3) {
                 player2SkillButtonsSelect[0].SetActive(true);
                 player2SkillButtonsSelect[1].SetActive(true);
             }
@@ -912,18 +913,18 @@ private IEnumerator EnemyAttackSequence()
             lastSelected = player2SkillButtonsSelect[0];
         }
         else {
-            if (level >= 10) {
+            if (level >= 13) {
                 player3SkillButtonsSelect[0].SetActive(true);
                 player3SkillButtonsSelect[1].SetActive(true);
                 player3SkillButtonsSelect[2].SetActive(true);
                 player3SkillButtonsSelect[3].SetActive(true);
             }
-            else if (level >= 5) {
+            else if (level >= 10) {
                 player3SkillButtonsSelect[0].SetActive(true);
                 player3SkillButtonsSelect[1].SetActive(true);
                 player3SkillButtonsSelect[2].SetActive(true);
             }
-            else if (level >= 1) {
+            else if (level >= 5) {
                 player3SkillButtonsSelect[0].SetActive(true);
                 player3SkillButtonsSelect[1].SetActive(true);
             }
