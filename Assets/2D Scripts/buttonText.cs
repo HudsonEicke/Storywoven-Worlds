@@ -32,6 +32,7 @@ public class buttonText : MonoBehaviour, ISelectHandler, IDeselectHandler
 
     public void OnSelect(BaseEventData eventData)
     {
+        AudioSystem2D.instance.PlayAudio();
         Debug.Log("Button Highlighted");
         // hoverSound.Play();
 

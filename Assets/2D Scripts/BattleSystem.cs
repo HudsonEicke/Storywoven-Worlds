@@ -143,9 +143,11 @@ public class BattleSystem : MonoBehaviour
             Debug.Log("[BattleSystem] Preparing battle system!");
             //playerTurnSetup();
             //playerSelectSetup();
+            AudioSystem2D.instance.stopBattleMusic();
             return;
         
         case BattleState.START:
+            AudioSystem2D.instance.playBattleMusic();
             level = GameManager2D.instance.levels;
 
             // reset if batle ended earlier than when logic could stop invis
