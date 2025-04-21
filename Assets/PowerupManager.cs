@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PowerupManager : MonoBehaviour
 {
@@ -15,6 +16,37 @@ public class PowerupManager : MonoBehaviour
     public GameObject orangeGem;
     public GameObject gemWarp;
     public float timeToDisplayText = 5f;
+    public float timeBetweenWarp = 5f;
+    private bool firstRun = false;
+    public GameObject fadeImage;
+    private bool warping = false;
+    public float timeRemaining;
+
+    private void Start()
+    {
+
+    }
+
+    private void Update()
+    {
+        if (!warping)
+            return;
+
+        timeRemaining -= Time.deltaTime;
+
+        if (firstRun)
+        {
+            ImportantComponentsManager.Instance.thirdPersonMovement.newPosition = gemWarp.transform.position;
+            ImportantComponentsManager.Instance.thirdPersonMovement.QueuedMove = true;
+            firstRun = false;
+        }
+
+        if(timeRemaining <= 0)
+        {
+            warping = false;
+            fadeImage.SetActive(false);
+        }
+    }
 
     public void GivePowerup(int powerupID)
     {
@@ -67,8 +99,10 @@ public class PowerupManager : MonoBehaviour
 
         ImportantComponentsManager.Instance.dialogueBox.DisplayText(message, timeToDisplayText);
 
-        ImportantComponentsManager.Instance.thirdPersonMovement.newPosition = gemWarp.transform.position;
-        ImportantComponentsManager.Instance.thirdPersonMovement.QueuedMove = true;
+        firstRun = true;
+        warping = true;
+        timeRemaining = timeBetweenWarp;
+        fadeImage.SetActive(true);
     }
 
     public void LoadPowerups(bool hasDoubleJump, bool hasSprint, bool hasBoostedHealth)
