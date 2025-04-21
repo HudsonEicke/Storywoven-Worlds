@@ -17,6 +17,7 @@ public class lightArrowSkill : skill
     private bool miniGameStart = false; // This is to check if the minigame has started
     bool hit;
 
+
     private void Start()
     {
         
@@ -106,10 +107,10 @@ public class lightArrowSkill : skill
 
     private IEnumerator MoveArrow()
     {
-        miniGameStart = true; // Set this to true when the minigame starts
         UnityEngine.Vector3 startPos = arrow.transform.position;
         UnityEngine.Vector3 startScale = arrow.transform.localScale;
         yield return new WaitForSeconds(1);
+        miniGameStart = true; // Set this to true when the minigame starts
         float duration = 3.0f;
         float elapsedTime = 0f;
 
