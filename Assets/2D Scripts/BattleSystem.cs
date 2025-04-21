@@ -865,7 +865,7 @@ private IEnumerator EnemyAttackSequence()
             backButtonsText[1].gameObject.SetActive(true);
         }
         else {
-            if (level >= 1) {
+            if (level >= 12) {
                 player3SkillOptions[0].gameObject.SetActive(true);
                 player3SkillOptions[1].gameObject.SetActive(true);
                 player3SkillOptions[2].gameObject.SetActive(true);
@@ -939,7 +939,7 @@ private IEnumerator EnemyAttackSequence()
             lastSelected = player2SkillButtonsSelect[0];
         }
         else {
-            if (level >= 1) {
+            if (level >= 12) {
                 player3SkillButtonsSelect[0].SetActive(true);
                 player3SkillButtonsSelect[1].SetActive(true);
                 player3SkillButtonsSelect[2].SetActive(true);
