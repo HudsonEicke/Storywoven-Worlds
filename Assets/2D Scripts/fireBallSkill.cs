@@ -80,7 +80,7 @@ public class fireballSkill : skill
         
         float duration = 4.0f;
         float elapsedTime = 0f;
-
+        AudioSystem2D.instance.playFireballSound();
         UnityEngine.Vector3 startPos = fireball.transform.position;
         UnityEngine.Vector3 endPos = startPos + new UnityEngine.Vector3(-90, 0, 0); 
 

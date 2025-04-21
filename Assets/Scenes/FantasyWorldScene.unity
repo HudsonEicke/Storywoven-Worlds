@@ -16888,6 +16888,14 @@ MonoBehaviour:
   battleMusic: {fileID: 8300000, guid: 047452589b1df3041aaa8b1fcc868c86, type: 3}
   Success: {fileID: 8300000, guid: 598fa7a35f9976e41b477f23b053cbbc, type: 3}
   Failure: {fileID: 8300000, guid: 959ea4d589adc2f41b3b776e700c2a56, type: 3}
+  swordSound: {fileID: 8300000, guid: d0f398784475627418c8db2dca9bfe97, type: 3}
+  swordSound2: {fileID: 8300000, guid: a0209480370a9bf4487907d03d38aa6a, type: 3}
+  fireBall: {fileID: 8300000, guid: 02eb5549e9644124394ca0c031082e61, type: 3}
+  flameSword: {fileID: 8300000, guid: cdc0ddd280099434dad14ac78740c9c3, type: 3}
+  healingSound: {fileID: 8300000, guid: 8dc10e27f53355d4787fae3842d66eff, type: 3}
+  healingSound2: {fileID: 8300000, guid: dd3565d1b5fe5cf48b049d8c85aceefa, type: 3}
+  healingSound3: {fileID: 8300000, guid: 99870d74ec0c00d419224dffb600a8f3, type: 3}
+  rockBreak: {fileID: 8300000, guid: a2a87d47d217ea745b60679e072fbbee, type: 3}
 --- !u!114 &782443263
 MonoBehaviour:
   m_ObjectHideFlags: 0

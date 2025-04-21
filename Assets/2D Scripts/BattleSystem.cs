@@ -1202,7 +1202,7 @@ private IEnumerator EnemyAttackSequence()
     }
 
     void commenceSlashButton(int index, int enemyIndex) {
-
+        AudioSystem2D.instance.playSwordSound();
         for (int i = 0; i < enemySelectButtons.Count; i++) {
             if (enemyList[i].enemyUnit.getDead()) continue;
             enemySelectButtons[i].SetActive(false);
@@ -1251,6 +1251,7 @@ private IEnumerator EnemyAttackSequence()
     }
 
     void commencePierceButton(int index, int enemyIndex) {
+        AudioSystem2D.instance.playSwordSound2();
         for (int i = 0; i < enemySelectButtons.Count; i++) {
             if (enemyList[i].enemyUnit.getDead()) continue;
             enemySelectButtons[i].SetActive(false);
@@ -1512,6 +1513,7 @@ private IEnumerator EnemyAttackSequence()
         characterList.characters[index].playerUnit.useEnergy(playerOneSkills[3].getSkillCost());
         characterList.characters[index].playerMana.GetComponent<Slider>().value = characterList.characters[index].playerUnit.getEnergy();
         Debug.Log("Heavens Delight button clicked");
+        AudioSystem2D.instance.playHealingSound3();
         for (int i = 0; i < player2SkillOptions.Count; i++) {
             player2SkillOptions[i].gameObject.SetActive(false);
             player2SkillButtonsSelect[i].SetActive(false);
@@ -1744,7 +1746,7 @@ private IEnumerator EnemyAttackSequence()
     }
 
     void commenceFlameShowerButtonClicked(int index, int enemyIndex) {
-
+        AudioSystem2D.instance.playFlameSwordSound();
         // EVENT SYS CALL FOR FLAME SHOWER 
         playerOneSkills[3].PlayMinigame((result) => {
             if (result == 1)    {
@@ -1830,10 +1832,12 @@ private IEnumerator EnemyAttackSequence()
     void HealingDone(int index) {
         Debug.Log("HEALING PLAYER " + playerTwoSkills[0].skillHeal());
         if (healSwitch == 0) {
+            AudioSystem2D.instance.playHealingSound();
             characterList.characters[index].playerUnit.healthChange(playerTwoSkills[0].skillHeal());
             characterList.characters[index].playerHealth.GetComponent<Slider>().value = characterList.characters[index].playerUnit.getCurrentHP();
         }
         else {
+            AudioSystem2D.instance.playHealingSound2();
             characterList.characters[index].playerUnit.healthChange(playerTwoSkills[2].skillHeal());
             characterList.characters[index].playerHealth.GetComponent<Slider>().value = characterList.characters[index].playerUnit.getCurrentHP();
             characterList.characters[index].playerUnit.setPassiveHeal(3);
@@ -1871,6 +1875,7 @@ private IEnumerator EnemyAttackSequence()
         enemyList[index].enemyHealth.gameObject.SetActive(false);
         enemyList[index].healthPanel.gameObject.SetActive(false);
         enemyList[index].enemyHud.gameObject.SetActive(false);
+        enemyList[index].enemyStun.gameObject.SetActive(false);
         currentEnemyCount--;
 
         // check if all enemies are gone, if so, battle won
