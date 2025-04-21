@@ -65,7 +65,7 @@ public class EnemySystem : MonoBehaviour {
         GameObject enemyD = Instantiate(enemyPrefab[1], enemyBattleStation[1]);
         newEnemyD.enemy = enemyD;
         newEnemyD.enemyUnit = enemyD.GetComponent<Unit>();
-        newEnemyD.enemyUnit.SetStats(100, 20, 20, 100, "Defender", 0, 0, 0);
+        newEnemyD.enemyUnit.SetStats(85, 25, 20, 100, "Defender", 0, 0, 0);
         newEnemyD.enemyHud = enemyHud[1];
         newEnemyD.enemyStat = enemyStat[1];
         newEnemyD.enemyStun = enemyStun[1];

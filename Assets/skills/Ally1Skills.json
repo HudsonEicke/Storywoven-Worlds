@@ -3,7 +3,7 @@
       {
         "name": "Slash",
         "description": "Summon a sword to slash your opponent.",
-        "attack": 40,
+        "attack": 35,
         "cost": 10,
         "type": "melee",
         "healAmt": 10
