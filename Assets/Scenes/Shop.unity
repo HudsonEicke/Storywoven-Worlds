@@ -166,6 +166,86 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &82926440
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4472216897813265434, guid: 987cac5b74b3dc343b8612e0c0ac5233,
+        type: 3}
+      propertyPath: m_Name
+      value: SingleHealth
+      objectReference: {fileID: 0}
+    - target: {fileID: 7804338320951903104, guid: 987cac5b74b3dc343b8612e0c0ac5233,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -16.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7804338320951903104, guid: 987cac5b74b3dc343b8612e0c0ac5233,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 383.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7804338320951903104, guid: 987cac5b74b3dc343b8612e0c0ac5233,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 583.04
+      objectReference: {fileID: 0}
+    - target: {fileID: 7804338320951903104, guid: 987cac5b74b3dc343b8612e0c0ac5233,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7804338320951903104, guid: 987cac5b74b3dc343b8612e0c0ac5233,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7804338320951903104, guid: 987cac5b74b3dc343b8612e0c0ac5233,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7804338320951903104, guid: 987cac5b74b3dc343b8612e0c0ac5233,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7804338320951903104, guid: 987cac5b74b3dc343b8612e0c0ac5233,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7804338320951903104, guid: 987cac5b74b3dc343b8612e0c0ac5233,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7804338320951903104, guid: 987cac5b74b3dc343b8612e0c0ac5233,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 987cac5b74b3dc343b8612e0c0ac5233, type: 3}
+--- !u!114 &82926441 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: -4281037117172626595, guid: 987cac5b74b3dc343b8612e0c0ac5233,
+    type: 3}
+  m_PrefabInstance: {fileID: 82926440}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da69ba89c1ef30e4cb29d0df4b5f2d3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &83360101
 GameObject:
   m_ObjectHideFlags: 0
@@ -810,86 +890,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!1001 &471225517
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4775823861723890322, guid: 2c0896a571246994a8d7d2365d533d9e,
-        type: 3}
-      propertyPath: m_Name
-      value: OverworldHealthPotion
-      objectReference: {fileID: 0}
-    - target: {fileID: 5141170769496417072, guid: 2c0896a571246994a8d7d2365d533d9e,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5141170769496417072, guid: 2c0896a571246994a8d7d2365d533d9e,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5141170769496417072, guid: 2c0896a571246994a8d7d2365d533d9e,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5141170769496417072, guid: 2c0896a571246994a8d7d2365d533d9e,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5141170769496417072, guid: 2c0896a571246994a8d7d2365d533d9e,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5141170769496417072, guid: 2c0896a571246994a8d7d2365d533d9e,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5141170769496417072, guid: 2c0896a571246994a8d7d2365d533d9e,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5141170769496417072, guid: 2c0896a571246994a8d7d2365d533d9e,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5141170769496417072, guid: 2c0896a571246994a8d7d2365d533d9e,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5141170769496417072, guid: 2c0896a571246994a8d7d2365d533d9e,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 2c0896a571246994a8d7d2365d533d9e, type: 3}
---- !u!114 &471225518 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4219124360354467330, guid: 2c0896a571246994a8d7d2365d533d9e,
-    type: 3}
-  m_PrefabInstance: {fileID: 471225517}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f75c50f6da854fd4ebdb690450731c34, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &570607941
 GameObject:
   m_ObjectHideFlags: 0
@@ -1698,7 +1698,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogues:
   - characterID: 0
-    message: Welcome to the shop, traveler.
+    message: Welcome to the shop, traveler. [Space]
   - characterID: 0
     message: Please buy whatever you need to survive!
   characters:
@@ -1803,7 +1803,7 @@ MonoBehaviour:
   Button3Price: 20
   item1: {fileID: 2112832073}
   item2: {fileID: 622866130}
-  item3: {fileID: 471225518}
+  item3: {fileID: 82926441}
   ShopSceneName: Shop
   dialogueBox: {fileID: 1811154697}
   Response: {fileID: 83360102}
@@ -2396,7 +2396,7 @@ SceneRoots:
   m_Roots:
   - {fileID: 863460075}
   - {fileID: 460105833}
-  - {fileID: 471225517}
+  - {fileID: 82926440}
   - {fileID: 226593079}
   - {fileID: 1457331510}
   - {fileID: 2112832072}
