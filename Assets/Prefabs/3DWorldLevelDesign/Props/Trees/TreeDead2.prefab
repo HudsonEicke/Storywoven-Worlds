@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6229167337688343975}
   - component: {fileID: 57323182792495576}
   - component: {fileID: 5665482074139889028}
+  - component: {fileID: 5278921573771495349}
   m_Layer: 9
   m_Name: TreeDead2
   m_TagString: Untagged
@@ -107,3 +108,19 @@ CapsuleCollider:
   m_Height: 2.5456004
   m_Direction: 1
   m_Center: {x: -0.025951773, y: 1.2728002, z: 0.004445076}
+--- !u!208 &5278921573771495349
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6310555791512826216}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 0
+  m_Extents: {x: 0.2989967, y: 1.2728, z: 0.2989967}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: -0.02595177, y: 1.2728, z: 0.004445076}
+  m_TimeToStationary: 0.5
