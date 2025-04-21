@@ -7,6 +7,7 @@ public class ThirdPersonMovement : MonoBehaviour
 {
     public CharacterController controller;
     public Transform cam;
+    public CinemachineVirtualCamera virtualCamera;
     public PlayerHealthController playerHealthController;
     public Animator animator;
 
@@ -258,6 +259,7 @@ public class ThirdPersonMovement : MonoBehaviour
     public void MoveWithPlatform(Vector3 platformVelocity)
     {
         controller.Move(platformVelocity * Time.deltaTime);
+        //virtualCamera.OnTargetObjectWarped(gameObject.transform, positionDelta);
     }
 
     public void Jump()
