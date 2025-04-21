@@ -30,6 +30,14 @@ public class GameManager3D : MonoBehaviour
     int prevMoney = 0;
     public bool isWorldFrozen = false;
 
+    public float transitionTime = 2f;
+    private float countdownTime = 2f;
+    private bool combatPrepare = false;
+    private int nextFightEnemyCount;
+    public Animator combatStartVisual;
+    private GameObject objToDestory;
+    public AudioSource swordSound;
+
     private void Awake()
     {
         _instance = this;
@@ -60,10 +68,15 @@ public class GameManager3D : MonoBehaviour
             StartBattle(2);
         }
 
-        if(playerMoney != prevMoney)
+        if(combatPrepare)
         {
-            Debug.Log("MONEY ADDED: " + (playerMoney - prevMoney));
-            prevMoney = playerMoney;
+            countdownTime -= Time.deltaTime;
+
+            if (countdownTime <= 0)
+            {
+                combatPrepare = false;
+                StartBattle(nextFightEnemyCount);
+            }
         }
     }
 
@@ -89,8 +102,23 @@ public class GameManager3D : MonoBehaviour
         unFreezeWorld?.Invoke();
     }
 
+    public void PrepareBattle(int enemyCount, GameObject objToDestory)
+    {
+        freezeWorld?.Invoke();
+        ImportantComponentsManager.Instance.invetoryUIManager.CloseInventory();
+        ImportantComponentsManager.Instance.thirdPersonMovement.playerHealthController.healthUI.UpdateHealth(0);
+        combatPrepare = true;
+        nextFightEnemyCount = enemyCount;
+        countdownTime = transitionTime;
+        combatStartVisual.Play("CombatStartAnimation");
+        this.objToDestory = objToDestory;
+        swordSound.Play();
+    }
+
     public void StartBattle(int enemyCount)
     {
+        Destroy(objToDestory);
+        combatStartVisual.Play("IdleCombatStart");
         Debug.Log("Start Battle");
         camera1.SetActive(false);
         event1.enabled = false;
@@ -102,9 +130,6 @@ public class GameManager3D : MonoBehaviour
         //GameManager2D.characterCount = 2; 
         //GameManager2D.enemyCount = enemyCount; 
         int players = 3;
-        freezeWorld?.Invoke();
-        ImportantComponentsManager.Instance.invetoryUIManager.CloseInventory();
-        ImportantComponentsManager.Instance.thirdPersonMovement.playerHealthController.healthUI.UpdateHealth(0);
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
         camera2D.SetActive(true);

@@ -203,8 +203,12 @@ public class ThirdPersonMovement : MonoBehaviour
             if (queueCombat)
             {
                 queueCombat = false;
-                GameManager3D.Instance.StartBattle(enemyCount);
-                Destroy(objToDestroy);
+                GameManager3D.Instance.PrepareBattle(enemyCount, objToDestroy);
+                //Destroy(objToDestroy);
+                animator.SetBool("IsFalling", false);
+                animator.SetBool("IsJumping", false);
+                animator.SetFloat("Speed", 0f);
+
             }
         }
 
