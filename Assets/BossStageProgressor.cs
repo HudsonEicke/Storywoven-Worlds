@@ -32,6 +32,9 @@ public class BossStageProgressor : MonoBehaviour
             }
             else if (!isStarter)
             {
+                if (fightManager.isInStageTransition)
+                    return;
+
                 progressingStage = true;
                 FireCannon();
             }

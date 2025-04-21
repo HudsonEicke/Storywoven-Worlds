@@ -84,14 +84,14 @@ public class PlayerData
     public PlayerData(bool test)
     {
         sceneID = 2;
-        checkpointID = 5;
+        checkpointID = 10;
         inventoryIDs = new int[0];
         itemQuantity = new int[0];
         hasDoubleJump = true;
-        hasSprint = false;
+        hasSprint = true;
         hasBoostedHealth = true;
         playerMoney = 99999;
         playerLevel = 20;
-        currentStage = CurrentStage.overworld;
+        currentStage = CurrentStage.castle;
     }
 }

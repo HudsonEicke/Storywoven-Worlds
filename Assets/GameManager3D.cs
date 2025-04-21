@@ -104,6 +104,7 @@ public class GameManager3D : MonoBehaviour
 
     public void PrepareBattle(int enemyCount, GameObject objToDestory)
     {
+        FreezeWorld();
         freezeWorld?.Invoke();
         ImportantComponentsManager.Instance.invetoryUIManager.CloseInventory();
         ImportantComponentsManager.Instance.thirdPersonMovement.playerHealthController.healthUI.UpdateHealth(0);
@@ -149,7 +150,7 @@ public class GameManager3D : MonoBehaviour
     private void OnGameEnd(int isEnd) 
     {
         StartCoroutine(handleGameEnd(isEnd));
-        unFreezeWorld?.Invoke();
+        UnFreezeWorld();
     }
 
     private IEnumerator handleGameEnd(int isEnd)
