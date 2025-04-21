@@ -1049,6 +1049,7 @@ private IEnumerator EnemyAttackSequence()
             inventoryManager2D.SetIndex(index);
             inventoryManager2D.UseItem(2);
             characterList.characters[index].playerMana.GetComponent<Slider>().value = characterList.characters[index].playerUnit.getEnergy();
+            ManaCostText[index].text = characterList.characters[index].playerUnit.getEnergy().ToString() + " / " + characterList.characters[index].playerUnit.getMaxEnergy().ToString();
             characterList.characters[index].playerHud.gameObject.SetActive(true);
             checkplayerTurn();
         }
