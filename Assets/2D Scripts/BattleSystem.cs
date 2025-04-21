@@ -735,7 +735,7 @@ private IEnumerator EnemyAttackSequence()
         newSkill4.minigamebackground = GameObject.Find("ragnaROCKBackground");
         newSkill4.fist = GameObject.Find("RagnaFist");
         newSkill4.hitTarget = GameObject.Find("HitTarget");
-        newSkill4.missTarget = GameObject.Find("MissTarget");
+        // newSkill4.missTarget = GameObject.Find("MissTarget");
         newSkill4.text = GameObject.Find("DirectionsRagna");
         newSkill4.setup();
         playerThreeSkills.Add(newSkill4);

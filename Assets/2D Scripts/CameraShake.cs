@@ -3,13 +3,14 @@ using UnityEngine;
 
 public class CameraShake : MonoBehaviour
 {
+    Vector3 originalPos;
     public static CameraShake instance;
     private void Awake() {
         instance = this;
+        originalPos = transform.localPosition;
     }
     public IEnumerator Shake(float duration, float magnitude)
     {
-        Vector3 originalPos = transform.localPosition;
 
         float elapsed = 0.0f;
 
@@ -28,7 +29,6 @@ public class CameraShake : MonoBehaviour
         transform.localPosition = originalPos;
     }
 
-    // Optional method to call from other scripts
     public void TriggerShake(float duration, float magnitude)
     {
         StartCoroutine(Shake(duration, magnitude));

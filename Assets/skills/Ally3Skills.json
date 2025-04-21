@@ -27,8 +27,8 @@
       {
         "name": "RagnaROCK",
         "description": "Cause mass earthquakes and stun all enemies",
-        "attack": 55,
-        "cost": 40,
+        "attack": 40,
+        "cost": 45,
         "type": "Super",
         "healAmt": 0
       }
