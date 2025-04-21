@@ -39,7 +39,7 @@ public class rockyWallSkill : skill
     {
         
         yield return new WaitForSeconds(0.3f);
-        float duration = 0.5f;
+        float duration = 0.2f;
         float elapsedTime = 0f;
 
 
@@ -70,6 +70,7 @@ public class rockyWallSkill : skill
             elapsedTime += Time.deltaTime;
             yield return null;
         }
+        CameraShake.instance.TriggerShake(0.2f, 0.5f);
         yield return new WaitForSeconds(0.5f);
         rockWall.SetActive(false); // Hide the text after the animation
         rockWall.transform.position = startPos;

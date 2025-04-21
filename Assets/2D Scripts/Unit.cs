@@ -174,4 +174,8 @@ public class Unit : MonoBehaviour
     public void restoreEnergy() {
         currentEnergy = maxEnergy;
     }
+
+    public int getMaxEnergy() {
+        return maxEnergy;
+    }
 }

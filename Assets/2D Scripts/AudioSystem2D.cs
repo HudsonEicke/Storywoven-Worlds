@@ -26,6 +26,9 @@ public class AudioSystem2D : MonoBehaviour
 
     // rock sounds
     public AudioClip rockBreak;
+    public AudioClip rockWall;
+    public AudioClip smallRumble;
+    public AudioClip raganROCK;
     private void Awake() {
         instance = this;
     }
@@ -95,5 +98,22 @@ public class AudioSystem2D : MonoBehaviour
         buttonSelect.PlayOneShot(healingSound3);
     }
 
-    
+    public void playRockBreakSound() {
+        Debug.Log("Rock Break Sound Playing");
+        buttonSelect.PlayOneShot(rockBreak);
+    }
+
+    public void playRockWallSound() {
+        Debug.Log("Rock Wall Sound Playing");
+        buttonSelect.PlayOneShot(rockWall);
+    }
+
+    public void playSmallRumbleSound() {
+        Debug.Log("Small Rumble Sound Playing");
+        buttonSelect.PlayOneShot(smallRumble);
+    }
+    public void playRaganROCKSound() {
+        Debug.Log("RaganROCK Sound Playing");
+        buttonSelect.PlayOneShot(raganROCK);
+    }
 }
