@@ -141,9 +141,9 @@ public class GameManager3D : MonoBehaviour
             ItemIdManager.Instance.AddItem(1, 1);
             AddMoney(15);
             if (level % 2 == 0)
-                ImportantComponentsManager.Instance.dialogueBox.DisplayText("You have leveled up! You have obtained a Overworld Health Potion and " + 30 + " coins!", 5f);
+                ImportantComponentsManager.Instance.dialogueBox.DisplayText("You have leveled up! You have obtained 2 Overworld Health Potions and " + 30 + " coins!", 5f);
             else
-                ImportantComponentsManager.Instance.dialogueBox.DisplayText("You have obtained a Overworld Health Potion and " + 30 + " coins!", 5f);
+                ImportantComponentsManager.Instance.dialogueBox.DisplayText("You have obtained 2 Overworld Health Potions and " + 30 + " coins!", 5f);
         }
         else 
         {
