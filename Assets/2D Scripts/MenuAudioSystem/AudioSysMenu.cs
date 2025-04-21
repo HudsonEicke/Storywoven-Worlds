@@ -4,12 +4,18 @@ using UnityEngine;
 
 public class AudioSysMenu : MonoBehaviour
 {
-    public static AudioSysMenu instance;
+    static AudioSysMenu _audioInstance;
+    public static AudioSysMenu instance { get { return _audioInstance; } }
     public AudioSource audioSource;
     public AudioClip clip;
     public float loopStartTime = 5f;
 
     private bool hasLoopStarted = false;
+
+    void Awake()
+    {
+        _audioInstance = this;
+    }
 
     void Start()
     {
@@ -34,4 +40,12 @@ public class AudioSysMenu : MonoBehaviour
             audioSource.Play();
         }
     }
+
+    public void HoverSound(AudioClip hoverAudio)
+    {
+        Debug.Log("AudioSysMenuHit");
+        audioSource.PlayOneShot(hoverAudio);
+    }
+
+
 }
