@@ -72,6 +72,7 @@ public class BattleSystem : MonoBehaviour
     public int currentEnemyCount;
     public int currentPlayerCount;
     public int totalEnemyCount;
+    public int playerTotalCount;
     public int first = 0;
     public bool gamestart = false;
     int currentPlayerForMouse = 0;
@@ -196,6 +197,7 @@ public class BattleSystem : MonoBehaviour
             currentEnemyCount = GameManager2D.enemyCount;
             totalEnemyCount = currentEnemyCount;
             currentPlayerCount = GameManager2D.characterCount;
+            playerTotalCount = currentPlayerCount;
             PlayerCountTurn = 0;
             invis = 0;
             int baseWeight = characterList.characters[1].playerUnit.getWeight() - characterList.characters[1].weight;
@@ -279,8 +281,10 @@ public class BattleSystem : MonoBehaviour
                     if (enemyList[i].enemyUnit.getDead()) continue;
                         enemySelectButtons[i].SetActive(false);
                 }
-                if (currentEnemyCount <= 0)
+                if (currentEnemyCount <= 0) {
+                    Debug.Log("Enemy State WON 1");
                     GameManager2D.instance.UpdateBattleState(BattleState.WON);
+                }
                 
                 // Start enemy attack sequence
                 StartCoroutine(EnemyAttackSequence());
@@ -321,6 +325,7 @@ private IEnumerator EnemyAttackSequence()
                 enemyList[i].enemyStun.gameObject.SetActive(false);
                 currentEnemyCount--;
                 if (currentEnemyCount <= 0) {
+                    Debug.Log("Enemy State WON 2");
                     GameManager2D.instance.UpdateBattleState(BattleState.WON);
                     yield break;
                 }
@@ -388,10 +393,10 @@ private IEnumerator EnemyAttackSequence()
             characterList.characters[randomint].playerHealth.gameObject.SetActive(false);
             characterList.characters[randomint].healthBarPanel.gameObject.SetActive(false);
             characterList.characters[randomint].playerHud.gameObject.SetActive(false);
-            currentPlayerCount--;
+            playerTotalCount--;
         }
 
-        if (currentPlayerCount <= 0)
+        if (playerTotalCount <= 0)
         {
             GameManager2D.instance.UpdateBattleState(BattleState.LOST);
             yield break;
@@ -401,7 +406,7 @@ private IEnumerator EnemyAttackSequence()
     }
 
     // Check if players are still alive, then switch turn
-    if (currentPlayerCount > 0)
+    if (playerTotalCount > 0)
     {
         if (taunt > 0)
         {
@@ -1268,7 +1273,7 @@ private IEnumerator EnemyAttackSequence()
         // EVENT SYS CALL FOR PIERCE
         playerOneSkills[2].PlayMinigame((result) => {
             if (result == 1)    {
-                enemyList[enemyIndex].enemyUnit.setBurnt(3);
+                // enemyList[enemyIndex].enemyUnit.setBurnt(3);
                 enemyList[enemyIndex].enemyStat.gameObject.SetActive(true);
                 Debug.Log("Player succeeded in minigame!");
                 AudioSystem2D.instance.PlaySuccess();
@@ -1876,6 +1881,7 @@ private IEnumerator EnemyAttackSequence()
         enemyList[index].healthPanel.gameObject.SetActive(false);
         enemyList[index].enemyHud.gameObject.SetActive(false);
         enemyList[index].enemyStun.gameObject.SetActive(false);
+        enemyList[index].enemyStat.gameObject.SetActive(true);
         currentEnemyCount--;
 
         // check if all enemies are gone, if so, battle won
