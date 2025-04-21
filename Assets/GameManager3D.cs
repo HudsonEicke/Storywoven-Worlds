@@ -28,6 +28,7 @@ public class GameManager3D : MonoBehaviour
     public int level = 2;
     public bool inCombat = false;
     int prevMoney = 0;
+    public bool isWorldFrozen = false;
 
     private void Awake()
     {
@@ -78,11 +79,13 @@ public class GameManager3D : MonoBehaviour
 
     public void FreezeWorld()
     {
+        isWorldFrozen = true;
         freezeWorld?.Invoke();
     }
 
     public void UnFreezeWorld()
     {
+        isWorldFrozen = false;
         unFreezeWorld?.Invoke();
     }
 

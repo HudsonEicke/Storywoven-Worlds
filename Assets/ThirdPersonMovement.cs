@@ -37,6 +37,7 @@ public class ThirdPersonMovement : MonoBehaviour
 
     public CinemachineFreeLook cameraSettings;
     public float defaultXSpeed = 450f;
+    public float defaultYSpeed = 4f;
 
     public bool hasDoubleJumpPowerUp = false;
     private bool doubleJumpCharged = false;
@@ -126,15 +127,17 @@ public class ThirdPersonMovement : MonoBehaviour
             return;
         }
 
-        if (ImportantComponentsManager.Instance.invetoryUIManager.isInventoryOpen)
+        if (ImportantComponentsManager.Instance.invetoryUIManager.isInventoryOpen || PauseMenu.Instance.isPaused)
         {
             cameraSettings.m_XAxis.m_MaxSpeed = 0f;
+            cameraSettings.m_YAxis.m_MaxSpeed = 0f;
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
         }
         else
         {
             cameraSettings.m_XAxis.m_MaxSpeed = defaultXSpeed;
+            cameraSettings.m_YAxis.m_MaxSpeed = defaultYSpeed;
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
         }
