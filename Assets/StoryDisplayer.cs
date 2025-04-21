@@ -15,8 +15,11 @@ public class StoryDisplayer : MonoBehaviour
     private float decreaseAmount;
 
     private int textIdx = 0;
+    private bool done = false;
 
     public string nextScene;
+
+    public CreditScroll creditScroll;
 
     // Start is called before the first frame update
     void Start()
@@ -29,6 +32,9 @@ public class StoryDisplayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (done)
+            return;
+
         if (timeRemainingOnText <= 0)
         {
             timeRemainingOnChange -= Time.deltaTime;
@@ -63,7 +69,16 @@ public class StoryDisplayer : MonoBehaviour
 
                 if(textIdx == textMeshProList.Count)
                 {
-                    SceneManager.LoadScene(nextScene);
+                    done = true;
+                    if (nextScene == "Credits")
+                    {
+                        creditScroll.start = true;
+                        textMeshProList[textIdx - 1].color = new Color32(255, 255, 255, 0);
+                    }
+                    else
+                    {
+                        SceneManager.LoadScene(nextScene);
+                    }
                 }
             }
         }
