@@ -759,6 +759,7 @@ private IEnumerator EnemyAttackSequence()
         ToggleTextFirst(index);
         ToggleTextSecond(index);
         if (characterList.characters[index].playerUnit.isPassiveHeal() != 0) {
+            // Debug.Log("Passive Heal for Ally " + index + 1);
             characterList.characters[index].playerUnit.healthChange((int)Math.Ceiling(characterList.characters[index].playerUnit.getMaxHP() * 0.10f));
             characterList.characters[index].playerHealth.GetComponent<Slider>().value = characterList.characters[index].playerUnit.getCurrentHP();
         }
