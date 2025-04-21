@@ -113,7 +113,7 @@ public class GameManager3D : MonoBehaviour
         //gameManager2D.UpdateBattleState(BattleState.START);
         if (level >= 10)
             enemyCount = 3;
-        if (level >= 5)
+        else if (level >= 5)
             enemyCount = 2;
         else
             enemyCount = 1;
