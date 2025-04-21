@@ -269,10 +269,13 @@ public class BattleSystem : MonoBehaviour
                         Debug.Log("Setting up enemy button: " + i);
                         enemySelectButtons[i].SetActive(false);
                     }
-                    while (characterList.characters[PlayerCountTurn] == null || characterList.characters[PlayerCountTurn].playerUnit.getDead()) {
+                    while (characterList.characters[PlayerCountTurn].playerUnit.getDead()) {
+                        Debug.Log("PlayerCountTurn: " + PlayerCountTurn);
                         PlayerCountTurn++;
-                        if (PlayerCountTurn >= currentPlayerCount)
+                        if (PlayerCountTurn >= currentPlayerCount) {
                             GameManager2D.instance.UpdateBattleState(BattleState.ENEMYTURN);
+                            break;
+                        }
                     }
                     OnButtonClicked(PlayerCountTurn);
                 }
@@ -1399,7 +1402,15 @@ private IEnumerator EnemyAttackSequence()
         backButtonsText[index].gameObject.SetActive(false);
         backButtonSelect[index].gameObject.SetActive(false);
         // DO HEAL LOGIC HERE
-        foreach (var btn in buttons) btn.SetActive(true);
+        int j = 0;
+        foreach (var btn in buttons) {
+            if (characterList.characters[j].playerUnit.getDead()) {
+                j++;
+                continue;
+            }
+            j++;
+            btn.SetActive(true);
+        }
         UnityEngine.EventSystems.EventSystem.current.SetSelectedGameObject(buttons[0]);
         lastSelected = buttons[0];
         for (int i = 0 ; i < characterList.characters.Count; i++)
