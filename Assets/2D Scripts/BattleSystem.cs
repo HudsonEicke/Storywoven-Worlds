@@ -1411,7 +1411,12 @@ private IEnumerator EnemyAttackSequence()
             j++;
             btn.SetActive(true);
         }
-        UnityEngine.EventSystems.EventSystem.current.SetSelectedGameObject(buttons[0]);
+        if (!characterList.characters[0].playerUnit.getDead())
+            UnityEngine.EventSystems.EventSystem.current.SetSelectedGameObject(buttons[0]);
+        else if (!characterList.characters[1].playerUnit.getDead())
+            UnityEngine.EventSystems.EventSystem.current.SetSelectedGameObject(buttons[1]);
+        else
+            UnityEngine.EventSystems.EventSystem.current.SetSelectedGameObject(buttons[2]);
         lastSelected = buttons[0];
         for (int i = 0 ; i < characterList.characters.Count; i++)
         {
