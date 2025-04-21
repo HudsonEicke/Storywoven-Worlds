@@ -15,6 +15,9 @@ public class CannonBall : MonoBehaviour
 
     private void Update()
     {
+        if(GameManager3D.Instance.isWorldFrozen)
+            return;
+
         if (!canStartMoving)
             return;
 

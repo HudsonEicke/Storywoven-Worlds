@@ -71,6 +71,9 @@ public class BossFightManager : MonoBehaviour
 
     private void Update()
     {
+        if (GameManager3D.Instance.isWorldFrozen)
+            return;
+
         if (!fightStarted)
             return;
 

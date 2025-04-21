@@ -33,6 +33,9 @@ public class MovingPlatformActivationBased : MonoBehaviour
 
     private void Update()
     {
+        if (GameManager3D.Instance.isWorldFrozen)
+            return;
+
         if (timeRemaining > 0)
         {
             timeRemaining -= Time.deltaTime;
