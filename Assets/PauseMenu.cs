@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.Audio;
 
 public class PauseMenu : MonoBehaviour
 {
@@ -8,12 +10,21 @@ public class PauseMenu : MonoBehaviour
     public GameObject container;
     static PauseMenu _instance;
     public static PauseMenu Instance { get { return _instance; } }
+    public Slider slider;
+    public AudioMixer audioMixer;
+    private float value;
+
 
     private void Awake()
     {
         _instance = this;
     }
 
+    private void Start()
+    {
+        audioMixer.GetFloat("Volume", out value);
+        slider.value = value;
+    }
 
     private void Update()
     {
@@ -28,6 +39,11 @@ public class PauseMenu : MonoBehaviour
                 Pause();
             }
         }
+    }
+
+    public void SetVolume(float volume)
+    {
+        audioMixer.SetFloat("Volume", volume);
     }
 
     public void Quit()
