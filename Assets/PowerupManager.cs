@@ -21,11 +21,7 @@ public class PowerupManager : MonoBehaviour
     public GameObject fadeImage;
     private bool warping = false;
     public float timeRemaining;
-
-    private void Start()
-    {
-
-    }
+    public AudioSource gemNoise;
 
     private void Update()
     {
@@ -102,6 +98,7 @@ public class PowerupManager : MonoBehaviour
         firstRun = true;
         warping = true;
         timeRemaining = timeBetweenWarp;
+        gemNoise.Play();
         fadeImage.SetActive(true);
     }
 
